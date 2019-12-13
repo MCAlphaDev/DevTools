@@ -82,6 +82,39 @@
       },
       "name": "net.fabricmc:sponge-mixin:0.8.11:sponge-mixin-0.8.11.jar"
     },
+	{
+      "downloads": {
+        "artifact": {
+          "path": "org/apache/logging/log4j/log4j-api/2.8.1/log4j-api-2.8.1.jar",
+          "sha1": "e801d13612e22cad62a3f4f3fe7fdbe6334a8e72",
+          "size": 228859,
+          "url": "https://libraries.minecraft.net/org/apache/logging/log4j/log4j-api/2.8.1/log4j-api-2.8.1.jar"
+        }
+      },
+      "name": "org.apache.logging.log4j:log4j-api:2.8.1"
+    },
+	{
+      "downloads": {
+        "artifact": {
+          "path": "org/apache/logging/log4j/log4j-core/2.8.1/log4j-core-2.8.1.jar",
+          "sha1": "4ac28ff2f1ddf05dae3043a190451e8c46b73c31",
+          "size": 1402925,
+          "url": "https://libraries.minecraft.net/org/apache/logging/log4j/log4j-core/2.8.1/log4j-core-2.8.1.jar"
+        }
+      },
+      "name": "org.apache.logging.log4j:log4j-core:2.8.1"
+    },
+	{
+      "downloads": {
+        "artifact": {
+          "path": "com/google/guava/guava/21.0/guava-21.0.jar",
+          "sha1": "3a3d111be1be1b745edfa7d91678a12d7ed38709",
+          "size": 2521113,
+          "url": "https://libraries.minecraft.net/com/google/guava/guava/21.0/guava-21.0.jar"
+        }
+      },
+      "name": "com.google.guava:guava:21.0"
+    },
     {
       "downloads": {
         "artifact": {

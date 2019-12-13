@@ -15,5 +15,8 @@
 	<classpathentry kind="lib" path="libs/lwjgl-2.9.1-nightly-20130708-debug3.jar"/>
 	<classpathentry kind="lib" path="libs/lwjgl-platform-2.9.0-natives-windows.jar"/>
 	<classpathentry kind="lib" path="libs/sponge-mixin-0.8.11.jar"/>
+	<classpathentry kind="lib" path="libs/log4j-api-2.8.1.jar"/>
+	<classpathentry kind="lib" path="libs/guava-21.0.jar"/>
+	<classpathentry kind="lib" path="libs/log4j-core-2.8.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
