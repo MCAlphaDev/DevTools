@@ -14,7 +14,7 @@ def download(file):
     else:
         print("File Already Exists: " + loc)
 
-data = jsonhelper.read_json("./manifest.json")
+data = jsonhelper.read_json("./data/manifest.json")
 data_libs = data["libraries"]
 
 if not os.path.exists("./libs"):

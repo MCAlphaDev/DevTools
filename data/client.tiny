@@ -1,0 +1,516 @@
+v1	proguard	named
+CLASS	a	net/minecraft/util/BlockPos
+FIELD	a	I	a	x
+FIELD	a	I	b	y
+FIELD	a	I	c	z
+FIELD	a	I	d	hash
+CLASS	ae	net/minecraft/level/gen/feature/Plant
+CLASS	ag	net/minecraft/game/entity/instance/AnimalInstance
+CLASS	ai	net/minecraft/game/tile/RedstoneOre
+CLASS	ak	net/minecraft/game/entity/Entity
+METHOD	ak	(Ljava/lang/String;)V	a	setTexture
+CLASS	al	net/minecraft/game/tile/PressurePlate
+CLASS	am	net/minecraft/game/entity/instance/CowInstance
+CLASS	ao	net/minecraft/game/entity/instance/ArrowInstance
+CLASS	aw	net/minecraft/level/gen/ILevelGenerator
+METHOD	aw	(Law;II)V	a	decorate
+METHOD	aw	(II)Lga;	b	createChunk
+CLASS	ax	net/minecraft/game/entity/instance/SpiderInstance
+CLASS	b	net/minecraft/game/tile/Chest
+CLASS	ba	net/minecraft/game/entity/instance/UnknownEntityInstance12
+CLASS	bb	net/minecraft/game/tile/TileSound
+FIELD	bb	Ljava/lang/String;	a	name
+METHOD	bb	()Ljava/lang/String;	a	getStepSoundA
+METHOD	bb	()Ljava/lang/String;	d	getStepSoundB
+CLASS	bg	net/minecraft/game/tile/RedstoneTorch
+CLASS	bh	net/minecraft/gui/Screen
+CLASS	bi	net/minecraft/game/entity/instance/BasePlayerInstance
+FIELD	bi	Lnet/minecraft/client/Minecraft;	bg	minecraft
+CLASS	bj	net/minecraft/game/tile/MobSpawner
+CLASS	bk	net/minecraft/util/noise/NoiseGenerator
+CLASS	bm	net/minecraft/server/Id8Packet
+CLASS	bo	net/minecraft/game/entity/instance/SheepInstance
+CLASS	bp	net/minecraft/game/item/Bow
+CLASS	br	net/minecraft/game/tile/Ladder
+CLASS	bw	net/minecraft/game/entity/instance/PaintingInstance
+FIELD	bw	Ljava/util/Random;	d	rand
+CLASS	by	net/minecraft/sortme/LightSource
+FIELD	by	Lby;	a	SKY
+FIELD	by	Lby;	b	BLOCK
+FIELD	by	I	c	lightLevel
+CLASS	bz	net/minecraft/server/Id17Packet
+CLASS	c	net/minecraft/game/tile/MetalBlock
+CLASS	cd	net/minecraft/game/entity/instance/UnknownEntityInstance2
+CLASS	ce	net/minecraft/game/tile/Stone
+CLASS	cg	net/minecraft/level/gen/feature/Dungeon
+FIELD	ck	Lcn;	c	level
+CLASS	cm	net/minecraft/game/tile/Obsidian
+CLASS	cn	net/minecraft/level/Level
+FIELD	cn	Lhm;	I	playerInfo
+FIELD	cn	J	c	time
+FIELD	cn	Z	d	snowCovered
+FIELD	cn	Ljava/util/Random;	n	rand
+FIELD	cn	I	o	spawnX
+FIELD	cn	I	p	spawnY
+FIELD	cn	I	q	spawnZ
+FIELD	cn	Ljava/io/File;	t	worldFile
+FIELD	cn	J	u	seed
+FIELD	cn	J	v	sizeOnDisk
+FIELD	cn	Ljava/lang/String;	w	name
+METHOD	cn	()V	a	setSpawnPos
+METHOD	cn	(IIII)Z	a	setTileId
+METHOD	cn	(Lby;III)I	a	computeLight
+METHOD	cn	(Ljava/io/File;Ljava/lang/String;)Lhm;	a	readTagOrSomething
+METHOD	cn	(Ljava/lang/String;DDDDDD)V	a	playSound
+METHOD	cn	(Lkh;)Z	a	spawnEntity
+METHOD	cn	(Lkh;Ljava/lang/String;FF)V	a	playSound
+METHOD	cn	(Ljava/io/File;Ljava/lang/String;)V	b	deleteWorld
+METHOD	cn	(II)Z	f	isSandyBeach
+METHOD	cn	(II)I	g	getSurfaceTile
+CLASS	cp	net/minecraft/game/entity/BoatEntity
+CLASS	cq	net/minecraft/game/entity/instance/UnknownEntityInstance1
+CLASS	cs	net/minecraft/game/tile/Workbench
+CLASS	ct	net/minecraft/game/tile/Glass
+CLASS	cu	net/minecraft/level/gen/feature/Ore
+CLASS	cv	net/minecraft/game/tile/Jukebox
+CLASS	cw	net/minecraft/sound/handler/SkeletonSoundHandler
+CLASS	cy	net/minecraft/level/gen/Carver
+FIELD	cy	I	a	range
+FIELD	cy	Ljava/util/Random;	b	random
+METHOD	cy	(Lcn;IIII[B)V	a	carve
+METHOD	cy	(Lnw;Lcn;II[B)V	a	carve
+CLASS	d	net/minecraft/game/entity/monster/Creeper
+CLASS	dd	net/minecraft/game/entity/instance/CreeperInstance
+CLASS	dh	net/minecraft/game/tile/Sand
+FIELD	dh	Z	a	dontDoFalling
+CLASS	di	net/minecraft/game/item/ItemType
+FIELD	di	Ljava/util/Random;	b	rand
+FIELD	di	[Ldi;	c	ITEM_LOOKUP
+FIELD	di	Ldi;	l	DIAMOND
+METHOD	di	(Lev;Lcn;Ldm;)Lev;	a	onRightClick
+METHOD	di	(Lev;Ldm;Lcn;IIII)Z	a	interact
+CLASS	dm	net/minecraft/game/entity/instance/HumanoidInstance
+FIELD	dm	I	d	score
+FIELD	dm	Ljava/lang/String;	i	skinLoc
+CLASS	dn	net/minecraft/game/entity/monster/Monster
+METHOD	dn	(Lge;F)V	a	render
+CLASS	dp	net/minecraft/game/entity/instance/UnknownEntityInstance3
+CLASS	dq	net/minecraft/game/entity/instance/MonsterInstance
+CLASS	ds	net/minecraft/game/tile/Bookshelf
+CLASS	dt	net/minecraft/game/tile/Sapling
+CLASS	dw	net/minecraft/game/recipe/ShapedRecipes
+METHOD	dw	(Lev;[Ljava/lang/Object;)V	a	addRecipe
+CLASS	dx	net/minecraft/game/entity/EntityData
+FIELD	dx	Lev;	a	item
+CLASS	dy	net/minecraft/data/ByteArrayTag
+FIELD	dy	[B	a	value
+CLASS	e	net/minecraft/client/ClientLevelRenderer
+FIELD	e	Lcn;	k	level
+FIELD	e	Lnet/minecraft/client/Minecraft;	t	minecraft
+CLASS	ec	net/minecraft/game/item/DoorItemType
+CLASS	ee	net/minecraft/gui/Gui
+CLASS	eh	net/minecraft/server/BooleanPacket
+FIELD	eh	Z	g	data
+CLASS	ej	net/minecraft/level/gen/feature/LargeTree
+FIELD	ej	Ljava/util/Random;	b	rand
+FIELD	ej	Lcn;	c	level
+CLASS	ek	net/minecraft/game/entity/instance/LivingEntityInstance
+CLASS	el	net/minecraft/data/AbstractTag
+FIELD	el	Ljava/lang/String;	a	type
+METHOD	el	()B	a	getId
+METHOD	el	(B)Lel;	a	getTagById
+METHOD	el	(Lel;Ljava/io/DataOutput;)V	a	writeTag
+METHOD	el	(Ljava/io/DataInput;)V	a	read
+METHOD	el	(Ljava/io/DataOutput;)V	a	write
+METHOD	el	(Ljava/lang/String;)Lel;	a	setType
+METHOD	el	()Ljava/lang/String;	b	getType
+METHOD	el	(B)Ljava/lang/String;	b	getTagType
+METHOD	el	(Ljava/io/DataInput;)Lel;	b	readTag
+CLASS	em	net/minecraft/client/model/CreeperModel
+CLASS	en	net/minecraft/game/entity/instance/UnknownEntityInstance8
+CLASS	eo	net/minecraft/util/math/MathHelper
+METHOD	eo	(D)F	a	sqrt
+METHOD	eo	(D)I	b	floor
+METHOD	eo	(F)F	c	sqrt
+METHOD	eo	(F)I	d	floor
+METHOD	eo	(F)F	e	abs
+CLASS	ev	net/minecraft/game/item/ItemInstance
+FIELD	ev	I	a	count
+FIELD	ev	I	c	id
+FIELD	ev	I	d	meta
+METHOD	ev	()Ldi;	a	getItem
+METHOD	ev	(I)Lev;	a	subtract
+METHOD	ev	(Lhm;)V	b	setOutput
+FIELD	ey	Lfr;	h	controls
+METHOD	ey	(Ljava/lang/String;)I	a	getResource
+CLASS	ez	net/minecraft/server/GePacket
+CLASS	f	net/minecraft/data/FloatTag
+FIELD	f	F	a	value
+CLASS	fa	net/minecraft/sortme/OperatingSystem
+FIELD	fa	Lfa;	a	LINUX
+FIELD	fa	Lfa;	b	SOLARIS
+FIELD	fa	Lfa;	c	WINDOWS
+FIELD	fa	Lfa;	d	MACOS
+FIELD	fa	Lfa;	e	UNKNOWN
+CLASS	fd	net/minecraft/game/tile/SnowLayer
+CLASS	ff	net/minecraft/util/math/UnknownEntityInstance2
+METHOD	ff	()Lcn;	i	getLevel
+CLASS	fh	net/minecraft/game/tile/Fence
+CLASS	fj	net/minecraft/game/recipe/UtilityTileRecipes
+METHOD	fj	(Ldw;)V	a	init
+CLASS	fk	net/minecraft/gui/Container
+CLASS	fn	net/minecraft/server/Packet
+METHOD	fn	()I	a	getId
+METHOD	fn	(Ljava/io/DataInputStream;)V	a	read
+METHOD	fn	(Ljava/io/DataOutputStream;)V	a	write
+CLASS	fo	net/minecraft/client/model/Model
+CLASS	fp	net/minecraft/client/MinecraftWindowAdapter
+FIELD	fp	Lnet/minecraft/client/Minecraft;	a	instance
+FIELD	fp	Ljava/lang/Thread;	b	thread
+CLASS	fq	net/minecraft/util/OperatingSystems
+FIELD	fq	[I	a	systems
+CLASS	fr	net/minecraft/client/Controls
+FIELD	fr	Ljava/io/File;	A	optionsFile
+FIELD	fr	Lit;	j	forward
+FIELD	fr	Lit;	k	left
+FIELD	fr	Lit;	l	back
+FIELD	fr	Lit;	m	right
+FIELD	fr	Lit;	n	jump
+FIELD	fr	Lit;	o	inventory
+FIELD	fr	Lit;	p	drop
+FIELD	fr	Lit;	q	chat
+FIELD	fr	Lit;	r	toggleFog
+FIELD	fr	Lit;	s	sneak
+FIELD	fr	[Lit;	t	keys
+FIELD	fr	Lnet/minecraft/client/Minecraft;	u	instance
+METHOD	fr	()V	a	init
+CLASS	fw	net/minecraft/game/tile/Door
+CLASS	fy	net/minecraft/data/EndTag
+CLASS	g	net/minecraft/client/AppletMinecraft
+CLASS	ga	net/minecraft/level/chunk/Chunk
+CLASS	gb	net/minecraft/game/tile/TileMaterial
+FIELD	gb	Lgb;	b	DIRT
+FIELD	gb	Lgb;	c	WOOD
+FIELD	gb	Lgb;	d	ROCK
+FIELD	gb	Lgb;	e	METAL
+FIELD	gb	Lgb;	f	WATER
+FIELD	gb	Lgb;	g	LAVA
+FIELD	gb	Lgb;	k	CLOTH
+FIELD	gb	Lgb;	o	GLASS
+CLASS	gc	net/minecraft/gui/MultiplayerScreen
+CLASS	ge	net/minecraft/game/entity/instance/ResourceEntityInstance
+FIELD	ge	Ljava/lang/String;	u	texture
+FIELD	ge	Ljava/lang/String;	x	name
+METHOD	ge	()Ljava/lang/String;	c	getAmbientSound
+METHOD	ge	()Ljava/lang/String;	d	getHurtSound2
+METHOD	ge	()Ljava/lang/String;	e	getDeathSound
+CLASS	gg	net/minecraft/sortme/ThreeBooleansFalse
+CLASS	gk	net/minecraft/game/entity/Arrow
+CLASS	gn	net/minecraft/data/LongTag
+FIELD	gn	J	a	value
+CLASS	gq	net/minecraft/game/entity/monster/Slime
+CLASS	gv	net/minecraft/level/gen/feature/ClayDisk
+FIELD	gv	I	a	clay
+FIELD	gv	I	b	range
+CLASS	gw	net/minecraft/game/tile/Ore
+CLASS	gz	net/minecraft/game/tile/Gravel
+CLASS	h	net/minecraft/client/AppletMinecraftCanvas
+FIELD	h	Lnet/minecraft/client/MinecraftApplet;	a	applet
+CLASS	hd	net/minecraft/game/tile/Wheat
+CLASS	he	net/minecraft/game/tile/Ice
+CLASS	hi	net/minecraft/game/tile/TransparentTile
+CLASS	hl	net/minecraft/game/entity/instance/GiantInstance
+CLASS	hm	net/minecraft/data/CompoundTag
+FIELD	hm	Ljava/util/Map;	a	data
+METHOD	hm	(Ljava/lang/String;B)V	a	add
+METHOD	hm	(Ljava/lang/String;D)V	a	add
+METHOD	hm	(Ljava/lang/String;F)V	a	add
+METHOD	hm	(Ljava/lang/String;I)V	a	add
+METHOD	hm	(Ljava/lang/String;J)V	a	add
+METHOD	hm	(Ljava/lang/String;Lel;)V	a	add
+METHOD	hm	(Ljava/lang/String;Lhm;)V	a	add
+METHOD	hm	(Ljava/lang/String;Ljava/lang/String;)V	a	add
+METHOD	hm	(Ljava/lang/String;S)V	a	add
+METHOD	hm	(Ljava/lang/String;Z)V	a	add
+METHOD	hm	(Ljava/lang/String;[B)V	a	add
+METHOD	hm	(Ljava/lang/String;)Z	b	containsKey
+METHOD	hm	(Ljava/lang/String;)B	c	getByte
+METHOD	hm	(Ljava/lang/String;)S	d	getShort
+METHOD	hm	(Ljava/lang/String;)I	e	getInt
+METHOD	hm	(Ljava/lang/String;)J	f	getLong
+METHOD	hm	(Ljava/lang/String;)F	g	getFloat
+METHOD	hm	(Ljava/lang/String;)D	h	getDouble
+METHOD	hm	(Ljava/lang/String;)Ljava/lang/String;	i	getString
+METHOD	hm	(Ljava/lang/String;)[B	j	getByteArray
+METHOD	hm	(Ljava/lang/String;)Lhm;	k	getCompoundTag
+METHOD	hm	(Ljava/lang/String;)Lki;	l	getListTag
+METHOD	hm	(Ljava/lang/String;)Z	m	getBoolean
+CLASS	hn	net/minecraft/game/tile/FluidStill
+CLASS	hu	net/minecraft/game/tile/StoneButton
+CLASS	hv	net/minecraft/game/tile/FluidFlowing
+CLASS	hy	net/minecraft/game/tile/Cactus
+CLASS	hz	net/minecraft/game/tile/Dirt
+CLASS	if	net/minecraft/game/tile/Rail
+CLASS	ig	net/minecraft/game/entity/instance/UnknownEntityInstance9
+CLASS	ih	net/minecraft/util/OperatingSystem
+FIELD	ih	Lih;	a	LINUX
+FIELD	ih	Lih;	b	SOLARIS
+FIELD	ih	Lih;	c	WINDOWS
+FIELD	ih	Lih;	d	MAC
+FIELD	ih	Lih;	e	UNKNOWN
+CLASS	ik	net/minecraft/level/gen/feature/Feature
+METHOD	ik	(Lcn;Ljava/util/Random;III)Z	a	generate
+CLASS	io	net/minecraft/data/IntTag
+FIELD	io	I	a	value
+CLASS	ip	net/minecraft/util/math/BoundingBox
+CLASS	it	net/minecraft/util/KeyEntry
+FIELD	it	Ljava/lang/String;	a	name
+FIELD	it	I	b	key
+CLASS	iw	net/minecraft/game/entity/instance/UnknownEntityInstance10
+CLASS	ix	net/minecraft/data/ByteTag
+FIELD	ix	B	a	value
+CLASS	iz	net/minecraft/game/tile/Leaves
+CLASS	jb	net/minecraft/game/entity/instance/UnknownEntityInstance6
+CLASS	jc	net/minecraft/util/math/Rotation
+CLASS	jd	net/minecraft/game/entity/instance/PrimedTNTInstance
+FIELD	jd	I	a	fuse
+CLASS	jg	net/minecraft/game/item/Bow2
+CLASS	jm	net/minecraft/game/tile/Reeds
+CLASS	jn	net/minecraft/game/item/WheatItem
+CLASS	jp	net/minecraft/game/tile/LiquidTile
+CLASS	jt	net/minecraft/game/tile/Container
+CLASS	jv	net/minecraft/game/tile/Clay
+CLASS	kb	net/minecraft/sortme/ThreeBooleansTrueFalseFalse
+METHOD	kd	(Ljava/lang/String;III)V	a	addText
+CLASS	kf	net/minecraft/game/tile/Redstone
+CLASS	kg	net/minecraft/game/entity/instance/UnknownEntityInstance
+FIELD	kg	I	a	shake
+FIELD	kg	I	b	xTile
+FIELD	kg	I	c	yTile
+FIELD	kg	I	d	zTile
+FIELD	kg	I	e	inTile
+FIELD	kg	Z	f	inGround
+CLASS	kh	net/minecraft/game/entity/instance/EntityInstance
+FIELD	kh	Ljava/util/Random;	aQ	rand
+FIELD	kh	Ljava/lang/String;	aY	skin
+FIELD	kh	Lcn;	ag	level
+METHOD	kh	(Lhm;)V	a	read
+METHOD	kh	(Lhm;)V	b	load
+CLASS	ki	net/minecraft/data/ListTag
+FIELD	ki	Ljava/util/List;	a	list
+FIELD	ki	B	b	listTypeId
+METHOD	ki	(I)Lel;	a	get
+METHOD	ki	(Lel;)V	a	add
+METHOD	ki	()I	c	size
+CLASS	kk	net/minecraft/level/gen/OverworldCarver
+METHOD	kk	(II[BDDD)V	a	carve
+METHOD	kk	(II[BDDDFFFIID)V	a	carve
+CLASS	km	net/minecraft/game/tile/Stair
+CLASS	kq	net/minecraft/game/entity/instance/UnknownEntityInstance7
+CLASS	kr	net/minecraft/data/DoubleTag
+FIELD	kr	D	a	value
+CLASS	ku	net/minecraft/game/tile/Furnace
+CLASS	ky	net/minecraft/game/tile/Mushroom
+CLASS	la	net/minecraft/game/entity/instance/PlayerInstance
+CLASS	lf	net/minecraft/game/recipe/MetalBlockRecipes
+CLASS	lg	net/minecraft/game/item/Record
+FIELD	lg	Ljava/lang/String;	a	disk
+CLASS	lm	net/minecraft/gui/BaseScreen
+CLASS	lp	net/minecraft/util/noise/OctaveNoiseGenerator
+FIELD	lp	[Lv;	a	generators
+FIELD	lp	I	b	octaves
+METHOD	lp	(DD)D	a	sample
+METHOD	lp	([DDDDIIIDDD)[D	a	sample
+CLASS	lq	net/minecraft/server/UnknownPacket
+CLASS	lr	net/minecraft/game/tile/Sign
+CLASS	ls	net/minecraft/data/ShortTag
+FIELD	ls	S	a	value
+CLASS	lu	net/minecraft/gui/F3Menu
+CLASS	ly	net/minecraft/game/tile/Tile
+FIELD	ly	Lly;	A	BEDROCK
+FIELD	ly	Lly;	B	WATER_FLOWING
+FIELD	ly	Lly;	C	WATER
+FIELD	ly	Lly;	D	LAVA_FLOWING
+FIELD	ly	Lly;	E	LAVA
+FIELD	ly	Lly;	F	SAND
+FIELD	ly	Lly;	G	GRAVEL
+FIELD	ly	Lly;	H	GOLD_ORE
+FIELD	ly	Lly;	I	IRON_ORE
+FIELD	ly	Lly;	J	COAL_ORE
+FIELD	ly	Lly;	K	WOOD
+FIELD	ly	Liz;	L	LEAVES
+FIELD	ly	Lly;	M	SPONGE
+FIELD	ly	Lly;	N	GLASS
+FIELD	ly	Lly;	O	RESERVED_01
+FIELD	ly	Lly;	P	RESERVED_02
+FIELD	ly	Lly;	Q	RESERVED_03
+FIELD	ly	Lly;	R	RESERVED_04
+FIELD	ly	Lly;	S	RESERVED_05
+FIELD	ly	Lly;	T	RESERVED_06
+FIELD	ly	Lly;	U	RESERVED_07
+FIELD	ly	Lly;	V	RESERVED_08
+FIELD	ly	Lly;	W	RESERVED_09
+FIELD	ly	Lly;	X	RESERVED_10
+FIELD	ly	Lly;	Y	RESERVED_11
+FIELD	ly	Lly;	Z	RESERVED_12
+FIELD	ly	Lly;	aA	WHEAT
+FIELD	ly	Lly;	aB	FARMLAND
+FIELD	ly	Lly;	aC	FURNACE
+FIELD	ly	Lly;	aD	LIT_FURNACE
+FIELD	ly	Lly;	aE	STANDING_SIGN
+FIELD	ly	Lly;	aF	WOOD_DOOR
+FIELD	ly	Lly;	aG	LADDER
+FIELD	ly	Lly;	aH	RAIL
+FIELD	ly	Lly;	aI	COBBLESTONE_STAIRS
+FIELD	ly	Lly;	aJ	WALL_SIGN
+FIELD	ly	Lly;	aK	LEVER
+FIELD	ly	Lly;	aL	STONE_PRESSURE_PLATE
+FIELD	ly	Lly;	aM	IRON_DOOR
+FIELD	ly	Lly;	aN	WOODEN_PRESSURE_PLATE
+FIELD	ly	Lly;	aO	REDSTONE_ORE
+FIELD	ly	Lly;	aP	LIT_REDSTONE_ORE
+FIELD	ly	Lly;	aQ	UNLIT_REDSTONE_TORCH
+FIELD	ly	Lly;	aR	LIT_REDSTONE_TORCH
+FIELD	ly	Lly;	aS	STONE_BUTTON
+FIELD	ly	Lly;	aT	SNOW_LAYER
+FIELD	ly	Lly;	aU	ICE
+FIELD	ly	Lly;	aV	SNOW
+FIELD	ly	Lly;	aW	CACTUS
+FIELD	ly	Lly;	aX	CLAY
+FIELD	ly	Lly;	aY	REEDS
+FIELD	ly	Lly;	aZ	JUKEBOX
+FIELD	ly	Lly;	aa	RESERVED_13
+FIELD	ly	Lly;	ab	RESERVED_14
+FIELD	ly	Lly;	ac	CLOTH
+FIELD	ly	Lly;	ad	NULL
+FIELD	ly	Lmq;	ae	FLOWER
+FIELD	ly	Lmq;	af	ROSE
+FIELD	ly	Lmq;	ag	BROWN_MUSHROOM
+FIELD	ly	Lmq;	ah	RED_MUSHROOM
+FIELD	ly	Lly;	ai	GOLD_BLOCK
+FIELD	ly	Lly;	aj	IRON_BLOCK
+FIELD	ly	Lly;	ak	DOUBLE_SLAB
+FIELD	ly	Lly;	al	SLAB
+FIELD	ly	Lly;	am	BRICKS
+FIELD	ly	Lly;	an	TNT
+FIELD	ly	Lly;	ao	BOOKSHELF
+FIELD	ly	Lly;	ap	MOSSY_COBBLESTONE
+FIELD	ly	Lly;	aq	OBSIDIAN
+FIELD	ly	Lly;	ar	TORCH
+FIELD	ly	Log;	as	FIRE
+FIELD	ly	Lly;	at	MOB_SPAWNER
+FIELD	ly	Lly;	au	WOOD_STAIRS
+FIELD	ly	Lly;	av	CHEST
+FIELD	ly	Lly;	aw	REDSTONE
+FIELD	ly	Lly;	ax	ORE_DIAMOND
+FIELD	ly	Lly;	ay	DIAMOND_BLOCK
+FIELD	ly	Lly;	az	WORKBENCH
+FIELD	ly	Lly;	ba	FENCE
+FIELD	ly	I	bb	texture
+FIELD	ly	I	bc	id
+FIELD	ly	Lbb;	e	SOUND_STONE
+FIELD	ly	Lbb;	f	SOUND_WOOD
+FIELD	ly	Lbb;	g	SOUND_GRAVEL
+FIELD	ly	Lbb;	h	SOUND_GRASS
+FIELD	ly	Lbb;	i	SOUND_DEFAULT
+FIELD	ly	Lbb;	j	SOUND_METAL_BLOCK
+FIELD	ly	Lbb;	l	SOUND_CLOTH
+FIELD	ly	Lbb;	m	SOUND_SAND
+FIELD	ly	[Lly;	n	TILE_LOOKUP
+FIELD	ly	Lly;	u	STONE
+FIELD	ly	Lmy;	v	GRASS
+FIELD	ly	Lly;	w	DIRT
+FIELD	ly	Lly;	x	COBBLESTONE
+FIELD	ly	Lly;	y	PLANK
+FIELD	ly	Lly;	z	SAPLING
+METHOD	ly	(F)Lly;	a	setLight
+METHOD	ly	(I)I	a	getTexture
+METHOD	ly	(ILjava/util/Random;)I	a	getDrop
+METHOD	ly	(Lbb;)Lly;	a	setSound
+METHOD	ly	(Lcn;IIII)V	a	tick
+METHOD	ly	()Z	b	isOpaque
+METHOD	ly	(F)Lly;	b	setResistance
+METHOD	ly	(Lcn;IIII)V	b	onBlockBreak
+METHOD	ly	()Z	c	isSolid
+METHOD	ly	(F)Lly;	c	setHardness
+METHOD	ly	(I)Lly;	d	maybeSomeRenderingThing
+METHOD	ly	(Lcn;III)V	e	onBlockPlaced
+METHOD	ly	(Lcn;III)Z	g	canBePlacedAtMaybe
+CLASS	ma	net/minecraft/game/entity/instance/SlimeInstance
+CLASS	mb	net/minecraft/game/entity/instance/ZombieInstance
+CLASS	mg	net/minecraft/game/tile/Wood
+CLASS	mi	net/minecraft/game/tile/Farmland
+METHOD	mi	(Lcn;III)Z	i	canHydrate
+CLASS	mj	net/minecraft/game/tile/Torch
+CLASS	mq	net/minecraft/game/tile/Plant
+CLASS	mr	net/minecraft/game/item/BlockItem
+CLASS	mv	net/minecraft/game/entity/instance/PigInstance
+FIELD	mv	Z	a	saddle
+CLASS	my	net/minecraft/game/tile/Grass
+CLASS	mz	net/minecraft/game/entity/instance/ChickenInstance
+CLASS	ne	net/minecraft/data/StringTag
+FIELD	ne	Ljava/lang/String;	a	value
+FIELD	net/minecraft/client/Minecraft	Lbi;	g	playerResourceHandler
+CLASS	nf	net/minecraft/game/entity/instance/UnknownEntityInstance5
+CLASS	ng	net/minecraft/game/tile/Sponge
+CLASS	nl	net/minecraft/game/entity/instance/UnknownEntityInstance11
+METHOD	nm	(III)I	a	getTileId
+METHOD	nm	(III)Lgb;	f	getMaterial
+CLASS	nn	net/minecraft/level/gen/feature/Spring
+CLASS	no	net/minecraft/game/tile/Lever
+CLASS	nq	net/minecraft/game/entity/instance/TileInstance
+CLASS	nt	net/minecraft/game/entity/instance/SelfInstance
+CLASS	nu	net/minecraft/util/Info
+CLASS	nw	net/minecraft/level/gen/LevelGenerator
+FIELD	nw	Llp;	a	noise6
+FIELD	nw	Llp;	b	noise7
+FIELD	nw	Llp;	c	noise8
+FIELD	nw	[D	d	noiseArray3
+FIELD	nw	[D	e	noiseArray2
+FIELD	nw	[D	f	noiseArray1
+FIELD	nw	[D	g	noiseArray4
+FIELD	nw	[D	h	noiseArray5
+FIELD	nw	Ljava/util/Random;	j	rand
+FIELD	nw	Llp;	k	noise1
+FIELD	nw	Llp;	l	noise2
+FIELD	nw	Llp;	m	noise3
+FIELD	nw	Llp;	n	beachNoise
+FIELD	nw	Llp;	o	surfaceNoise
+FIELD	nw	Lcn;	p	level
+FIELD	nw	[D	q	heightNoise
+FIELD	nw	[D	r	sandSample
+FIELD	nw	[D	s	gravelSample
+FIELD	nw	[D	t	stoneSample
+FIELD	nw	Lcy;	u	carver
+METHOD	nw	(II[B)V	a	generateBase
+METHOD	nw	([DIIIIII)[D	a	generateNoiseOctaves
+METHOD	nw	(II[B)V	b	replaceBlocks
+CLASS	nz	net/minecraft/game/entity/monster/Giant
+FIELD	nz	F	f	proportion
+CLASS	oa	net/minecraft/level/gen/feature/Tree
+CLASS	oc	net/minecraft/game/entity/instance/ContainerTileInstance
+FIELD	oc	I	d	type
+FIELD	oc	[Lev;	h	inventory
+CLASS	of	net/minecraft/sound/BackgroundMusic
+FIELD	of	Lpaulscode/sound/SoundSystem;	a	soundSystem
+CLASS	og	net/minecraft/game/tile/Fire
+METHOD	og	(III)V	a	addFlammableMaterial
+CLASS	oh	net/minecraft/server/StringPacket
+FIELD	oh	Ljava/lang/String;	a	data
+CLASS	oi	net/minecraft/game/tile/Slab
+CLASS	ok	net/minecraft/game/entity/monster/Spider
+CLASS	p	net/minecraft/game/tile/Snow
+CLASS	q	net/minecraft/game/tile/TNT
+CLASS	t	net/minecraft/game/tile/SandTileSound
+CLASS	u	net/minecraft/game/tile/GlassSound
+CLASS	v	net/minecraft/util/noise/SingleNoiseGenerator
+FIELD	v	D	a	offsetX
+FIELD	v	D	b	offsetY
+FIELD	v	D	c	offsetZ
+FIELD	v	[I	d	p
+METHOD	v	(DD)D	a	sample
+METHOD	v	(DDD)D	a	sample
+METHOD	v	(IDDD)D	a	gradient
+METHOD	v	([DDDDIIIDDDD)V	a	sample
+METHOD	v	(DDD)D	b	lerp
+CLASS	w	net/minecraft/sortme/ThreeBooleansFalse2
