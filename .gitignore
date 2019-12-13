@@ -1,5 +1,4 @@
 libs/
 scripts/pylib/__pycache__/
 bin/
-src/
 *.launch
