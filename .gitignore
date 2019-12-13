@@ -2,3 +2,5 @@ libs/
 scripts/pylib/__pycache__/
 bin/
 *.launch
+.classpath
+.project
