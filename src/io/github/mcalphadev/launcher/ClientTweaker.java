@@ -1,34 +1,26 @@
 package io.github.mcalphadev.launcher;
 
-import java.io.File;
-import java.util.List;
-
 import org.spongepowered.asm.launch.MixinBootstrap;
 import org.spongepowered.asm.mixin.MixinEnvironment;
 
-import net.minecraft.launchwrapper.ITweaker;
+import net.minecraft.launchwrapper.AlphaVanillaTweaker;
 import net.minecraft.launchwrapper.LaunchClassLoader;
 
-public class ClientTweaker implements ITweaker {
-	private String[] args = new String[0];
-
-	@Override
-	public void acceptOptions(List<String> localArgs, File gameDir, File assetsDir, String profile) {
-		args = localArgs.toArray(new String[0]);
-	}
-
-	@Override
-	public String[] getLaunchArguments() {
-		return args;
-	}
-
-	@Override
-	public String getLaunchTarget() {
-		return "net.minecraft.client.Minecraft";
-	}
-
+/**
+ * Main tweaker, run with...
+ * 
+ * <ul>
+ * 	<li>Main class: net.minecraft.launchwrapper.Launch
+ * 	<li>Program args: --tweakClass io.github.mcalphadev.launcher.ClientTweaker
+ * </ul>
+ *
+ * Optionally --gameDir "${workspace_loc:DevTools/run}" for not running in .minecraft
+ */
+public class ClientTweaker extends AlphaVanillaTweaker {
 	@Override
 	public void injectIntoClassLoader(LaunchClassLoader classloader) {
+		super.injectIntoClassLoader(classloader);
+
 		classloader.addClassLoaderExclusion("org.objectweb.asm.");
 		classloader.addClassLoaderExclusion("org.spongepowered.asm.");
 		classloader.addClassLoaderExclusion("io.github.mcalphadev.launcher.");
