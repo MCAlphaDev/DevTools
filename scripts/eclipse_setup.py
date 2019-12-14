@@ -1,13 +1,22 @@
 import os
 import glob
 
+def makeClasspathLine(jar):
+    start = "\t<classpathentry kind=\"lib\" path=\"" + jar + '"'
+
+    sources = jar[:-4] + "-sources.jar"
+    if os.path.exists(sources):
+        start += " sourcepath=\"" + sources + '"'
+
+    return start + "/>"
+
 if not os.path.exists("./.classpath"):
     with open("./data/classpath_base.txt", 'r') as file:
         file_data = file.read()
 
     libs = [os.path.normpath(jar).replace("\\", "/") for jar in glob.glob("./libs/*.jar")
-             if os.path.basename(jar) != "client-mapped.jar"]
-    libs = "\n".join(map(lambda jar: "\t<classpathentry kind=\"lib\" path=\"" + jar + "\"/>", libs))
+             if os.path.basename(jar) != "client-mapped.jar" and not os.path.basename(jar).endswith("-sources.jar")]
+    libs = "\n".join(map(makeClasspathLine, libs))
     file_data = file_data.replace("**LIB CLASSPATH**", libs, 1)
 
     with open(".classpath", 'w+') as file:

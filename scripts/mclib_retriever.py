@@ -59,6 +59,9 @@ for lib_entry in data_libs:
     try:
         lib_entry_url = lib_entry["downloads"]["artifact"]["url"]
         download(lib_entry_url)
+
+        lib_source_url = lib_entry_url[:-4] + "-sources.jar"
+        download(lib_source_url)
     except:
         pass
     try:
