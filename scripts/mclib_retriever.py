@@ -21,14 +21,14 @@ def useLibrary(rules):
     if len(rules) == 0: return True
 
     for rule in reversed(rules):
-        if "os" in rule: #Check if the rule is OS specific
+        if "os" in rule: # Check if the rule is OS specific
             osFilter = rule["os"]
 
             if "name" in osFilter and osFilter["name"] != osName:
-                continue #This rule isn't for us
+                continue # This rule isn't for us
 
             if "version" in osFilter and re.search(osFilter["version"], osVersion) == None:
-                continue #This rule isn't for us
+                continue # This rule isn't for us
 
         return rule["action"] == "allow"
 
@@ -46,7 +46,7 @@ if __name__ == "__main__":
     else:
         raise RuntimeError("Not sure which OS we're running on: " + systemName)
     systemVersion = platform.release()
-    osVersion = systemVersion #Probably doesn't need tweaking like the OS name does
+    osVersion = systemVersion # Probably doesn't need tweaking like the OS name does
 
     natives_type = "natives-" + osName
 
@@ -61,7 +61,7 @@ if __name__ == "__main__":
 
     for lib_entry in data_libs:
         if "rules" in lib_entry and not useLibrary(lib_entry["rules"]):
-            continue #Not a library for our OS
+            continue # Not a library for our OS
 
         try:
             lib_entry_url = lib_entry["downloads"]["artifact"]["url"]
