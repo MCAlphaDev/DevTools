@@ -1,6 +1,7 @@
 from pylib import *
 import urllib.request
 import platform
+import zipfile
 import os
 import re
 import time
@@ -21,6 +22,9 @@ natives_type = "natives-" + osName
 
 def download(file):
     loc = "./libs/" + file.split("/")[-1]
+    downloadTo(file, loc)    
+
+def downloadTo(file, loc):
     if (not os.path.exists(loc)):
         urllib.request.urlretrieve(file, loc)
         print("Downloaded " + file)
@@ -64,10 +68,24 @@ for lib_entry in data_libs:
         download(lib_source_url)
     except:
         pass
-    try:
+    if "classifiers" in lib_entry["downloads"] and natives_type in lib_entry["downloads"]["classifiers"]:
         lib_natives_url = lib_entry["downloads"]["classifiers"][natives_type]["url"]
-        download(lib_natives_url)
-    except:
-        pass
+        lib_natives_name = "-".join(lib_entry["name"].split(":")[1:3])
+        
+        if "-platform" not in lib_natives_name:
+            raise RuntimeError("Unexpected native library name: " + lib_natives_name)
+
+        lib_natives = "./libs/" + lib_natives_name.replace("-platform", "")
+        if not os.path.exists(lib_natives):
+            os.makedirs(lib_natives)
+
+        lib_natives_jar = lib_natives + "/native.jar"
+        downloadTo(lib_natives_url, lib_natives_jar)
+
+        exclusions = lib_entry["extract"]["exclude"]
+        with zipfile.ZipFile(lib_natives_jar, "r") as zip:
+            extractions = [name for name in zip.namelist() 
+                            if not any([name.startswith(exclusion) for exclusion in exclusions])]
+            zip.extractall(lib_natives, extractions)
 
 time.sleep(1)

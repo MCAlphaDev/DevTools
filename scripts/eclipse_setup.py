@@ -8,7 +8,12 @@ def makeClasspathLine(jar):
     if os.path.exists(sources):
         start += " sourcepath=\"" + sources + '"'
 
-    return start + "/>"
+    native = os.path.abspath("./libs/" + os.path.basename(jar)[:-4])
+    if os.path.isdir(native):
+        return start + ">\n\t\t<attributes>\n\t\t\t<attribute name=\"org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY\" value=\""\
+                    + native.replace("\\", "/") + "\"/>\n\t\t</attributes>\n\t</classpathentry>"
+    else:
+        return start + "/>"
 
 if not os.path.exists("./.classpath"):
     with open("./data/classpath_base.txt", 'r') as file:
