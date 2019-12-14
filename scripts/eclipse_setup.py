@@ -1,3 +1,5 @@
+from pylib import jsonhelper
+from mclib_retriever import downloadTo
 import os
 import glob
 
@@ -39,3 +41,20 @@ if not os.path.exists("./bin"):
 
 if not os.path.exists("./src"):
     os.makedirs("./src")
+
+if not os.path.exists("./assets"):
+    os.makedirs("./assets")
+
+    manifest = jsonhelper.read_json("./data/manifest.json")
+    assetURL = manifest["assetIndex"]["url"]
+    downloadTo(assetURL, "./assets/assetIndex.json")
+
+    assets = jsonhelper.read_json("./assets/assetIndex.json")
+    for name, info in assets["objects"].items():
+        destination = "./assets/" + name
+
+        if not os.path.exists(os.path.dirname(destination)):
+            os.makedirs(os.path.dirname(destination))
+
+        hash = info["hash"]
+        downloadTo("http://resources.download.minecraft.net/" + hash[0:2] + "/" + hash, destination)

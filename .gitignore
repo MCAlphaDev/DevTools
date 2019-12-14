@@ -6,3 +6,4 @@ bin/
 .project
 *.pyc
 run/
+assets/

@@ -11,7 +11,7 @@ import net.minecraft.launchwrapper.LaunchClassLoader;
  * 
  * <ul>
  * 	<li>Main class: net.minecraft.launchwrapper.Launch
- * 	<li>Program args: --tweakClass io.github.mcalphadev.launcher.ClientTweaker
+ * 	<li>Program args: --tweakClass io.github.mcalphadev.launcher.ClientTweaker --assetsDir "${workspace_loc:DevTools/assets}"
  * </ul>
  *
  * Optionally --gameDir "${workspace_loc:DevTools/run}" for not running in .minecraft
