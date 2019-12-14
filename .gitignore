@@ -4,3 +4,4 @@ bin/
 *.launch
 .classpath
 .project
+*.pyc
