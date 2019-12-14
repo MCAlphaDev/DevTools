@@ -2,6 +2,7 @@ package io.github.mcalphadev.launcher;
 
 import org.spongepowered.asm.launch.MixinBootstrap;
 import org.spongepowered.asm.mixin.MixinEnvironment;
+import org.spongepowered.asm.mixin.Mixins;
 
 import net.minecraft.launchwrapper.AlphaVanillaTweaker;
 import net.minecraft.launchwrapper.LaunchClassLoader;
@@ -32,6 +33,8 @@ public class ClientTweaker extends AlphaVanillaTweaker {
 		// Mixin
 		MixinBootstrap.init();
 		MixinEnvironment.getDefaultEnvironment().setSide(MixinEnvironment.Side.CLIENT);
+		
+		Mixins.addConfiguration("alpha.mixins.json");
 	}
 
 }
