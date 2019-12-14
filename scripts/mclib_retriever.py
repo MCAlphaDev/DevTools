@@ -1,10 +1,23 @@
 from pylib import *
 import urllib.request
+import platform
 import os
+import re
 import time
 
-#todo other natives, detect os
-natives_type = "natives-windows"
+systemName = platform.system()
+if systemName == "Linux":
+    osName = "linux"
+elif systemName == "Darwin":
+    osName = "osx"
+elif systemName == "Windows":
+    osName = "windows"
+else:
+    raise RuntimeError("Not sure which OS we're running on: " + systemName)
+systemVersion = platform.release()
+osVersion = systemVersion #Probably doesn't need tweaking like the OS name does
+
+natives_type = "natives-" + osName
 
 def download(file):
     loc = "./libs/" + file.split("/")[-1]
@@ -22,7 +35,27 @@ if not os.path.exists("./libs"):
 
 download(data["downloads"]["client"]["url"])
 
+def useLibrary(rules):
+    if len(rules) == 0: return True
+
+    for rule in reversed(rules):
+        if "os" in rule: #Check if the rule is OS specific
+            osFilter = rule["os"]
+
+            if "name" in osFilter and osFilter["name"] != osName:
+                continue #This rule isn't for us
+
+            if "version" in osFilter and re.search(osFilter["version"], osVersion) == None:
+                continue #This rule isn't for us
+
+        return rule["action"] == "allow"
+
+    return False
+
 for lib_entry in data_libs:
+    if "rules" in lib_entry and not useLibrary(lib_entry["rules"]):
+        continue #Not a library for our OS
+
     try:
         lib_entry_url = lib_entry["downloads"]["artifact"]["url"]
         download(lib_entry_url)
