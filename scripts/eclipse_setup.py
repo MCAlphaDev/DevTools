@@ -47,7 +47,7 @@ if not os.path.exists("./assets"):
 
     manifest = jsonhelper.read_json("./data/manifest.json")
     assetURL = manifest["assetIndex"]["url"]
-    downloadTo(assetURL, "./assets/assetIndex.json")
+    downloadTo(assetURL, "./assets/assetIndex.json", False)
 
     assets = jsonhelper.read_json("./assets/assetIndex.json")
     for name, info in assets["objects"].items():
@@ -57,4 +57,4 @@ if not os.path.exists("./assets"):
             os.makedirs(os.path.dirname(destination))
 
         hash = info["hash"]
-        downloadTo("http://resources.download.minecraft.net/" + hash[0:2] + "/" + hash, destination)
+        downloadTo("http://resources.download.minecraft.net/" + hash[0:2] + "/" + hash, destination, False)

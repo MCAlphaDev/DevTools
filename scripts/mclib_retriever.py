@@ -8,14 +8,16 @@ import time
 
 def download(file):
     loc = "./libs/" + file.split("/")[-1]
-    downloadTo(file, loc)    
+    downloadTo(file, loc, True)    
 
-def downloadTo(file, loc):
+def downloadTo(file, loc, notify):
     if (not os.path.exists(loc)):
         urllib.request.urlretrieve(file, loc)
-        print("Downloaded " + file)
+        if notify:
+            print("Downloaded " + file)
     else:
-        print("File Already Exists: " + loc)
+        if notify:
+            print("File Already Exists: " + loc)
 
 def useLibrary(rules):
     if len(rules) == 0: return True
@@ -83,7 +85,7 @@ if __name__ == "__main__":
                 os.makedirs(lib_natives)
 
             lib_natives_jar = lib_natives + "/native.jar"
-            downloadTo(lib_natives_url, lib_natives_jar)
+            downloadTo(lib_natives_url, lib_natives_jar, False)
 
             exclusions = lib_entry["extract"]["exclude"]
             with zipfile.ZipFile(lib_natives_jar, "r") as zip:
