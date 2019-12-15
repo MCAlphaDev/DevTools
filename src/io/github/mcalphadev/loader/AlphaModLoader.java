@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -18,6 +19,7 @@ import org.spongepowered.asm.mixin.Mixins;
 import com.google.gson.Gson;
 
 import io.github.mcalphadev.loader.api.Initializer;
+import io.github.mcalphadev.loader.api.LoadEvent;
 import io.github.mcalphadev.loader.api.Mod;
 import io.github.mcalphadev.log.Logger;
 import net.minecraft.launchwrapper.Launch;
@@ -27,11 +29,11 @@ public final class AlphaModLoader {
 	private final File modsFolder;
 
 	private final List<ModJson.Format0> modJsons = new ArrayList<>();
-	private final List<Method> initializers = new ArrayList<>();
+	private final Map<LoadEvent, List<Method>> initializers = new HashMap<>();
 	private final Map<String, Class<?>> modClasses = new HashMap<>();
 
 	private AlphaModLoader() {
-		log = new Logger("ValLoader").setDebug(true);
+		log = new Logger("AlphaModLoader").setDebug(false);
 		log.debug("Created Loader Successfully.");
 
 		modsFolder = new File("./mods");
@@ -99,7 +101,7 @@ public final class AlphaModLoader {
 
 				for (Method method : methods) {
 					if (method.isAnnotationPresent(Initializer.class)) {
-						initializers.add(method);
+						initializers.computeIfAbsent(method.getAnnotation(Initializer.class).value(), type -> new ArrayList<>()).add(method);
 					}
 				}
 			} else {
@@ -118,5 +120,29 @@ public final class AlphaModLoader {
 	}
 
 	private static final Gson GSON = new Gson();
+	private static final List<Method> EMPTY_METHOD_LIST = new ArrayList<>();
+
 	private static AlphaModLoader instance;
+
+	public void initialise() {
+		log.info("Initialising mods!");
+		initializers.getOrDefault(LoadEvent.INIT, EMPTY_METHOD_LIST).forEach(method -> {
+			try {
+				method.invoke(null);
+			} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+				throw new RuntimeException(e);
+			}
+		});
+	}
+
+	public void postInitialise() {
+		log.info("Post-Initialising mods!");
+		initializers.getOrDefault(LoadEvent.POSTINIT, EMPTY_METHOD_LIST).forEach(method -> {
+			try {
+				method.invoke(null);
+			} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+				throw new RuntimeException(e);
+			}
+		});
+	}
 }

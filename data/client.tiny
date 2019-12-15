@@ -456,12 +456,16 @@ FIELD	net/minecraft/client/Minecraft	Lcn;	e	level
 FIELD	net/minecraft/client/Minecraft	Le;	f	clientLevelRenderer
 FIELD	net/minecraft/client/Minecraft	Lbi;	g	player
 FIELD	net/minecraft/client/Minecraft	Lbh;	p	screen
+FIELD	net/minecraft/client/Minecraft	Lfr;	y	controls
+METHOD	net/minecraft/client/Minecraft	()V	a	initialise
 METHOD	net/minecraft/client/Minecraft	(Lcn;)V	a	setLevel
 METHOD	net/minecraft/client/Minecraft	(Lcn;Ljava/lang/String;)V	a	setDisplayInfo
 METHOD	net/minecraft/client/Minecraft	(Ljava/lang/String;Ljava/io/File;)V	a	getSoundResource
 METHOD	net/minecraft/client/Minecraft	(Ljava/lang/String;Ljava/lang/String;)V	a	startGame
 METHOD	net/minecraft/client/Minecraft	(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V	a	startGame
 METHOD	net/minecraft/client/Minecraft	(Ljava/lang/String;)V	b	loadLevel
+METHOD	net/minecraft/client/Minecraft	()V	c	stopGame
+METHOD	net/minecraft/client/Minecraft	(Ljava/lang/String;)V	c	catchGLError
 METHOD	net/minecraft/client/Minecraft	()V	o	respawn
 METHOD	net/minecraft/client/Minecraft	()Lih;	q	getOperatingSystem
 CLASS	nf	net/minecraft/game/entity/instance/UnknownEntityInstance5

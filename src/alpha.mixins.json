@@ -1,11 +1,12 @@
 {
-	"required": true,
-	"package": "io.github.mcalphadev.mixin",
-	"compatibilityLevel": "JAVA_8",
-	"mixins": [
-		"SoundThreadMixin"
-	],
-	"injectors": {
-		"defaultRequire": 1
-	}
+  "required": true,
+  "package": "io.github.mcalphadev.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "MinecraftMixin",
+    "SoundThreadMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
 }
