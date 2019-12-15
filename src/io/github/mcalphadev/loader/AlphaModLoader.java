@@ -1,24 +1,36 @@
 package io.github.mcalphadev.loader;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import org.apache.logging.log4j.core.util.Loader;
+import org.spongepowered.asm.mixin.Mixins;
 
 import com.google.gson.Gson;
 
+import io.github.mcalphadev.loader.api.Initializer;
+import io.github.mcalphadev.loader.api.Mod;
 import io.github.mcalphadev.log.Logger;
 import net.minecraft.launchwrapper.Launch;
 
-public class AlphaModLoader {
+public final class AlphaModLoader {
 	private final Logger log;
 	private final File modsFolder;
 
-	public AlphaModLoader() {
+	private final List<ModJson.Format0> modJsons = new ArrayList<>();
+	private final List<Method> initializers = new ArrayList<>();
+	private final Map<String, Class<?>> modClasses = new HashMap<>();
+
+	private AlphaModLoader() {
 		log = new Logger("ValLoader").setDebug(true);
 		log.debug("Created Loader Successfully.");
 
@@ -43,26 +55,66 @@ public class AlphaModLoader {
 				log.debugAll("MalformedUrl: ", e.toString(), " , Skipping file");
 			}
 		}
-		
+
 		return Launch.classLoader.getResources("mod.json");
 	}
-	
-	public AlphaModLoader load() throws IOException {
-		Enumeration<URL> modInfos = findAllAddons();
-		
+
+	public void loadMods() {
+		Enumeration<URL> modInfos;
+		try {
+			modInfos = findAllAddons();
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+
 		while (modInfos.hasMoreElements()) {
 			URL modInfo = modInfos.nextElement();
 			try (FileReader reader = new FileReader(modInfo.toString())) {
-				// TODO finish this
-				ModJson abstractModJson = GSON.fromJson(modInfo, ModJson.class);
+				int format = GSON.fromJson(reader, ModJson.AbstractModJson.class).format;
+				switch (format) {
+				// if version is older than the latest version, load with compatibility layer converting formats
+				case 0:
+					modJsons.add(GSON.fromJson(reader, ModJson.Format0.class));
+				default:
+					throw new RuntimeException("Invalid format version in mod!");
+				}
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
 		}
-		
-		return this;
+
+		modJsons.forEach(json -> loadMod(json.mainClass, json.mixins));
 	}
 
-	public AlphaModLoader getInstance() {
-		return instance;
+	private void loadMod(String modClass, String mixins) {
+		try {
+			Class<?> modClazz = Launch.classLoader.loadClass(modClass);
+			if (modClazz.isAnnotationPresent(Mod.class)) {
+				Mod annotation = modClazz.getAnnotation(Mod.class);
+				modClasses.put(annotation.value(), modClazz);
+
+				Method[] methods = modClazz.getMethods();
+
+				for (Method method : methods) {
+					if (method.isAnnotationPresent(Initializer.class)) {
+						initializers.add(method);
+					}
+				}
+			} else {
+				log.warn("Class is not a mod class! " + modClass);
+			}
+		} catch (ClassNotFoundException e) {
+			log.warn("Could not load mod class! " + modClass);
+			return;
+		}
+
+		Mixins.addConfiguration(mixins);
+	}
+
+	public static AlphaModLoader getInstance() {
+		return instance == null ? new AlphaModLoader() : instance;
 	}
 
 	private static final Gson GSON = new Gson();

@@ -7,3 +7,4 @@ bin/
 *.pyc
 run/
 assets/
+.mixin.out/
