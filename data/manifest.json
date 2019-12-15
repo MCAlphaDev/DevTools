@@ -19,13 +19,11 @@
     {
       "downloads": {
         "artifact": {
-          "path": "net/minecraft/launchwrapper/1.5/launchwrapper-1.5.jar",
-          "sha1": "5150b9c2951f0fde987ce9c33496e26add1de224",
-          "size": 27787,
-          "url": "https://libraries.minecraft.net/net/minecraft/launchwrapper/1.5/launchwrapper-1.5.jar"
+          "path": "net/minecraft/launchwrapper/1.12/launchwrapper-1.12.jar",
+          "url": "https://libraries.minecraft.net/net/minecraft/launchwrapper/1.12/launchwrapper-1.12.jar"
         }
       },
-      "name": "net.minecraft:launchwrapper:1.5"
+      "name": "net.minecraft:launchwrapper:1.12"
     },
     {
       "downloads": {
@@ -41,13 +39,47 @@
     {
       "downloads": {
         "artifact": {
-          "path": "org/ow2/asm/asm-all/4.1/asm-all-4.1.jar",
-          "sha1": "054986e962b88d8660ae4566475658469595ef58",
-          "size": 214592,
-          "url": "https://libraries.minecraft.net/org/ow2/asm/asm-all/4.1/asm-all-4.1.jar"
+          "path": "org/ow2/asm/asm/7.2/asm-7.2.jar",
+          "url": "https://maven.fabricmc.net/org/ow2/asm/asm/7.2/asm-7.2.jar"
         }
       },
-      "name": "org.ow2.asm:asm-all:4.1"
+      "name": "org.ow2.asm:asm:7.2"
+    },
+	{
+      "downloads": {
+        "artifact": {
+          "path": "org/ow2/asm/asm-analysis/7.2/asm-analysis-7.2.jar",
+          "url": "https://maven.fabricmc.net/org/ow2/asm/asm-analysis/7.2/asm-analysis-7.2.jar"
+        }
+      },
+      "name": "org.ow2.asm:asm-analysis:7.2"
+    },
+	{
+      "downloads": {
+        "artifact": {
+          "path": "org/ow2/asm/asm-commons/7.2/asm-commons-7.2.jar",
+          "url": "https://maven.fabricmc.net/org/ow2/asm/asm-commons/7.2/asm-commons-7.2.jar"
+        }
+      },
+      "name": "org.ow2.asm:asm-commons:7.2"
+    },
+	{
+      "downloads": {
+        "artifact": {
+          "path": "org/ow2/asm/asm-tree/7.2/asm-tree-7.2.jar",
+          "url": "https://maven.fabricmc.net/org/ow2/asm/asm-tree/7.2/asm-tree-7.2.jar"
+        }
+      },
+      "name": "org.ow2.asm:asm-tree:7.2"
+    },
+	{
+      "downloads": {
+        "artifact": {
+          "path": "org/ow2/asm/asm-util/7.2/asm-util-7.2.jar",
+          "url": "https://maven.fabricmc.net/org/ow2/asm/asm-util/7.2/asm-util-7.2.jar"
+        }
+      },
+      "name": "org.ow2.asm:asm-util:7.2"
     },
     {
       "downloads": {
@@ -81,6 +113,16 @@
         }
       },
       "name": "net.fabricmc:sponge-mixin:0.8.11:sponge-mixin-0.8.11.jar"
+    },
+	{
+      "downloads": {
+        "artifact": {
+          "url": "https://libraries.minecraft.net/com/google/code/gson/gson/2.8.0/gson-2.8.0.jar",
+          "sha1": "c4ba5371a29ac9b2ad6129b1d39ea38750043eff",
+          "size": 231952
+        }
+      },
+	  "name": "com.google.code.gson:gson:2.8.0"
     },
 	{
       "downloads": {
