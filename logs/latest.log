@@ -1,11 +1,11 @@
-[15:18:30] [main/INFO]: Loading tweak class name io.github.mcalphadev.launcher.ClientTweaker
-[15:18:30] [main/INFO]: Using primary tweak class name io.github.mcalphadev.launcher.ClientTweaker
-[15:18:30] [main/INFO]: Calling tweak class io.github.mcalphadev.launcher.ClientTweaker
-[15:18:30] [main/ERROR]: Mixin bootstrap service org.spongepowered.asm.service.modlauncher.MixinServiceModLauncherBootstrap is not available: ModLauncher is not available
-[15:18:30] [main/INFO]: SpongePowered MIXIN Subsystem Version=0.8-preview Source=file:/C:/Users/mekal/Desktop/Modding/Alpha/DevTools/libs/sponge-mixin-0.8.11.jar Service=LaunchWrapper Env=UNKNOWN
-[15:18:30] [main/INFO]: FML platform manager could not load class cpw.mods.fml.relauncher.CoreModManager. Proceeding without FML support.
-[15:18:30] [main/INFO]: Compatibility level set to JAVA_8
-[15:18:30] [main/INFO]: Loading tweak class name org.spongepowered.asm.mixin.EnvironmentStateTweaker
-[15:18:30] [main/INFO]: Calling tweak class org.spongepowered.asm.mixin.EnvironmentStateTweaker
-[15:18:30] [main/INFO]: Launching wrapped minecraft {net.minecraft.launchwrapper.injector.AlphaVanillaTweakInjector}
-[15:18:30] [main/WARN]: @Mixin target bf is public in alpha.mixins.json:SoundThreadMixin and should be specified in value
+[15:30:58] [main/INFO]: Loading tweak class name io.github.mcalphadev.launcher.ClientTweaker
+[15:30:58] [main/INFO]: Using primary tweak class name io.github.mcalphadev.launcher.ClientTweaker
+[15:30:58] [main/INFO]: Calling tweak class io.github.mcalphadev.launcher.ClientTweaker
+[15:30:58] [main/ERROR]: Mixin bootstrap service org.spongepowered.asm.service.modlauncher.MixinServiceModLauncherBootstrap is not available: ModLauncher is not available
+[15:30:58] [main/INFO]: SpongePowered MIXIN Subsystem Version=0.8-preview Source=file:/C:/Users/mekal/Desktop/Modding/Alpha/DevTools/libs/sponge-mixin-0.8.11.jar Service=LaunchWrapper Env=UNKNOWN
+[15:30:58] [main/INFO]: FML platform manager could not load class cpw.mods.fml.relauncher.CoreModManager. Proceeding without FML support.
+[15:30:58] [main/INFO]: Compatibility level set to JAVA_8
+[15:30:58] [main/INFO]: Loading tweak class name org.spongepowered.asm.mixin.EnvironmentStateTweaker
+[15:30:58] [main/INFO]: Calling tweak class org.spongepowered.asm.mixin.EnvironmentStateTweaker
+[15:30:58] [main/INFO]: Launching wrapped minecraft {net.minecraft.launchwrapper.injector.AlphaVanillaTweakInjector}
+[15:30:58] [main/WARN]: @Mixin target bf is public in alpha.mixins.json:SoundThreadMixin and should be specified in value

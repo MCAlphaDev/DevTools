@@ -25,6 +25,7 @@ public class ClientTweaker extends AlphaVanillaTweaker {
 		classloader.addClassLoaderExclusion("org.objectweb.asm.");
 		classloader.addClassLoaderExclusion("org.spongepowered.asm.");
 		classloader.addClassLoaderExclusion("io.github.mcalphadev.launcher.");
+		classloader.addClassLoaderExclusion("io.github.mcalphadev.loader.");
 		
 		// TODO load stuff here
 
