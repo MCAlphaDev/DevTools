@@ -89,6 +89,7 @@ FIELD	di	[Ldi;	c	ITEM_LOOKUP
 FIELD	di	Ldi;	l	DIAMOND
 METHOD	di	(Lev;Lcn;Ldm;)Lev;	a	onRightClick
 METHOD	di	(Lev;Ldm;Lcn;IIII)Z	a	interact
+FIELD	dl	Ljava/lang/String;	b	username
 CLASS	dm	net/minecraft/game/entity/instance/HumanoidInstance
 FIELD	dm	I	d	score
 FIELD	dm	Ljava/lang/String;	i	skinLoc
@@ -159,6 +160,7 @@ CLASS	fh	net/minecraft/game/tile/Fence
 CLASS	fj	net/minecraft/game/recipe/UtilityTileRecipes
 METHOD	fj	(Ldw;)V	a	init
 CLASS	fk	net/minecraft/gui/Container
+CLASS	fm	net/minecraft/client/MinecraftClient
 CLASS	fn	net/minecraft/server/Packet
 METHOD	fn	()I	a	getId
 METHOD	fn	(Ljava/io/DataInputStream;)V	a	read
@@ -450,7 +452,18 @@ CLASS	my	net/minecraft/game/tile/Grass
 CLASS	mz	net/minecraft/game/entity/instance/ChickenInstance
 CLASS	ne	net/minecraft/data/StringTag
 FIELD	ne	Ljava/lang/String;	a	value
-FIELD	net/minecraft/client/Minecraft	Lbi;	g	playerResourceHandler
+FIELD	net/minecraft/client/Minecraft	Lcn;	e	level
+FIELD	net/minecraft/client/Minecraft	Le;	f	clientLevelRenderer
+FIELD	net/minecraft/client/Minecraft	Lbi;	g	player
+FIELD	net/minecraft/client/Minecraft	Lbh;	p	screen
+METHOD	net/minecraft/client/Minecraft	(Lcn;)V	a	setLevel
+METHOD	net/minecraft/client/Minecraft	(Lcn;Ljava/lang/String;)V	a	setDisplayInfo
+METHOD	net/minecraft/client/Minecraft	(Ljava/lang/String;Ljava/io/File;)V	a	getSoundResource
+METHOD	net/minecraft/client/Minecraft	(Ljava/lang/String;Ljava/lang/String;)V	a	startGame
+METHOD	net/minecraft/client/Minecraft	(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V	a	startGame
+METHOD	net/minecraft/client/Minecraft	(Ljava/lang/String;)V	b	loadLevel
+METHOD	net/minecraft/client/Minecraft	()V	o	respawn
+METHOD	net/minecraft/client/Minecraft	()Lih;	q	getOperatingSystem
 CLASS	nf	net/minecraft/game/entity/instance/UnknownEntityInstance5
 CLASS	ng	net/minecraft/game/tile/Sponge
 CLASS	nl	net/minecraft/game/entity/instance/UnknownEntityInstance11

@@ -34,7 +34,7 @@ public final class AlphaModLoader {
 		log = new Logger("ValLoader").setDebug(true);
 		log.debug("Created Loader Successfully.");
 
-		modsFolder = new File("./addons");
+		modsFolder = new File("./mods");
 		if (!modsFolder.mkdirs()) {
 			log.debug("Mods folder could not be created. This is likely because it already exists.");
 		} else {
