@@ -84,6 +84,7 @@ public final class AlphaModLoader {
 
 			JsonElement jsonFile;
 			try (Reader reader = new InputStreamReader(modInfo.openStream(), StandardCharsets.UTF_8)) {
+				//Parse the JSON once here as it gets read twice
 				jsonFile = parser.parse(reader);
 			} catch (IOException | JsonParseException e) {
 				throw new RuntimeException("Unable to read mod info from " + modInfo, e);
@@ -108,7 +109,7 @@ public final class AlphaModLoader {
 		try {
 			return GSON.fromJson(json, clazz);
 		} catch (JsonSyntaxException e) {
-			throw new RuntimeException(e);
+			throw new RuntimeException("Invalid mod info for " + clazz.getSimpleName(), e);
 		}
 	}
 
