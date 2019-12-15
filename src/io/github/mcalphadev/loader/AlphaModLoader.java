@@ -1,12 +1,14 @@
 package io.github.mcalphadev.loader;
 
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -16,6 +18,10 @@ import java.util.Map;
 import org.spongepowered.asm.mixin.Mixins;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonSyntaxException;
 
 import io.github.mcalphadev.loader.api.Initialiser;
 import io.github.mcalphadev.loader.api.LoadEvent;
@@ -72,10 +78,17 @@ public final class AlphaModLoader {
 			throw new RuntimeException(e);
 		}
 
+		JsonParser parser = new JsonParser();
 		while (modInfos.hasMoreElements()) {
 			URL modInfo = modInfos.nextElement();
 
-			String jsonFile = modInfo.getFile();
+			JsonElement jsonFile;
+			try (Reader reader = new InputStreamReader(modInfo.openStream(), StandardCharsets.UTF_8)) {
+				jsonFile = parser.parse(reader);
+			} catch (IOException | JsonParseException e) {
+				throw new RuntimeException("Unable to read mod info from " + modInfo, e);
+			}
+
 			int format = readJson(jsonFile, ModJson.FormatBase.class).format;
 
 			switch (format) {
@@ -91,10 +104,10 @@ public final class AlphaModLoader {
 		modJsons.forEach(json -> loadMod(json.mainClass, json.mixins));
 	}
 
-	private static <T> T readJson(String file, Class<T> clazz) {
-		try (FileReader reader = new FileReader(file)) {
-			return GSON.fromJson(reader, clazz);
-		} catch (IOException e) {
+	private static <T> T readJson(JsonElement json, Class<T> clazz) {
+		try {
+			return GSON.fromJson(json, clazz);
+		} catch (JsonSyntaxException e) {
 			throw new RuntimeException(e);
 		}
 	}
