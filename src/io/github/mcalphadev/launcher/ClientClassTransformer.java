@@ -15,11 +15,6 @@ import org.objectweb.asm.Opcodes;
 import net.minecraft.launchwrapper.IClassTransformer;
 
 public class ClientClassTransformer implements IClassTransformer {
-	private static class ClassTransform {
-		boolean classToo = false;
-		final Set<String> fields = new HashSet<>();
-		final Set<String> methods = new HashSet<>();
-	}
 	final Map<String, ClassTransform> brokenAccess = new HashMap<>();
 
 	public ClientClassTransformer() {
@@ -77,5 +72,11 @@ public class ClientClassTransformer implements IClassTransformer {
 		} else {
 			return byteCode;
 		}
+	}
+	
+	private static class ClassTransform {
+		boolean classToo = false;
+		final Set<String> fields = new HashSet<>();
+		final Set<String> methods = new HashSet<>();
 	}
 }
