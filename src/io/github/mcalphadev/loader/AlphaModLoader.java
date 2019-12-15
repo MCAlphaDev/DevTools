@@ -86,7 +86,7 @@ public final class AlphaModLoader {
 			default:
 				throw new RuntimeException("Invalid format version in mod!");
 			}
-		}//
+		}
 
 		modJsons.forEach(json -> loadMod(json.mainClass, json.mixins));
 	}
