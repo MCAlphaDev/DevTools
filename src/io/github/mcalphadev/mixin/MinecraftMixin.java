@@ -10,14 +10,13 @@ import net.minecraft.client.Minecraft;
 
 @Mixin(Minecraft.class)
 public class MinecraftMixin {
-	@Inject(at = @At("HEAD"), method = "catchGLError")
-	private void injectModInit(String phase, CallbackInfo info) {
-		if (phase.endsWith("tup")) {
-			if (phase.equals("Startup")) {
-				AlphaModLoader.getInstance().initialise();
-			} else if (phase.equals("Post startup")) {
-				AlphaModLoader.getInstance().postInitialise();
-			}
-		}
+	@Inject(at = @At(value = "CONSTANT", args = "stringValue=Startup"), method = "initialise")
+	private void injectModInit(CallbackInfo info) {
+		AlphaModLoader.getInstance().initialise();
+	}
+
+	@Inject(at = @At(value = "CONSTANT", args = "stringValue=Post startup"), method = "initialise")
+	private void injectModPosInit(CallbackInfo info) {
+		AlphaModLoader.getInstance().postInitialise();
 	}
 }
