@@ -1,7 +1,6 @@
 package io.github.mcalphadev.loader;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -18,7 +17,7 @@ import org.spongepowered.asm.mixin.Mixins;
 
 import com.google.gson.Gson;
 
-import io.github.mcalphadev.loader.api.Initializer;
+import io.github.mcalphadev.loader.api.Initialiser;
 import io.github.mcalphadev.loader.api.LoadEvent;
 import io.github.mcalphadev.loader.api.Mod;
 import io.github.mcalphadev.log.Logger;
@@ -61,6 +60,10 @@ public final class AlphaModLoader {
 		return Launch.classLoader.getResources("mod.json");
 	}
 
+	public boolean isModLoaded(String modId) {
+		return modClasses.containsKey(modId);
+	}
+
 	public void loadMods() {
 		Enumeration<URL> modInfos;
 		try {
@@ -71,23 +74,29 @@ public final class AlphaModLoader {
 
 		while (modInfos.hasMoreElements()) {
 			URL modInfo = modInfos.nextElement();
-			try (FileReader reader = new FileReader(modInfo.toString())) {
-				int format = GSON.fromJson(reader, ModJson.AbstractModJson.class).format;
-				switch (format) {
-				// if version is older than the latest version, load with compatibility layer converting formats
-				case 0:
-					modJsons.add(GSON.fromJson(reader, ModJson.Format0.class));
-				default:
-					throw new RuntimeException("Invalid format version in mod!");
-				}
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
+
+			String jsonFile = modInfo.getFile();
+			int format = readJson(jsonFile, ModJson.FormatBase.class).format;
+
+			switch (format) {
+			// if version is older than the latest version, load with compatibility layer converting formats
+			case 0:
+				modJsons.add(readJson(jsonFile, ModJson.Format0.class));
+				break;
+			default:
+				throw new RuntimeException("Invalid format version in mod!");
 			}
 		}
 
 		modJsons.forEach(json -> loadMod(json.mainClass, json.mixins));
+	}
+
+	private static <T> T readJson(String file, Class<T> clazz) {
+		try (FileReader reader = new FileReader(file)) {
+			return GSON.fromJson(reader, clazz);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	private void loadMod(String modClass, String mixins) {
@@ -100,8 +109,8 @@ public final class AlphaModLoader {
 				Method[] methods = modClazz.getMethods();
 
 				for (Method method : methods) {
-					if (method.isAnnotationPresent(Initializer.class)) {
-						initializers.computeIfAbsent(method.getAnnotation(Initializer.class).value(), type -> new ArrayList<>()).add(method);
+					if (method.isAnnotationPresent(Initialiser.class)) {
+						initializers.computeIfAbsent(method.getAnnotation(Initialiser.class).value(), type -> new ArrayList<>()).add(method);
 					}
 				}
 			} else {
@@ -112,7 +121,9 @@ public final class AlphaModLoader {
 			return;
 		}
 
-		Mixins.addConfiguration(mixins);
+		if (!mixins.isEmpty()) {
+			Mixins.addConfiguration(mixins);
+		}
 	}
 
 	public static AlphaModLoader getInstance() {
