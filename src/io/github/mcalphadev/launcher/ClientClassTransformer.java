@@ -33,6 +33,10 @@ public class ClientClassTransformer implements IClassTransformer {
 		// used in ShapedRecipes
 		publicClass("fs");
 		publicMethod("fs", "<init>(Lnet/minecraft/game/recipe/ShapedRecipes;)V");
+
+		// used in mm
+		publicField("net.minecraft.gui.Gui", "a");
+		publicField("net.minecraft.gui.Gui", "h");
 	}
 
 	public void publicClass(String name) {
