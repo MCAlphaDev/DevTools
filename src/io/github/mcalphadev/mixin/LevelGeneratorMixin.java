@@ -8,7 +8,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import io.github.mcalphadev.api.worldgen.TerrainDecorateEvent;
+import io.github.mcalphadev.api.worldgen.TerrainGenerateEvent;
+import io.github.mcalphadev.api.worldgen.TerrainPopulateEvent;
 import io.github.mcalphadev.api.worldgen.WorldGenEvents;
 import net.minecraft.game.tile.Sand;
 import net.minecraft.level.Level;
@@ -23,6 +24,16 @@ public class LevelGeneratorMixin {
 	@Shadow
 	private Level level;
 
+	@Inject(at = @At("TAIL"), method = "generateBase")
+	private void injectShapeChunkEvent(final int chunkX, final int chunkZ, final byte[] blocks, CallbackInfo info) {
+		WorldGenEvents.SHAPE_CHUNK.post(new TerrainGenerateEvent(blocks, this.rand, chunkX, chunkZ));
+	}
+
+	@Inject(at = @At("TAIL"), method = "replaceBlocks")
+	private void injectReplaceBlocksEvent(final int chunkX, final int chunkZ, final byte[] blocks, CallbackInfo info) {
+		WorldGenEvents.REPLACE_BLOCKS.post(new TerrainGenerateEvent(blocks, this.rand, chunkX, chunkZ));
+	}
+
 	@Inject(at = @At("HEAD"), method = "decorate")
 	private void injectDecorateEvent(final ILevelGenerator levelGenerator, final int chunkX, final int chunkZ, CallbackInfo info) {
 		Sand.dontDoFalling = true;
@@ -30,6 +41,6 @@ public class LevelGeneratorMixin {
 		this.rand.setSeed(chunkX * (this.rand.nextLong() / 2L * 2L + 1L) + chunkZ * (this.rand.nextLong() / 2L * 2L + 1L) ^ this.level.seed);
 
 		// Alpha minecraft converts chunk coords to block coords with n * 16
-		WorldGenEvents.TERRAIN_DECORATE.post(new TerrainDecorateEvent(this.level, this.rand, chunkX * 16, chunkZ * 16)); 
+		WorldGenEvents.TERRAIN_DECORATE.post(new TerrainPopulateEvent(this.level, this.rand, chunkX * 16, chunkZ * 16)); 
 	}
 }
