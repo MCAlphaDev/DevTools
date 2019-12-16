@@ -4,14 +4,16 @@ FIELD	a	I	a	x
 FIELD	a	I	b	y
 FIELD	a	I	c	z
 FIELD	a	I	d	hash
+CLASS	ab	net/minecraft/client/render/PlayerRenderer
 CLASS	ae	net/minecraft/level/gen/feature/Plant
 CLASS	ag	net/minecraft/game/entity/instance/AnimalInstance
 CLASS	ai	net/minecraft/game/tile/RedstoneOre
-CLASS	ak	net/minecraft/game/entity/Entity
+CLASS	ak	net/minecraft/client/render/EntityRenderer
 METHOD	ak	(Ljava/lang/String;)V	a	setTexture
+METHOD	ak	(Lkh;DDDFF)V	a	render
 CLASS	al	net/minecraft/game/tile/PressurePlate
-CLASS	am	net/minecraft/game/entity/instance/CowInstance
-CLASS	ao	net/minecraft/game/entity/instance/ArrowInstance
+CLASS	am	net/minecraft/game/entity/animal/Cow
+CLASS	ao	net/minecraft/game/entity/Arrow
 CLASS	aw	net/minecraft/level/gen/ILevelGenerator
 METHOD	aw	(Law;II)V	a	decorate
 METHOD	aw	(II)Lga;	b	createChunk
@@ -29,10 +31,12 @@ FIELD	bi	Lnet/minecraft/client/Minecraft;	bg	minecraft
 CLASS	bj	net/minecraft/game/tile/MobSpawner
 CLASS	bk	net/minecraft/util/noise/NoiseGenerator
 CLASS	bm	net/minecraft/server/Id8Packet
-CLASS	bo	net/minecraft/game/entity/instance/SheepInstance
+CLASS	bo	net/minecraft/game/entity/animal/Sheep
 CLASS	bp	net/minecraft/game/item/Bow
 CLASS	br	net/minecraft/game/tile/Ladder
-CLASS	bw	net/minecraft/game/entity/instance/PaintingInstance
+CLASS	bu	net/minecraft/client/render/ArmourRenderer
+FIELD	bu	[Ljava/lang/String;	i	armours
+CLASS	bw	net/minecraft/client/render/PaintingRenderer
 FIELD	bw	Ljava/util/Random;	d	rand
 CLASS	by	net/minecraft/sortme/LightSource
 FIELD	by	Lby;	a	SKY
@@ -67,20 +71,21 @@ METHOD	cn	(Lkh;Ljava/lang/String;FF)V	a	playSound
 METHOD	cn	(Ljava/io/File;Ljava/lang/String;)V	b	deleteWorld
 METHOD	cn	(II)Z	f	isSandyBeach
 METHOD	cn	(II)I	g	getSurfaceTile
-CLASS	cp	net/minecraft/game/entity/BoatEntity
+CLASS	cp	net/minecraft/client/render/BoatRenderer
 CLASS	cq	net/minecraft/game/entity/instance/UnknownEntityInstance1
 CLASS	cs	net/minecraft/game/tile/Workbench
 CLASS	ct	net/minecraft/game/tile/Glass
 CLASS	cu	net/minecraft/level/gen/feature/Ore
 CLASS	cv	net/minecraft/game/tile/Jukebox
-CLASS	cw	net/minecraft/sound/handler/SkeletonSoundHandler
+CLASS	cw	net/minecraft/game/entity/animal/Skeleton
 CLASS	cy	net/minecraft/level/gen/Carver
 FIELD	cy	I	a	range
 FIELD	cy	Ljava/util/Random;	b	random
 METHOD	cy	(Lcn;IIII[B)V	a	carve
 METHOD	cy	(Lnw;Lcn;II[B)V	a	carve
-CLASS	d	net/minecraft/game/entity/monster/Creeper
-CLASS	dd	net/minecraft/game/entity/instance/CreeperInstance
+CLASS	d	net/minecraft/client/render/CreeperRenderer
+CLASS	dc	net/minecraft/game/entity/Boat
+CLASS	dd	net/minecraft/game/entity/monster/Creeper
 CLASS	dh	net/minecraft/game/tile/Sand
 FIELD	dh	Z	a	dontDoFalling
 CLASS	di	net/minecraft/game/item/ItemType
@@ -90,18 +95,19 @@ FIELD	di	Ldi;	l	DIAMOND
 METHOD	di	(Lev;Lcn;Ldm;)Lev;	a	onRightClick
 METHOD	di	(Lev;Ldm;Lcn;IIII)Z	a	interact
 FIELD	dl	Ljava/lang/String;	b	username
-CLASS	dm	net/minecraft/game/entity/instance/HumanoidInstance
+CLASS	dm	net/minecraft/game/entity/HumanoidEntity
 FIELD	dm	I	d	score
 FIELD	dm	Ljava/lang/String;	i	skinLoc
-CLASS	dn	net/minecraft/game/entity/monster/Monster
-METHOD	dn	(Lge;F)V	a	render
+CLASS	dn	net/minecraft/client/render/LivingEntityRenderer
+METHOD	dn	(Lge;F)V	a	scale
+METHOD	dn	(Lge;FF)I	a	getSpawnPos
 CLASS	dp	net/minecraft/game/entity/instance/UnknownEntityInstance3
 CLASS	dq	net/minecraft/game/entity/instance/MonsterInstance
 CLASS	ds	net/minecraft/game/tile/Bookshelf
 CLASS	dt	net/minecraft/game/tile/Sapling
 CLASS	dw	net/minecraft/game/recipe/ShapedRecipes
 METHOD	dw	(Lev;[Ljava/lang/Object;)V	a	addRecipe
-CLASS	dx	net/minecraft/game/entity/EntityData
+CLASS	dx	net/minecraft/game/entity/Player
 FIELD	dx	Lev;	a	item
 CLASS	dy	net/minecraft/data/ByteArrayTag
 FIELD	dy	[B	a	value
@@ -112,6 +118,7 @@ CLASS	ec	net/minecraft/game/item/DoorItemType
 CLASS	ee	net/minecraft/gui/Gui
 CLASS	eh	net/minecraft/server/BooleanPacket
 FIELD	eh	Z	g	data
+CLASS	ei	net/minecraft/client/render/ArrowRenderer
 CLASS	ej	net/minecraft/level/gen/feature/LargeTree
 FIELD	ej	Ljava/util/Random;	b	rand
 FIELD	ej	Lcn;	c	level
@@ -135,6 +142,7 @@ METHOD	eo	(D)I	b	floor
 METHOD	eo	(F)F	c	sqrt
 METHOD	eo	(F)I	d	floor
 METHOD	eo	(F)F	e	abs
+CLASS	eq	net/minecraft/client/render/ChickenRenderer
 CLASS	ev	net/minecraft/game/item/ItemInstance
 FIELD	ev	I	a	count
 FIELD	ev	I	c	id
@@ -200,17 +208,19 @@ FIELD	gb	Lgb;	g	LAVA
 FIELD	gb	Lgb;	k	CLOTH
 FIELD	gb	Lgb;	o	GLASS
 CLASS	gc	net/minecraft/gui/MultiplayerScreen
-CLASS	ge	net/minecraft/game/entity/instance/ResourceEntityInstance
+CLASS	ge	net/minecraft/game/entity/UnknownEntity2
 FIELD	ge	Ljava/lang/String;	u	texture
 FIELD	ge	Ljava/lang/String;	x	name
 METHOD	ge	()Ljava/lang/String;	c	getAmbientSound
 METHOD	ge	()Ljava/lang/String;	d	getHurtSound2
 METHOD	ge	()Ljava/lang/String;	e	getDeathSound
 CLASS	gg	net/minecraft/sortme/ThreeBooleansFalse
-CLASS	gk	net/minecraft/game/entity/Arrow
+CLASS	gj	net/minecraft/game/entity/UnknownEntity
+CLASS	gk	net/minecraft/client/render/Arrow2Renderer
+CLASS	gm	net/minecraft/client/render/PigRenderer
 CLASS	gn	net/minecraft/data/LongTag
 FIELD	gn	J	a	value
-CLASS	gq	net/minecraft/game/entity/monster/Slime
+CLASS	gq	net/minecraft/client/render/SlimeRenderer
 CLASS	gv	net/minecraft/level/gen/feature/ClayDisk
 FIELD	gv	I	a	clay
 FIELD	gv	I	b	range
@@ -221,7 +231,7 @@ FIELD	h	Lnet/minecraft/client/MinecraftApplet;	a	applet
 CLASS	hd	net/minecraft/game/tile/Wheat
 CLASS	he	net/minecraft/game/tile/Ice
 CLASS	hi	net/minecraft/game/tile/TransparentTile
-CLASS	hl	net/minecraft/game/entity/instance/GiantInstance
+CLASS	hl	net/minecraft/game/entity/monster/Giant
 CLASS	hm	net/minecraft/data/CompoundTag
 FIELD	hm	Ljava/util/Map;	a	data
 METHOD	hm	(Ljava/lang/String;B)V	a	add
@@ -250,6 +260,7 @@ METHOD	hm	(Ljava/lang/String;)Z	m	getBoolean
 CLASS	hn	net/minecraft/game/tile/FluidStill
 CLASS	hu	net/minecraft/game/tile/StoneButton
 CLASS	hv	net/minecraft/game/tile/FluidFlowing
+CLASS	hw	net/minecraft/client/render/PrimedTNTRenderer
 CLASS	hy	net/minecraft/game/tile/Cactus
 CLASS	hz	net/minecraft/game/tile/Dirt
 CLASS	if	net/minecraft/game/tile/Rail
@@ -273,8 +284,8 @@ CLASS	ix	net/minecraft/data/ByteTag
 FIELD	ix	B	a	value
 CLASS	iz	net/minecraft/game/tile/Leaves
 CLASS	jb	net/minecraft/game/entity/instance/UnknownEntityInstance6
-CLASS	jc	net/minecraft/util/math/Rotation
-CLASS	jd	net/minecraft/game/entity/instance/PrimedTNTInstance
+CLASS	jc	net/minecraft/game/entity/Painting
+CLASS	jd	net/minecraft/game/entity/PrimedTNT
 FIELD	jd	I	a	fuse
 CLASS	jg	net/minecraft/game/item/Bow2
 CLASS	jm	net/minecraft/game/tile/Reeds
@@ -285,14 +296,14 @@ CLASS	jv	net/minecraft/game/tile/Clay
 CLASS	kb	net/minecraft/sortme/ThreeBooleansTrueFalseFalse
 METHOD	kd	(Ljava/lang/String;III)V	a	addText
 CLASS	kf	net/minecraft/game/tile/Redstone
-CLASS	kg	net/minecraft/game/entity/instance/UnknownEntityInstance
+CLASS	kg	net/minecraft/game/entity/Arrow2
 FIELD	kg	I	a	shake
 FIELD	kg	I	b	xTile
 FIELD	kg	I	c	yTile
 FIELD	kg	I	d	zTile
 FIELD	kg	I	e	inTile
 FIELD	kg	Z	f	inGround
-CLASS	kh	net/minecraft/game/entity/instance/EntityInstance
+CLASS	kh	net/minecraft/game/entity/Entity
 FIELD	kh	Ljava/util/Random;	aQ	rand
 FIELD	kh	Ljava/lang/String;	aY	skin
 FIELD	kh	Lcn;	ag	level
@@ -312,6 +323,10 @@ CLASS	kq	net/minecraft/game/entity/instance/UnknownEntityInstance7
 CLASS	kr	net/minecraft/data/DoubleTag
 FIELD	kr	D	a	value
 CLASS	ku	net/minecraft/game/tile/Furnace
+CLASS	kx	net/minecraft/client/render/EntityRenderManager
+FIELD	kx	Lkx;	a	instance
+FIELD	kx	Lcn;	g	level
+FIELD	kx	Ljava/util/Map;	o	entityToRendererMap
 CLASS	ky	net/minecraft/game/tile/Mushroom
 CLASS	la	net/minecraft/game/entity/instance/PlayerInstance
 CLASS	lf	net/minecraft/game/recipe/MetalBlockRecipes
@@ -438,18 +453,19 @@ METHOD	ly	(F)Lly;	c	setHardness
 METHOD	ly	(I)Lly;	d	maybeSomeRenderingThing
 METHOD	ly	(Lcn;III)V	e	onBlockPlaced
 METHOD	ly	(Lcn;III)Z	g	canBePlacedAtMaybe
-CLASS	ma	net/minecraft/game/entity/instance/SlimeInstance
-CLASS	mb	net/minecraft/game/entity/instance/ZombieInstance
+CLASS	ma	net/minecraft/game/entity/monster/Slime
+CLASS	mb	net/minecraft/game/entity/monster/Zombie
+CLASS	mc	net/minecraft/client/render/CowRenderer
 CLASS	mg	net/minecraft/game/tile/Wood
 CLASS	mi	net/minecraft/game/tile/Farmland
 METHOD	mi	(Lcn;III)Z	i	canHydrate
 CLASS	mj	net/minecraft/game/tile/Torch
 CLASS	mq	net/minecraft/game/tile/Plant
 CLASS	mr	net/minecraft/game/item/BlockItem
-CLASS	mv	net/minecraft/game/entity/instance/PigInstance
+CLASS	mv	net/minecraft/game/entity/animal/Pig
 FIELD	mv	Z	a	saddle
 CLASS	my	net/minecraft/game/tile/Grass
-CLASS	mz	net/minecraft/game/entity/instance/ChickenInstance
+CLASS	mz	net/minecraft/game/entity/animal/Chicken
 CLASS	ne	net/minecraft/data/StringTag
 FIELD	ne	Ljava/lang/String;	a	value
 FIELD	net/minecraft/client/Minecraft	Lcn;	e	level
@@ -476,6 +492,7 @@ METHOD	nm	(III)Lgb;	f	getMaterial
 CLASS	nn	net/minecraft/level/gen/feature/Spring
 CLASS	no	net/minecraft/game/tile/Lever
 CLASS	nq	net/minecraft/game/entity/instance/TileInstance
+CLASS	ns	net/minecraft/client/render/SheepRenderer
 CLASS	nt	net/minecraft/game/entity/instance/SelfInstance
 CLASS	nu	net/minecraft/util/Info
 CLASS	nw	net/minecraft/level/gen/LevelGenerator
@@ -502,10 +519,10 @@ FIELD	nw	Lcy;	u	carver
 METHOD	nw	(II[B)V	a	generateBase
 METHOD	nw	([DIIIIII)[D	a	generateNoiseOctaves
 METHOD	nw	(II[B)V	b	replaceBlocks
-CLASS	nz	net/minecraft/game/entity/monster/Giant
+CLASS	nz	net/minecraft/client/render/GiantRenderer
 FIELD	nz	F	f	proportion
 CLASS	oa	net/minecraft/level/gen/feature/Tree
-CLASS	oc	net/minecraft/game/entity/instance/ContainerTileInstance
+CLASS	oc	net/minecraft/game/entity/ContainerTileEntity
 FIELD	oc	I	d	type
 FIELD	oc	[Lev;	h	inventory
 CLASS	of	net/minecraft/sound/BackgroundMusic
@@ -515,7 +532,7 @@ METHOD	og	(III)V	a	addFlammableMaterial
 CLASS	oh	net/minecraft/server/StringPacket
 FIELD	oh	Ljava/lang/String;	a	data
 CLASS	oi	net/minecraft/game/tile/Slab
-CLASS	ok	net/minecraft/game/entity/monster/Spider
+CLASS	ok	net/minecraft/client/render/SpiderRenderer
 CLASS	p	net/minecraft/game/tile/Snow
 CLASS	q	net/minecraft/game/tile/TNT
 CLASS	t	net/minecraft/game/tile/SandTileSound

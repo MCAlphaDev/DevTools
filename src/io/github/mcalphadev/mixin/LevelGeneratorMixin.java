@@ -11,6 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import io.github.mcalphadev.api.worldgen.TerrainGenerateEvent;
 import io.github.mcalphadev.api.worldgen.TerrainDecorateEvent;
 import io.github.mcalphadev.api.worldgen.WorldGenEvents;
+import io.github.mcalphadev.impl.AlphaWorldGenImpl;
 import net.minecraft.game.tile.Sand;
 import net.minecraft.level.Level;
 import net.minecraft.level.gen.ILevelGenerator;
@@ -23,6 +24,14 @@ public class LevelGeneratorMixin {
 
 	@Shadow
 	private Level level;
+
+	@Inject(at = @At("HEAD"), method = "generateBase")
+	private void injectRemoveVanillaChunkShape(final int chunkX, final int chunkZ, final byte[] blocks, CallbackInfo info) {
+		if (AlphaWorldGenImpl.cancelVanillaGenBase()) {
+			WorldGenEvents.SHAPE_CHUNK.post(new TerrainGenerateEvent(blocks, this.rand, chunkX, chunkZ));
+			info.cancel();
+		}
+	}
 
 	@Inject(at = @At("TAIL"), method = "generateBase")
 	private void injectShapeChunkEvent(final int chunkX, final int chunkZ, final byte[] blocks, CallbackInfo info) {
