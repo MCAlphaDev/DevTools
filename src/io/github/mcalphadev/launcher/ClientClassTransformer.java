@@ -18,14 +18,21 @@ public class ClientClassTransformer implements IClassTransformer {
 	final Map<String, ClassTransform> brokenAccess = new HashMap<>();
 
 	public ClientClassTransformer() {
-		//Used in cz
+		// Used in cz
 		publicField("net.minecraft.util.BlockPos", "f");
 		publicField("net.minecraft.util.BlockPos", "g");
 		publicField("net.minecraft.util.BlockPos", "h");
 		publicField("net.minecraft.util.BlockPos", "i");
 
-		//Used in fx
+		// Used in fx
 		publicField("net.minecraft.util.BlockPos", "e");
+
+		// Used in unmapped recipe classes
+		publicMethod("net.minecraft.game.recipe.ShapedRecipes", "addRecipe(Lnet/minecraft/game/item/ItemInstance;[Ljava/lang/Object;)V");
+
+		// used in ShapedRecipes
+		publicClass("fs");
+		publicMethod("fs", "<init>(Lnet/minecraft/game/recipe/ShapedRecipes;)V");
 	}
 
 	public void publicClass(String name) {
@@ -73,7 +80,7 @@ public class ClientClassTransformer implements IClassTransformer {
 			return byteCode;
 		}
 	}
-	
+
 	private static class ClassTransform {
 		boolean classToo = false;
 		final Set<String> fields = new HashSet<>();

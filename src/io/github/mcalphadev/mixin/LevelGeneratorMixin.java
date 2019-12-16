@@ -8,8 +8,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import io.github.mcalphadev.api.worldgen.TerrainGenerateEvent;
-import io.github.mcalphadev.api.worldgen.TerrainDecorateEvent;
 import io.github.mcalphadev.api.worldgen.WorldGenEvents;
 import io.github.mcalphadev.impl.AlphaWorldGenImpl;
 import net.minecraft.game.tile.Sand;
@@ -28,19 +26,19 @@ public class LevelGeneratorMixin {
 	@Inject(at = @At("HEAD"), method = "generateBase")
 	private void injectRemoveVanillaChunkShape(final int chunkX, final int chunkZ, final byte[] blocks, CallbackInfo info) {
 		if (AlphaWorldGenImpl.cancelVanillaGenBase()) {
-			WorldGenEvents.SHAPE_CHUNK.post(new TerrainGenerateEvent(blocks, this.rand, chunkX, chunkZ));
+			WorldGenEvents.SHAPE_CHUNK.post(blocks, this.rand, chunkX, chunkZ);
 			info.cancel();
 		}
 	}
 
 	@Inject(at = @At("TAIL"), method = "generateBase")
 	private void injectShapeChunkEvent(final int chunkX, final int chunkZ, final byte[] blocks, CallbackInfo info) {
-		WorldGenEvents.SHAPE_CHUNK.post(new TerrainGenerateEvent(blocks, this.rand, chunkX, chunkZ));
+		WorldGenEvents.SHAPE_CHUNK.post(blocks, this.rand, chunkX, chunkZ);
 	}
 
 	@Inject(at = @At("TAIL"), method = "replaceBlocks")
 	private void injectReplaceBlocksEvent(final int chunkX, final int chunkZ, final byte[] blocks, CallbackInfo info) {
-		WorldGenEvents.REPLACE_BLOCKS.post(new TerrainGenerateEvent(blocks, this.rand, chunkX, chunkZ));
+		WorldGenEvents.REPLACE_BLOCKS.post(blocks, this.rand, chunkX, chunkZ);
 	}
 
 	@Inject(at = @At("HEAD"), method = "decorate")
@@ -50,6 +48,6 @@ public class LevelGeneratorMixin {
 		this.rand.setSeed(chunkX * (this.rand.nextLong() / 2L * 2L + 1L) + chunkZ * (this.rand.nextLong() / 2L * 2L + 1L) ^ this.level.seed);
 
 		// Alpha minecraft converts chunk coords to block coords with n * 16
-		WorldGenEvents.TERRAIN_DECORATE.post(new TerrainDecorateEvent(this.level, this.rand, chunkX * 16, chunkZ * 16)); 
+		WorldGenEvents.TERRAIN_DECORATE.post(this.level, this.rand, chunkX * 16, chunkZ * 16); 
 	}
 }

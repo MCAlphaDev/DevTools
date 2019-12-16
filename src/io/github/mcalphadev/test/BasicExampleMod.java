@@ -1,7 +1,9 @@
 package io.github.mcalphadev.test;
 
+import java.util.Random;
+
 import io.github.mcalphadev.api.game.RecipeManager;
-import io.github.mcalphadev.api.worldgen.TerrainGenerateEvent;
+import io.github.mcalphadev.api.worldgen.TerrainGenerateEventCallback;
 import io.github.mcalphadev.api.worldgen.WorldGenEvents;
 import io.github.mcalphadev.loader.api.Initialiser;
 import io.github.mcalphadev.loader.api.LoadEvent;
@@ -12,25 +14,26 @@ import net.minecraft.game.item.ItemType;
 import net.minecraft.game.tile.Tile;
 
 @Mod("example")
-public class BasicExampleMod {
+public class BasicExampleMod implements TerrainGenerateEventCallback {
 	@Initialiser(LoadEvent.INIT)
 	public static void onInitialise() {
 		new Logger("ExampleMod").info("This line was printed by an example mod");
-		
-		WorldGenEvents.REPLACE_BLOCKS.addEventSubscriber(event -> modifyTerrain(event));
-		RecipeManager.addShapedRecipe(new ItemInstance(ItemType.DIAMOND, 1), "#", "#", "#", Tile.DIRT);
+
+		WorldGenEvents.REPLACE_BLOCKS.addEventSubscriber(new BasicExampleMod());
+		RecipeManager.addShapedRecipe(new ItemInstance(ItemType.DIAMOND, 1), "#", "#", '#', Tile.DIRT);
 	}
 
-	private static void modifyTerrain(TerrainGenerateEvent event) {
+	private static int getBlockArrayIndex(int localX, int y, int localZ) {
+		return (localX * 16 + localZ) * 128 + y;
+	}
+
+	@Override
+	public void modifyTerrain(byte[] chunkBlocks, Random rand, int chunkX, int chunkZ) {
 		for (int localX = 0; localX < 16; ++localX) {
 			for (int localZ = 0; localZ < 16; ++localZ) {
 				final int y = 125;
-				event.chunkBlocks[getBlockArrayIndex(localX, y, localZ)] = (byte) Tile.GLASS.id;
+				chunkBlocks[getBlockArrayIndex(localX, y, localZ)] = (byte) Tile.GLASS.id;
 			}
 		}
-	}
-	
-	private static int getBlockArrayIndex(int localX, int y, int localZ) {
-		return (localX * 16 + localZ) * 128 + y;
 	}
 }
