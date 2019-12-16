@@ -4,7 +4,7 @@ FIELD	a	I	a	x
 FIELD	a	I	b	y
 FIELD	a	I	c	z
 FIELD	a	I	d	hash
-CLASS	ab	net/minecraft/client/render/PlayerRenderer
+CLASS	ab	net/minecraft/client/render/ItemRenderer
 CLASS	ae	net/minecraft/level/gen/feature/Plant
 CLASS	ag	net/minecraft/game/entity/instance/AnimalInstance
 CLASS	ai	net/minecraft/game/tile/RedstoneOre
@@ -17,7 +17,7 @@ CLASS	ao	net/minecraft/game/entity/Arrow
 CLASS	aw	net/minecraft/level/gen/ILevelGenerator
 METHOD	aw	(Law;II)V	a	decorate
 METHOD	aw	(II)Lga;	b	createChunk
-CLASS	ax	net/minecraft/game/entity/instance/SpiderInstance
+CLASS	ax	net/minecraft/game/entity/Spider
 CLASS	b	net/minecraft/game/tile/Chest
 CLASS	ba	net/minecraft/game/entity/instance/UnknownEntityInstance12
 CLASS	bb	net/minecraft/game/tile/TileSound
@@ -84,7 +84,7 @@ FIELD	cy	Ljava/util/Random;	b	random
 METHOD	cy	(Lcn;IIII[B)V	a	carve
 METHOD	cy	(Lnw;Lcn;II[B)V	a	carve
 CLASS	d	net/minecraft/client/render/CreeperRenderer
-CLASS	dc	net/minecraft/game/entity/Boat
+CLASS	dc	net/minecraft/game/entity/BoatEntity
 CLASS	dd	net/minecraft/game/entity/monster/Creeper
 CLASS	dh	net/minecraft/game/tile/Sand
 FIELD	dh	Z	a	dontDoFalling
@@ -94,6 +94,7 @@ FIELD	di	[Ldi;	c	ITEM_LOOKUP
 FIELD	di	Ldi;	l	DIAMOND
 METHOD	di	(Lev;Lcn;Ldm;)Lev;	a	onRightClick
 METHOD	di	(Lev;Ldm;Lcn;IIII)Z	a	interact
+CLASS	dj	net/minecraft/client/render/FallingSandRenderer
 FIELD	dl	Ljava/lang/String;	b	username
 CLASS	dm	net/minecraft/game/entity/HumanoidEntity
 FIELD	dm	I	d	score
@@ -102,12 +103,12 @@ CLASS	dn	net/minecraft/client/render/LivingEntityRenderer
 METHOD	dn	(Lge;F)V	a	scale
 METHOD	dn	(Lge;FF)I	a	getSpawnPos
 CLASS	dp	net/minecraft/game/entity/instance/UnknownEntityInstance3
-CLASS	dq	net/minecraft/game/entity/instance/MonsterInstance
+CLASS	dq	net/minecraft/game/entity/instance/Monster
 CLASS	ds	net/minecraft/game/tile/Bookshelf
 CLASS	dt	net/minecraft/game/tile/Sapling
 CLASS	dw	net/minecraft/game/recipe/ShapedRecipes
 METHOD	dw	(Lev;[Ljava/lang/Object;)V	a	addRecipe
-CLASS	dx	net/minecraft/game/entity/Player
+CLASS	dx	net/minecraft/game/entity/ItemEntity
 FIELD	dx	Lev;	a	item
 CLASS	dy	net/minecraft/data/ByteArrayTag
 FIELD	dy	[B	a	value
@@ -150,6 +151,12 @@ FIELD	ev	I	d	meta
 METHOD	ev	()Ldi;	a	getItem
 METHOD	ev	(I)Lev;	a	subtract
 METHOD	ev	(Lhm;)V	b	setOutput
+CLASS	ew	net/minecraft/game/entity/EntityRegistry
+FIELD	ew	Ljava/util/Map;	a	nameToClassMap
+FIELD	ew	Ljava/util/Map;	b	classToNameMap
+FIELD	ew	Ljava/util/Map;	c	idToClassMap
+FIELD	ew	Ljava/util/Map;	d	classToIdMap
+METHOD	ew	(Ljava/lang/Class;Ljava/lang/String;I)V	a	registerEntity
 FIELD	ey	Lfr;	h	controls
 METHOD	ey	(Ljava/lang/String;)I	a	getResource
 CLASS	ez	net/minecraft/server/GePacket
@@ -162,7 +169,7 @@ FIELD	fa	Lfa;	c	WINDOWS
 FIELD	fa	Lfa;	d	MACOS
 FIELD	fa	Lfa;	e	UNKNOWN
 CLASS	fd	net/minecraft/game/tile/SnowLayer
-CLASS	ff	net/minecraft/util/math/UnknownEntityInstance2
+CLASS	ff	net/minecraft/game/entity/FallingSand
 METHOD	ff	()Lcn;	i	getLevel
 CLASS	fh	net/minecraft/game/tile/Fence
 CLASS	fj	net/minecraft/game/recipe/UtilityTileRecipes
@@ -208,7 +215,7 @@ FIELD	gb	Lgb;	g	LAVA
 FIELD	gb	Lgb;	k	CLOTH
 FIELD	gb	Lgb;	o	GLASS
 CLASS	gc	net/minecraft/gui/MultiplayerScreen
-CLASS	ge	net/minecraft/game/entity/UnknownEntity2
+CLASS	ge	net/minecraft/game/entity/Mob
 FIELD	ge	Ljava/lang/String;	u	texture
 FIELD	ge	Ljava/lang/String;	x	name
 METHOD	ge	()Ljava/lang/String;	c	getAmbientSound

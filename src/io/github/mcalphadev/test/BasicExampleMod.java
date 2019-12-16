@@ -6,6 +6,7 @@ import io.github.mcalphadev.loader.api.Initialiser;
 import io.github.mcalphadev.loader.api.LoadEvent;
 import io.github.mcalphadev.loader.api.Mod;
 import io.github.mcalphadev.log.Logger;
+import net.minecraft.game.entity.EntityManager;
 import net.minecraft.game.tile.Tile;
 
 @Mod("example")
