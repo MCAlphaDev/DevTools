@@ -10,6 +10,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import io.github.mcalphadev.api.worldgen.TerrainDecorateEvent;
 import io.github.mcalphadev.api.worldgen.WorldGenEvents;
+import net.minecraft.game.tile.Sand;
 import net.minecraft.level.Level;
 import net.minecraft.level.gen.ILevelGenerator;
 import net.minecraft.level.gen.LevelGenerator;
@@ -22,8 +23,9 @@ public class LevelGeneratorMixin {
 	@Shadow
 	private Level level;
 
-	@Inject(at = @At(value = "HEAD", shift = At.Shift.AFTER), method = "decorate")
+	@Inject(at = @At("HEAD"), method = "decorate")
 	private void injectDecorateEvent(final ILevelGenerator levelGenerator, final int chunkX, final int chunkZ, CallbackInfo info) {
+		Sand.dontDoFalling = true;
 		this.rand.setSeed(this.level.seed);
 		this.rand.setSeed(chunkX * (this.rand.nextLong() / 2L * 2L + 1L) + chunkZ * (this.rand.nextLong() / 2L * 2L + 1L) ^ this.level.seed);
 
