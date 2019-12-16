@@ -13,6 +13,10 @@ public final class EventType<T extends Event> {
 	private final List<Subscriber<T>> toAdd = Lists.newArrayList();
 	private boolean flag = false;
 
+	public EventType(String name) {
+		this(new NamespacedIdentifier(name));
+	}
+	
 	public EventType(NamespacedIdentifier name) {
 		this.name = name;
 

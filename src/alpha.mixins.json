@@ -3,6 +3,7 @@
   "package": "io.github.mcalphadev.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+    "LevelGeneratorMixin",
     "MinecraftMixin",
     "SoundThreadMixin"
   ],
