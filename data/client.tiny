@@ -469,6 +469,10 @@ METHOD	mi	(Lcn;III)Z	i	canHydrate
 CLASS	mj	net/minecraft/game/tile/Torch
 CLASS	mq	net/minecraft/game/tile/Plant
 CLASS	mr	net/minecraft/game/item/BlockItem
+CLASS	mt	net/minecraft/util/math/Vec3i
+FIELD	mt	I	a	x
+FIELD	mt	I	b	y
+FIELD	mt	I	c	z
 CLASS	mv	net/minecraft/game/entity/animal/Pig
 FIELD	mv	Z	a	saddle
 CLASS	my	net/minecraft/game/tile/Grass

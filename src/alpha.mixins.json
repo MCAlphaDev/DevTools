@@ -5,6 +5,7 @@
   "mixins": [
     "LevelGeneratorMixin",
     "MinecraftMixin",
+    "ShapedRecipesInvoker",
     "SoundThreadMixin"
   ],
   "injectors": {
