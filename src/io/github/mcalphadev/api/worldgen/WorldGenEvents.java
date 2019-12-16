@@ -8,5 +8,5 @@ public final class WorldGenEvents {
 
 	public static final EventType<TerrainGenerateEvent> SHAPE_CHUNK = new EventType<>("devtools:shape_chunk");
 	public static final EventType<TerrainGenerateEvent> REPLACE_BLOCKS = new EventType<>("devtools:replace_blocks");
-	public static final EventType<TerrainPopulateEvent> TERRAIN_DECORATE = new EventType<>("devtools:terrain_decorate");
+	public static final EventType<TerrainDecorateEvent> TERRAIN_DECORATE = new EventType<>("devtools:terrain_decorate");
 }
