@@ -1,11 +1,14 @@
 package io.github.mcalphadev.test;
 
+import io.github.mcalphadev.api.game.RecipeManager;
 import io.github.mcalphadev.api.worldgen.TerrainGenerateEvent;
 import io.github.mcalphadev.api.worldgen.WorldGenEvents;
 import io.github.mcalphadev.loader.api.Initialiser;
 import io.github.mcalphadev.loader.api.LoadEvent;
 import io.github.mcalphadev.loader.api.Mod;
 import io.github.mcalphadev.log.Logger;
+import net.minecraft.game.item.ItemInstance;
+import net.minecraft.game.item.ItemType;
 import net.minecraft.game.tile.Tile;
 
 @Mod("example")
@@ -15,6 +18,7 @@ public class BasicExampleMod {
 		new Logger("ExampleMod").info("This line was printed by an example mod");
 		
 		WorldGenEvents.REPLACE_BLOCKS.addEventSubscriber(event -> modifyTerrain(event));
+		RecipeManager.addShapedRecipe(new ItemInstance(ItemType.DIAMOND, 1), "#", "#", "#", Tile.DIRT);
 	}
 
 	private static void modifyTerrain(TerrainGenerateEvent event) {

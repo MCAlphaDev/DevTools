@@ -8,7 +8,7 @@ public final class RecipeManager {
 	private RecipeManager() {
 	}
 
-	public void addShapedRecipe(final ItemInstance result, final Object... recipe) {
+	public static void addShapedRecipe(final ItemInstance result, final Object... recipe) {
 		((ShapedRecipesInvoker) ShapedRecipes.a()).addRecipe(result, recipe);
 	}
 }

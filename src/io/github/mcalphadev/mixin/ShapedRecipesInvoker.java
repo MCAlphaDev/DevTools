@@ -9,5 +9,5 @@ import net.minecraft.game.recipe.ShapedRecipes;
 @Mixin(ShapedRecipes.class)
 public interface ShapedRecipesInvoker {
 	@Invoker("addRecipe")
-	ShapedRecipes addRecipe(final ItemInstance itemInstance, final Object... array);
+	void addRecipe(final ItemInstance itemInstance, final Object[] array);
 }
