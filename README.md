@@ -5,6 +5,7 @@ The project is a __work-in-progress__
 You need python installed to run the setup scripts!
 
 ### Features:
+ - Setup script and Eclipse workspace script
  - Game Launcher
  - Mod Loader
  - Mixin system
