@@ -19,6 +19,8 @@ CLASS	am	net/minecraft/game/entity/animal/Cow
 CLASS	ao	net/minecraft/game/entity/Arrow
 CLASS	aq	net/minecraft/client/screen/ErrorScreen
 CLASS	at	net/minecraft/client/texture/LavaFlowing2Texture
+CLASS	av	net/minecraft/game/item/TileItem
+FIELD	av	I	a	tileId
 CLASS	aw	net/minecraft/level/gen/ILevelGenerator
 METHOD	aw	(Law;II)V	a	decorate
 METHOD	aw	(II)Lga;	b	createChunk

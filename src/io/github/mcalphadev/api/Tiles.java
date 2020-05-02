@@ -1,5 +1,6 @@
 package io.github.mcalphadev.api;
 
+import net.minecraft.game.item.ItemType;
 import net.minecraft.game.tile.Tile;
 
 public final class Tiles {
@@ -12,5 +13,9 @@ public final class Tiles {
 		}
 
 		return nextId;
+	}
+
+	public static void addItemType(Tile tile) {
+		ItemType.itemLookup[tile.id] = new av(tile.id - 256);
 	}
 }
