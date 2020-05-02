@@ -10,3 +10,5 @@ assets/
 .mixin.out/
 logs/
 mods/
+*.iml
+.idea/
