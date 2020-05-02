@@ -24,7 +24,8 @@ public class BasicExampleMod implements TerrainGenerateEventCallback {
 		WorldGenEvents.REPLACE_BLOCKS.addEventSubscriber(new BasicExampleMod());
 		RecipeManager.addShapedRecipe(new ItemInstance(ItemType.diamond, 1), "#", "#", '#', Tile.DIRT);
 
-		tile = new ExampleTile(Tiles.getNextId(), TileMaterial.ROCK);
+		tile = Tiles.register(new ExampleTile(Tiles.getNextId(), TileMaterial.ROCK), "example:tile");
+
 		System.out.println("Received Tile Id: " + tile.id);
 
 		RecipeManager.addShapedRecipe(new ItemInstance(tile), "#", '#', Tile.DIRT);
