@@ -2,7 +2,6 @@ package io.github.mcalphadev.test;
 
 import java.util.Random;
 
-import io.github.mcalphadev.api.Tiles;
 import io.github.mcalphadev.api.game.RecipeManager;
 import io.github.mcalphadev.api.worldgen.TerrainGenerateEventCallback;
 import io.github.mcalphadev.api.worldgen.WorldGenEvents;
@@ -13,7 +12,6 @@ import io.github.mcalphadev.log.Logger;
 import net.minecraft.game.item.ItemInstance;
 import net.minecraft.game.item.ItemType;
 import net.minecraft.game.tile.Tile;
-import net.minecraft.game.tile.TileMaterial;
 
 @Mod("example")
 public class BasicExampleMod implements TerrainGenerateEventCallback {
@@ -22,12 +20,12 @@ public class BasicExampleMod implements TerrainGenerateEventCallback {
 		new Logger("ExampleMod").info("This line was printed by an example mod");
 
 		WorldGenEvents.REPLACE_BLOCKS.addEventSubscriber(new BasicExampleMod());
-		RecipeManager.addShapedRecipe(new ItemInstance(ItemType.DIAMOND, 1), "#", "#", '#', Tile.DIRT);
+		RecipeManager.addShapedRecipe(new ItemInstance(ItemType.diamond, 1), "#", "#", '#', Tile.DIRT);
 
 		//tile = new ExampleTile(Tiles.getNextId(), TileMaterial.ROCK);
 		System.out.println("Received Tile Id: " + tile.id);
 
-		RecipeManager.addShapedRecipe(new ItemInstance(tile.item), "#", '#', Tile.DIRT);
+		RecipeManager.addShapedRecipe(new ItemInstance(tile), "#", '#', Tile.DIRT);
 	}
 
 	private static ExampleTile tile;

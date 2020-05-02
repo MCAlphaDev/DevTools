@@ -4,6 +4,8 @@ The project is a __work-in-progress__
 
 You need python installed to run the setup scripts!
 
+Run `setup.bat` followed by `eclipse.bat` to set up a workspace.
+
 ### Features:
  - Setup script and Eclipse workspace script
  - Game Launcher

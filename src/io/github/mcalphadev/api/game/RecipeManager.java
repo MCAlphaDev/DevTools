@@ -9,6 +9,6 @@ public final class RecipeManager {
 	}
 
 	public static void addShapedRecipe(final ItemInstance result, final Object... recipe) {
-		((ShapedRecipesInvoker) ShapedRecipes.a()).addShapedRecipe(result, recipe);
+		((ShapedRecipesInvoker) ShapedRecipes.getInstance()).addShapedRecipe(result, recipe);
 	}
 }
