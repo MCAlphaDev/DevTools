@@ -1,5 +1,6 @@
 package io.github.mcalphadev.test;
 
+import io.github.mcalphadev.api.Tiles;
 import net.minecraft.game.tile.Tile;
 import net.minecraft.game.tile.TileMaterial;
 
@@ -10,5 +11,6 @@ public class ExampleTile extends Tile {
 		this.setHardness(0.1f);
 		this.setResistance(30.0f);
 		this.setSound(Tile.SOUND_CLOTH);
+		Tiles.addItemType(this);
 	}
 }
