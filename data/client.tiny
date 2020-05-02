@@ -8,7 +8,13 @@ CLASS	aa	net/minecraft/client/texture/CompassTexture
 CLASS	ab	net/minecraft/client/render/ItemRenderer
 CLASS	ac	net/minecraft/game/item/Bucket
 FIELD	ac	I	a	fluidId
+FIELD	ad	Lcn;	d	level
+METHOD	ad	(Ljava/lang/String;)V	b	createLevel
+METHOD	ad	()Lfa;	e	getOS
 CLASS	ae	net/minecraft/level/gen/feature/Plant
+CLASS	af	net/minecraft/level/chunk/IChunkSaveManager
+METHOD	af	(Lcn;II)Lga;	a	loadChunk
+METHOD	af	(Lcn;Lga;)V	a	writeChunk
 CLASS	ag	net/minecraft/game/entity/instance/AnimalInstance
 CLASS	ai	net/minecraft/game/tile/RedstoneOre
 CLASS	ak	net/minecraft/client/render/EntityRenderer
@@ -17,6 +23,7 @@ METHOD	ak	(Lkh;DDDFF)V	a	render
 CLASS	al	net/minecraft/game/tile/PressurePlate
 CLASS	am	net/minecraft/game/entity/animal/Cow
 CLASS	ao	net/minecraft/game/entity/Arrow
+CLASS	ap	net/minecraft/game/item/MushroomSoup
 CLASS	aq	net/minecraft/client/screen/ErrorScreen
 CLASS	at	net/minecraft/client/texture/LavaFlowing2Texture
 CLASS	av	net/minecraft/game/item/TileItem
@@ -56,12 +63,20 @@ CLASS	c	net/minecraft/game/tile/MetalBlock
 CLASS	cd	net/minecraft/game/entity/instance/UnknownEntityInstance2
 CLASS	ce	net/minecraft/game/tile/Stone
 CLASS	cg	net/minecraft/level/gen/feature/Dungeon
+CLASS	ci	net/minecraft/level/ChunkRegion
+FIELD	ci	[[Lga;	c	chunks
+FIELD	ci	Lcn;	d	parent
+CLASS	ck	net/minecraft/level/gen/ClientLevelGenerator
+FIELD	ck	[Lga;	b	chunks
 FIELD	ck	Lcn;	c	level
 CLASS	cm	net/minecraft/game/tile/Obsidian
 CLASS	cn	net/minecraft/level/Level
+FIELD	cn	Law;	H	generator
 FIELD	cn	Lhm;	I	playerInfo
-FIELD	cn	J	c	time
+FIELD	cn	Ljava/util/List;	a	entities
+FIELD	cn	J	c	lastUpdate
 FIELD	cn	Z	d	snowCovered
+FIELD	cn	Ljava/util/List;	k	players
 FIELD	cn	Ljava/util/Random;	n	rand
 FIELD	cn	I	o	spawnX
 FIELD	cn	I	p	spawnY
@@ -73,6 +88,7 @@ FIELD	cn	Ljava/lang/String;	w	name
 METHOD	cn	()V	a	setSpawnPos
 METHOD	cn	(IIII)Z	a	setTileId
 METHOD	cn	(Lby;III)I	a	computeLight
+METHOD	cn	(Ljava/io/File;)Law;	a	createLevelGenerator
 METHOD	cn	(Ljava/io/File;Ljava/lang/String;)Lhm;	a	readTagOrSomething
 METHOD	cn	(Ljava/lang/String;DDDDDD)V	a	playSound
 METHOD	cn	(Lkh;)Z	a	spawnEntity
@@ -81,6 +97,7 @@ METHOD	cn	(Ljava/io/File;Ljava/lang/String;)V	b	deleteWorld
 METHOD	cn	(IIII)Z	d	setTileIdForFluids
 METHOD	cn	(II)Z	f	isSandyBeach
 METHOD	cn	(II)I	g	getSurfaceTile
+METHOD	cn	()V	l	prepareForChunkSave
 CLASS	cp	net/minecraft/client/render/BoatRenderer
 CLASS	cq	net/minecraft/game/entity/instance/UnknownEntityInstance1
 CLASS	cs	net/minecraft/game/tile/Workbench
@@ -193,7 +210,7 @@ METHOD	di	(Lev;Ldm;Lcn;IIII)Z	a	interact
 METHOD	di	(Lev;Lge;)V	a	useOnMob
 CLASS	dj	net/minecraft/client/render/FallingSandRenderer
 FIELD	dl	Ljava/lang/String;	b	username
-CLASS	dm	net/minecraft/game/entity/HumanoidEntity
+CLASS	dm	net/minecraft/game/entity/Player
 FIELD	dm	I	d	score
 FIELD	dm	Ljava/lang/String;	i	skinLoc
 CLASS	dn	net/minecraft/client/render/LivingEntityRenderer
@@ -311,6 +328,15 @@ CLASS	fw	net/minecraft/game/tile/Door
 CLASS	fy	net/minecraft/data/EndTag
 CLASS	g	net/minecraft/client/AppletMinecraft
 CLASS	ga	net/minecraft/level/chunk/Chunk
+FIELD	ga	[B	b	blocks
+FIELD	ga	Lmu;	e	data
+FIELD	ga	Lmu;	f	skyLight
+FIELD	ga	Lmu;	g	blockLight
+FIELD	ga	[B	h	heightMap
+FIELD	ga	I	j	x
+FIELD	ga	I	k	z
+FIELD	ga	Z	n	terrainPopulated
+METHOD	ga	(II)Z	a	isAt
 CLASS	gb	net/minecraft/game/tile/TileMaterial
 FIELD	gb	Lgb;	b	DIRT
 FIELD	gb	Lgb;	c	WOOD
@@ -334,10 +360,14 @@ CLASS	gm	net/minecraft/client/render/PigRenderer
 CLASS	gn	net/minecraft/data/LongTag
 FIELD	gn	J	a	value
 CLASS	gq	net/minecraft/client/render/SlimeRenderer
+CLASS	gs	net/minecraft/server/ServerLevel
+FIELD	gs	Ljava/util/Set;	E	entitySet
 CLASS	gv	net/minecraft/level/gen/feature/ClayDisk
 FIELD	gv	I	a	clay
 FIELD	gv	I	b	range
 CLASS	gw	net/minecraft/game/tile/Ore
+CLASS	gy	net/minecraft/server/ServerLevelManager
+FIELD	gy	Lgs;	f	level
 CLASS	gz	net/minecraft/game/tile/Gravel
 CLASS	h	net/minecraft/client/AppletMinecraftCanvas
 FIELD	h	Lnet/minecraft/client/MinecraftApplet;	a	applet
@@ -453,11 +483,18 @@ FIELD	l	[[Ljava/lang/String;	a	recipeShapes
 FIELD	l	[[Ljava/lang/Object;	b	materials
 METHOD	l	(Ldw;)V	a	addRecipes
 CLASS	la	net/minecraft/game/entity/instance/PlayerInstance
+CLASS	lb	net/minecraft/level/LevelNetworkManager
+CLASS	le	net/minecraft/level/chunk/ChunkSaveManager
+FIELD	le	Ljava/io/File;	a	levelFile
+METHOD	le	(II)Ljava/io/File;	a	getChunkFile
+METHOD	le	(Lcn;Lhm;)Lga;	a	loadBaseChunk
+METHOD	le	(Lga;Lcn;Lhm;)V	a	save
 CLASS	lf	net/minecraft/game/recipe/MetalBlockRecipes
 FIELD	lf	[[Ljava/lang/Object;	a	METALS
 METHOD	lf	(Ldw;)V	a	addRecipes
 CLASS	lg	net/minecraft/game/item/Record
 FIELD	lg	Ljava/lang/String;	a	disk
+CLASS	lk	net/minecraft/level/ClientLevel
 CLASS	lm	net/minecraft/gui/BaseScreen
 CLASS	lp	net/minecraft/util/noise/OctaveNoiseGenerator
 FIELD	lp	[Lv;	a	generators
@@ -579,6 +616,8 @@ METHOD	ly	(F)Lly;	c	setHardness
 METHOD	ly	(I)Lly;	d	maybeSomeRenderingThing
 METHOD	ly	(Lcn;III)V	e	onBlockPlaced
 METHOD	ly	(Lcn;III)Z	g	canBePlacedAtMaybe
+FIELD	lz	Lcn;	d	level
+METHOD	lz	(II)Lga;	d	generateChunk
 CLASS	ma	net/minecraft/game/entity/monster/Slime
 CLASS	mb	net/minecraft/game/entity/monster/Zombie
 CLASS	mc	net/minecraft/client/render/CowRenderer
@@ -596,6 +635,8 @@ CLASS	mt	net/minecraft/util/math/Vec3i
 FIELD	mt	I	a	x
 FIELD	mt	I	b	y
 FIELD	mt	I	c	z
+CLASS	mu	net/minecraft/level/chunk/ChunkByteArray
+FIELD	mu	[B	a	value
 CLASS	mv	net/minecraft/game/entity/animal/Pig
 FIELD	mv	Z	a	saddle
 CLASS	my	net/minecraft/game/tile/Grass
@@ -625,6 +666,7 @@ METHOD	net/minecraft/client/Minecraft	()Lih;	q	getOperatingSystem
 CLASS	nf	net/minecraft/game/entity/instance/UnknownEntityInstance5
 CLASS	ng	net/minecraft/game/tile/Sponge
 CLASS	nl	net/minecraft/game/entity/instance/UnknownEntityInstance11
+CLASS	nm	net/minecraft/level/ILevel
 METHOD	nm	(III)I	a	getTileId
 METHOD	nm	(III)Lgb;	f	getMaterial
 CLASS	nn	net/minecraft/level/gen/feature/Spring
