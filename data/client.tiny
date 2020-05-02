@@ -4,7 +4,10 @@ FIELD	a	I	a	x
 FIELD	a	I	b	y
 FIELD	a	I	c	z
 FIELD	a	I	d	hash
+CLASS	aa	net/minecraft/client/texture/CompassTexture
 CLASS	ab	net/minecraft/client/render/ItemRenderer
+CLASS	ac	net/minecraft/game/item/Bucket
+FIELD	ac	I	a	fluidId
 CLASS	ae	net/minecraft/level/gen/feature/Plant
 CLASS	ag	net/minecraft/game/entity/instance/AnimalInstance
 CLASS	ai	net/minecraft/game/tile/RedstoneOre
@@ -14,6 +17,8 @@ METHOD	ak	(Lkh;DDDFF)V	a	render
 CLASS	al	net/minecraft/game/tile/PressurePlate
 CLASS	am	net/minecraft/game/entity/animal/Cow
 CLASS	ao	net/minecraft/game/entity/Arrow
+CLASS	aq	net/minecraft/client/screen/ErrorScreen
+CLASS	at	net/minecraft/client/texture/LavaFlowing2Texture
 CLASS	aw	net/minecraft/level/gen/ILevelGenerator
 METHOD	aw	(Law;II)V	a	decorate
 METHOD	aw	(II)Lga;	b	createChunk
@@ -32,10 +37,12 @@ CLASS	bj	net/minecraft/game/tile/MobSpawner
 CLASS	bk	net/minecraft/util/noise/NoiseGenerator
 CLASS	bm	net/minecraft/server/Id8Packet
 CLASS	bo	net/minecraft/game/entity/animal/Sheep
-CLASS	bp	net/minecraft/game/item/Bow
+CLASS	bp	net/minecraft/game/item/Snowball
 CLASS	br	net/minecraft/game/tile/Ladder
+CLASS	bs	net/minecraft/game/item/Tool
 CLASS	bu	net/minecraft/client/render/ArmourRenderer
 FIELD	bu	[Ljava/lang/String;	i	armours
+CLASS	bv	net/minecraft/game/recipe/ShapedRecipe
 CLASS	bw	net/minecraft/client/render/PaintingRenderer
 FIELD	bw	Ljava/util/Random;	d	rand
 CLASS	by	net/minecraft/sortme/LightSource
@@ -69,6 +76,7 @@ METHOD	cn	(Ljava/lang/String;DDDDDD)V	a	playSound
 METHOD	cn	(Lkh;)Z	a	spawnEntity
 METHOD	cn	(Lkh;Ljava/lang/String;FF)V	a	playSound
 METHOD	cn	(Ljava/io/File;Ljava/lang/String;)V	b	deleteWorld
+METHOD	cn	(IIII)Z	d	setTileIdForFluids
 METHOD	cn	(II)Z	f	isSandyBeach
 METHOD	cn	(II)I	g	getSurfaceTile
 CLASS	cp	net/minecraft/client/render/BoatRenderer
@@ -89,11 +97,98 @@ CLASS	dd	net/minecraft/game/entity/monster/Creeper
 CLASS	dh	net/minecraft/game/tile/Sand
 FIELD	dh	Z	a	dontDoFalling
 CLASS	di	net/minecraft/game/item/ItemType
+FIELD	di	Ldi;	A	diamondAxe
+FIELD	di	Ldi;	B	stick
+FIELD	di	Ldi;	C	bowl
+FIELD	di	Ldi;	D	mushroomSoup
+FIELD	di	Ldi;	F	goldenShovel
+FIELD	di	Ldi;	G	goldenPickaxe
+FIELD	di	Ldi;	H	goldenAxe
+FIELD	di	Ldi;	I	string
+FIELD	di	Ldi;	J	feather
+FIELD	di	Ldi;	K	sulphur
+FIELD	di	Ldi;	L	woodenHoe
+FIELD	di	Ldi;	M	stoneHoe
+FIELD	di	Ldi;	N	ironHoe
+FIELD	di	Ldi;	O	diamondHoe
+FIELD	di	Ldi;	P	goldenHoe
+FIELD	di	Ldi;	Q	wheat
+FIELD	di	Ldi;	R	bread
+FIELD	di	Ldi;	T	leatherHelmet
+FIELD	di	Ldi;	U	leatherChestplate
+FIELD	di	Ldi;	V	leatherLeggings
+FIELD	di	Ldi;	W	leatherBoots
+FIELD	di	Ldi;	X	chainmailHelmet
+FIELD	di	Ldi;	Y	chainmailChestplate
+FIELD	di	Ldi;	Z	chainmailLeggings
+FIELD	di	Ldi;	aA	redstoneDust
+FIELD	di	Ldi;	aB	snowball
+FIELD	di	Ldi;	aC	boat
+FIELD	di	Ldi;	aD	leather
+FIELD	di	Ldi;	aE	bucketOfMilk
+FIELD	di	Ldi;	aF	brick
+FIELD	di	Ldi;	aG	clay
+FIELD	di	Ldi;	aH	reeds
+FIELD	di	Ldi;	aI	paper
+FIELD	di	Ldi;	aJ	book
+FIELD	di	Ldi;	aL	minecrartWithChest
+FIELD	di	Ldi;	aM	minecrartWithFurnace
+FIELD	di	Ldi;	aO	compass
+FIELD	di	Ldi;	aP	fishingRod
+FIELD	di	Ldi;	aQ	record13
+FIELD	di	Ldi;	aR	recordCat
+FIELD	di	I	aS	id
+FIELD	di	I	aV	textureIndex
+FIELD	di	Ldi;	aa	chainmailBoots
+FIELD	di	Ldi;	ab	ironHelmet
+FIELD	di	Ldi;	ac	ironChestplate
+FIELD	di	Ldi;	ad	ironLeggings
+FIELD	di	Ldi;	ae	ironBoots
+FIELD	di	Ldi;	af	diamondHelmet
+FIELD	di	Ldi;	ag	diamondChestplate
+FIELD	di	Ldi;	ah	diamondLeggings
+FIELD	di	Ldi;	ai	diamondBoots
+FIELD	di	Ldi;	aj	goldenHelmet
+FIELD	di	Ldi;	ak	goldenChestplate
+FIELD	di	Ldi;	al	goldenLeggings
+FIELD	di	Ldi;	am	goldenBoots
+FIELD	di	Ldi;	an	flint
+FIELD	di	Ldi;	aq	painting
+FIELD	di	Ldi;	ar	goldenApple
+FIELD	di	Ldi;	as	sign
+FIELD	di	Ldi;	at	woodenDoor
+FIELD	di	Ldi;	au	bucket
+FIELD	di	Ldi;	av	bucketOfWater
+FIELD	di	Ldi;	aw	bucketOfLava
+FIELD	di	Ldi;	ax	minecart
+FIELD	di	Ldi;	az	ironDoor
 FIELD	di	Ljava/util/Random;	b	rand
-FIELD	di	[Ldi;	c	ITEM_LOOKUP
-FIELD	di	Ldi;	l	DIAMOND
+FIELD	di	[Ldi;	c	itemLookup
+FIELD	di	Ldi;	d	ironShovel
+FIELD	di	Ldi;	e	ironPickaxe
+FIELD	di	Ldi;	f	ironAxe
+FIELD	di	Ldi;	g	flintAndSteel
+FIELD	di	Ldi;	h	apple
+FIELD	di	Ldi;	i	bow
+FIELD	di	Ldi;	j	arrow
+FIELD	di	Ldi;	k	coal
+FIELD	di	Ldi;	l	diamond
+FIELD	di	Ldi;	m	ironIngot
+FIELD	di	Ldi;	n	goldIngot
+FIELD	di	Ldi;	p	woodenSword
+FIELD	di	Ldi;	q	woodenShovel
+FIELD	di	Ldi;	r	woodenPickaxe
+FIELD	di	Ldi;	s	woodenAxe
+FIELD	di	Ldi;	u	stoneShovel
+FIELD	di	Ldi;	v	stonePickaxe
+FIELD	di	Ldi;	w	stoneAxe
+FIELD	di	Ldi;	y	diamondShovel
+FIELD	di	Ldi;	z	diamondPickaxe
+METHOD	di	(I)Ldi;	a	textureIndex
+METHOD	di	(Lev;)I	a	getTextureIndex
 METHOD	di	(Lev;Lcn;Ldm;)Lev;	a	onRightClick
 METHOD	di	(Lev;Ldm;Lcn;IIII)Z	a	interact
+METHOD	di	(Lev;Lge;)V	a	useOnMob
 CLASS	dj	net/minecraft/client/render/FallingSandRenderer
 FIELD	dl	Ljava/lang/String;	b	username
 CLASS	dm	net/minecraft/game/entity/HumanoidEntity
@@ -104,9 +199,16 @@ METHOD	dn	(Lge;F)V	a	scale
 METHOD	dn	(Lge;FF)I	a	getSpawnPos
 CLASS	dp	net/minecraft/game/entity/instance/UnknownEntityInstance3
 CLASS	dq	net/minecraft/game/entity/instance/Monster
+CLASS	dr	net/minecraft/game/recipe/ToolRecipes
+FIELD	dr	[[Ljava/lang/String;	a	recipeShapes
+FIELD	dr	[[Ljava/lang/Object;	b	materials
+METHOD	dr	(Ldw;)V	a	addRecipes
 CLASS	ds	net/minecraft/game/tile/Bookshelf
 CLASS	dt	net/minecraft/game/tile/Sapling
 CLASS	dw	net/minecraft/game/recipe/ShapedRecipes
+FIELD	dw	Ldw;	a	INSTANCE
+FIELD	dw	Ljava/util/List;	b	recipes
+METHOD	dw	()Ldw;	a	getInstance
 METHOD	dw	(Lev;[Ljava/lang/Object;)V	a	addRecipe
 CLASS	dx	net/minecraft/game/entity/ItemEntity
 FIELD	dx	Lev;	a	item
@@ -117,6 +219,7 @@ FIELD	e	Lcn;	k	level
 FIELD	e	Lnet/minecraft/client/Minecraft;	t	minecraft
 CLASS	ec	net/minecraft/game/item/DoorItemType
 CLASS	ee	net/minecraft/gui/Gui
+CLASS	eg	net/minecraft/client/texture/LavaFlowingTexture
 CLASS	eh	net/minecraft/server/BooleanPacket
 FIELD	eh	Z	g	data
 CLASS	ei	net/minecraft/client/render/ArrowRenderer
@@ -173,7 +276,7 @@ CLASS	ff	net/minecraft/game/entity/FallingSand
 METHOD	ff	()Lcn;	i	getLevel
 CLASS	fh	net/minecraft/game/tile/Fence
 CLASS	fj	net/minecraft/game/recipe/UtilityTileRecipes
-METHOD	fj	(Ldw;)V	a	init
+METHOD	fj	(Ldw;)V	a	addRecipes
 CLASS	fk	net/minecraft/gui/Container
 CLASS	fm	net/minecraft/client/MinecraftClient
 CLASS	fn	net/minecraft/server/Packet
@@ -201,6 +304,7 @@ FIELD	fr	Lit;	s	sneak
 FIELD	fr	[Lit;	t	keys
 FIELD	fr	Lnet/minecraft/client/Minecraft;	u	instance
 METHOD	fr	()V	a	init
+CLASS	fu	net/minecraft/game/item/Hoe
 CLASS	fw	net/minecraft/game/tile/Door
 CLASS	fy	net/minecraft/data/EndTag
 CLASS	g	net/minecraft/client/AppletMinecraft
@@ -265,6 +369,9 @@ METHOD	hm	(Ljava/lang/String;)Lhm;	k	getCompoundTag
 METHOD	hm	(Ljava/lang/String;)Lki;	l	getListTag
 METHOD	hm	(Ljava/lang/String;)Z	m	getBoolean
 CLASS	hn	net/minecraft/game/tile/FluidStill
+CLASS	hr	net/minecraft/game/recipe/MushroomSoupRecipes
+METHOD	hr	(Ldw;)V	a	addRecipes
+CLASS	ht	net/minecraft/client/texture/WaterFlowingTexture
 CLASS	hu	net/minecraft/game/tile/StoneButton
 CLASS	hv	net/minecraft/game/tile/FluidFlowing
 CLASS	hw	net/minecraft/client/render/PrimedTNTRenderer
@@ -294,12 +401,14 @@ CLASS	jb	net/minecraft/game/entity/instance/UnknownEntityInstance6
 CLASS	jc	net/minecraft/game/entity/Painting
 CLASS	jd	net/minecraft/game/entity/PrimedTNT
 FIELD	jd	I	a	fuse
-CLASS	jg	net/minecraft/game/item/Bow2
+CLASS	jg	net/minecraft/game/item/Bow
 CLASS	jm	net/minecraft/game/tile/Reeds
 CLASS	jn	net/minecraft/game/item/WheatItem
 CLASS	jp	net/minecraft/game/tile/LiquidTile
 CLASS	jt	net/minecraft/game/tile/Container
 CLASS	jv	net/minecraft/game/tile/Clay
+CLASS	jw	net/minecraft/game/item/Saddle
+CLASS	jz	net/minecraft/client/texture/FireTexture
 CLASS	kb	net/minecraft/sortme/ThreeBooleansTrueFalseFalse
 METHOD	kd	(Ljava/lang/String;III)V	a	addText
 CLASS	kf	net/minecraft/game/tile/Redstone
@@ -329,14 +438,22 @@ CLASS	km	net/minecraft/game/tile/Stair
 CLASS	kq	net/minecraft/game/entity/instance/UnknownEntityInstance7
 CLASS	kr	net/minecraft/data/DoubleTag
 FIELD	kr	D	a	value
+CLASS	ks	net/minecraft/game/item/Axe
+FIELD	ks	[Lly;	aX	effectiveOn
 CLASS	ku	net/minecraft/game/tile/Furnace
 CLASS	kx	net/minecraft/client/render/EntityRenderManager
 FIELD	kx	Lkx;	a	instance
 FIELD	kx	Lcn;	g	level
 FIELD	kx	Ljava/util/Map;	o	entityToRendererMap
 CLASS	ky	net/minecraft/game/tile/Mushroom
+CLASS	l	net/minecraft/game/recipe/ArmourRecipes
+FIELD	l	[[Ljava/lang/String;	a	recipeShapes
+FIELD	l	[[Ljava/lang/Object;	b	materials
+METHOD	l	(Ldw;)V	a	addRecipes
 CLASS	la	net/minecraft/game/entity/instance/PlayerInstance
 CLASS	lf	net/minecraft/game/recipe/MetalBlockRecipes
+FIELD	lf	[[Ljava/lang/Object;	a	METALS
+METHOD	lf	(Ldw;)V	a	addRecipes
 CLASS	lg	net/minecraft/game/item/Record
 FIELD	lg	Ljava/lang/String;	a	disk
 CLASS	lm	net/minecraft/gui/BaseScreen
@@ -400,7 +517,7 @@ FIELD	ly	Lly;	aT	SNOW_LAYER
 FIELD	ly	Lly;	aU	ICE
 FIELD	ly	Lly;	aV	SNOW
 FIELD	ly	Lly;	aW	CACTUS
-FIELD	ly	Lly;	aX	CLAY
+FIELD	ly	Lly;	aX	CLAY_BLOCK
 FIELD	ly	Lly;	aY	REEDS
 FIELD	ly	Lly;	aZ	JUKEBOX
 FIELD	ly	Lly;	aa	RESERVED_13
@@ -423,7 +540,7 @@ FIELD	ly	Lly;	aq	OBSIDIAN
 FIELD	ly	Lly;	ar	TORCH
 FIELD	ly	Log;	as	FIRE
 FIELD	ly	Lly;	at	MOB_SPAWNER
-FIELD	ly	Lly;	au	WOOD_STAIRS
+FIELD	ly	Lly;	au	WOODEN_STAIRS
 FIELD	ly	Lly;	av	CHEST
 FIELD	ly	Lly;	aw	REDSTONE
 FIELD	ly	Lly;	ax	ORE_DIAMOND
@@ -463,12 +580,16 @@ METHOD	ly	(Lcn;III)Z	g	canBePlacedAtMaybe
 CLASS	ma	net/minecraft/game/entity/monster/Slime
 CLASS	mb	net/minecraft/game/entity/monster/Zombie
 CLASS	mc	net/minecraft/client/render/CowRenderer
+CLASS	md	net/minecraft/game/item/SignItem
+FIELD	mf	Lkh;	g	entity
 CLASS	mg	net/minecraft/game/tile/Wood
 CLASS	mi	net/minecraft/game/tile/Farmland
 METHOD	mi	(Lcn;III)Z	i	canHydrate
 CLASS	mj	net/minecraft/game/tile/Torch
+CLASS	ml	net/minecraft/client/texture/WaterFlowing2Texture
 CLASS	mq	net/minecraft/game/tile/Plant
-CLASS	mr	net/minecraft/game/item/BlockItem
+CLASS	mr	net/minecraft/game/item/Armour
+CLASS	ms	net/minecraft/game/item/Shovel
 CLASS	mt	net/minecraft/util/math/Vec3i
 FIELD	mt	I	a	x
 FIELD	mt	I	b	y
@@ -477,6 +598,10 @@ CLASS	mv	net/minecraft/game/entity/animal/Pig
 FIELD	mv	Z	a	saddle
 CLASS	my	net/minecraft/game/tile/Grass
 CLASS	mz	net/minecraft/game/entity/animal/Chicken
+CLASS	nd	net/minecraft/game/recipe/WeaponRecipes
+FIELD	nd	[[Ljava/lang/String;	a	recipeShape
+FIELD	nd	[[Ljava/lang/Object;	b	materials
+METHOD	nd	(Ldw;)V	a	addRecipes
 CLASS	ne	net/minecraft/data/StringTag
 FIELD	ne	Ljava/lang/String;	a	value
 FIELD	net/minecraft/client/Minecraft	Lcn;	e	level
@@ -530,12 +655,14 @@ FIELD	nw	Lcy;	u	carver
 METHOD	nw	(II[B)V	a	generateBase
 METHOD	nw	([DIIIIII)[D	a	generateNoiseOctaves
 METHOD	nw	(II[B)V	b	replaceBlocks
+CLASS	nx	net/minecraft/game/item/FlintAndSteel
 CLASS	nz	net/minecraft/client/render/GiantRenderer
 FIELD	nz	F	f	proportion
 CLASS	oa	net/minecraft/level/gen/feature/Tree
 CLASS	oc	net/minecraft/game/entity/ContainerTileEntity
 FIELD	oc	I	d	type
 FIELD	oc	[Lev;	h	inventory
+CLASS	od	net/minecraft/game/item/PaintingItem
 CLASS	of	net/minecraft/sound/BackgroundMusic
 FIELD	of	Lpaulscode/sound/SoundSystem;	a	soundSystem
 CLASS	og	net/minecraft/game/tile/Fire
@@ -543,6 +670,7 @@ METHOD	og	(III)V	a	addFlammableMaterial
 CLASS	oh	net/minecraft/server/StringPacket
 FIELD	oh	Ljava/lang/String;	a	data
 CLASS	oi	net/minecraft/game/tile/Slab
+CLASS	oj	net/minecraft/game/item/FoodItemType
 CLASS	ok	net/minecraft/client/render/SpiderRenderer
 CLASS	p	net/minecraft/game/tile/Snow
 CLASS	q	net/minecraft/game/tile/TNT
@@ -559,3 +687,13 @@ METHOD	v	(IDDD)D	a	gradient
 METHOD	v	([DDDDIIIDDDD)V	a	sample
 METHOD	v	(DDD)D	b	lerp
 CLASS	w	net/minecraft/sortme/ThreeBooleansFalse2
+CLASS	x	net/minecraft/data/TagUtils
+METHOD	x	(Lhm;)[B	a	convertTagToBytes
+METHOD	x	(Lhm;Ljava/io/DataOutput;)V	a	write
+METHOD	x	(Lhm;Ljava/io/OutputStream;)V	a	writeTag
+METHOD	x	(Ljava/io/DataInput;)Lhm;	a	read
+METHOD	x	(Ljava/io/InputStream;)Lhm;	a	readTag
+METHOD	x	([B)Lhm;	a	readBytes
+CLASS	y	net/minecraft/game/item/Pickaxe
+CLASS	z	net/minecraft/client/texture/Texture
+METHOD	z	()V	a	prepareTexture

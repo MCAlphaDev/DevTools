@@ -57,4 +57,4 @@ if not os.path.exists("./assets"):
             os.makedirs(os.path.dirname(destination))
 
         hash = info["hash"]
-        downloadTo("http://resources.download.minecraft.net/" + hash[0:2] + "/" + hash, destination, False)
+        downloadTo("http://resources.download.minecraft.net/" + hash[0:2] + "/" + hash, destination, True)
