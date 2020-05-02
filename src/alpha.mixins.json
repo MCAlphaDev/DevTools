@@ -6,7 +6,8 @@
     "LevelGeneratorMixin",
     "MinecraftMixin",
     "ShapedRecipesInvoker",
-    "SoundThreadMixin"
+    "SoundThreadMixin",
+    "LevelMixin"
   ],
   "injectors": {
     "defaultRequire": 1
