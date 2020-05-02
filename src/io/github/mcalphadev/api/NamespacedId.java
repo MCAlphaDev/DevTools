@@ -1,15 +1,15 @@
 package io.github.mcalphadev.api;
 
-public final class NamespacedIdentifier {
+public final class NamespacedId {
 	private final String namespace;
 	private final String id;
 
-	public NamespacedIdentifier(String namespace, String id) {
+	public NamespacedId(String namespace, String id) {
 		this.namespace = namespace;
 		this.id = id;
 	}
 
-	public NamespacedIdentifier(String stringForm) {
+	public NamespacedId(String stringForm) {
 		String[] strs = stringForm.split(" ");
 
 		if (strs.length == 0) {
@@ -40,11 +40,19 @@ public final class NamespacedIdentifier {
 	public boolean equals(Object other) {
 		if (other instanceof String) {
 			return other.equals(this.toString());
-		} else if (other instanceof NamespacedIdentifier) {
-			NamespacedIdentifier otherId = (NamespacedIdentifier) other;
+		} else if (other instanceof NamespacedId) {
+			NamespacedId otherId = (NamespacedId) other;
 			return otherId.id.equals(this.id) && otherId.namespace.equals(this.namespace);
 		} else {
 			return false;
 		}
+	}
+
+	@Override
+	public int hashCode() {
+		int result = 5;
+		result = 29 * result + this.namespace.hashCode();
+		result = 29 * result + this.id.hashCode();
+		return result;
 	}
 }

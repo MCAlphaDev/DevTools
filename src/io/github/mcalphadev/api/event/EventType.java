@@ -4,20 +4,20 @@ import java.util.List;
 
 import com.google.common.collect.Lists;
 
-import io.github.mcalphadev.api.NamespacedIdentifier;
+import io.github.mcalphadev.api.NamespacedId;
 import io.github.mcalphadev.impl.EventsImpl;
 
 public final class EventType<T extends Event> {
-	private final NamespacedIdentifier name;
+	private final NamespacedId name;
 	private final List<Subscriber<T>> subscribers = Lists.newArrayList();
 	private final List<Subscriber<T>> toAdd = Lists.newArrayList();
 	private boolean flag = false;
 
 	public EventType(String name) {
-		this(new NamespacedIdentifier(name));
+		this(new NamespacedId(name));
 	}
 	
-	public EventType(NamespacedIdentifier name) {
+	public EventType(NamespacedId name) {
 		this.name = name;
 
 		EventsImpl.register(name, this);
@@ -38,7 +38,7 @@ public final class EventType<T extends Event> {
 		this.toAdd.add(subscriber);
 	}
 
-	public NamespacedIdentifier getId() {
+	public NamespacedId getId() {
 		return this.name;
 	}
 
@@ -47,7 +47,7 @@ public final class EventType<T extends Event> {
 		return this.name.toString();
 	}
 
-	public static EventType<?> getTypeForId(NamespacedIdentifier id) {
+	public static EventType<?> getTypeForId(NamespacedId id) {
 		return EventsImpl.getEventType(id);
 	}
 
