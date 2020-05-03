@@ -14,3 +14,6 @@ Run `setup.bat` followed by `eclipse.bat` to set up a workspace.
  - Event system
  - API
  - Example Mod
+ - Per-World Id Remapping (Modded Tiles (i.e. blocks) only at the moment).
+   - This means that changes to what modded tiles are in the game won't affect the tiles in saves, as long as the modded tiles are registered to the remapper with `Tiles.register`.
+   - However, new blocks that were not present in a save may fill the id gap of removed modded blocks, since said blocks no longer exist in the remapper registry.
