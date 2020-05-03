@@ -1,18 +1,27 @@
 package io.github.mcalphadev.api;
 
-import com.google.common.collect.BiMap;
-import com.google.common.collect.HashBiMap;
-
+import io.github.mcalphadev.impl.Remapper;
 import net.minecraft.game.item.ItemType;
 import net.minecraft.game.item.TileItem;
 import net.minecraft.game.tile.Tile;
 
 public final class Tiles {
 	private static int nextId = 1; // 0 is air
-	private static final BiMap<NamespacedId, Tile> REGISTRY = HashBiMap.create();
 
+	/**
+	 * Registers the tile to the remapper.
+	 * @return the tile passed in.
+	 */
+	public static <T extends Tile> T register(T tile, String name) {
+		return register(tile, new NamespacedId(name));
+	}
+
+	/**
+	 * Registers the tile to the remapper.
+	 * @return the tile passed in.
+	 */
 	public static <T extends Tile> T register(T tile, NamespacedId name) {
-		REGISTRY.put(name, tile);
+		Remapper.register(tile, name);
 		return tile;
 	}
 
