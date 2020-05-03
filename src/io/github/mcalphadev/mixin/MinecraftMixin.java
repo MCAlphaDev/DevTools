@@ -22,8 +22,6 @@ public class MinecraftMixin {
 		AlphaModLoader.getInstance().postInitialise();
 	}
 
-	// old: <init>(Ljava/io/File;Ljava/lang/String;J)V
-	// could use it if I figured out how NEW works tbh
 	@Inject(at = @At(value = "INVOKE", target = "net/minecraft/client/Minecraft.b()Ljava/io/File;"), method = "loadLevel")
 	private void loadLevel(final String s, CallbackInfo info) {
 		Remapper.remapFor(s);

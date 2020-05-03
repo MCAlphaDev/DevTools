@@ -7,6 +7,7 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
 import net.minecraft.game.item.ItemInstance;
+import net.minecraft.game.recipe.ShapedRecipe;
 import net.minecraft.game.recipe.ShapedRecipes;
 
 @Mixin(ShapedRecipes.class)
@@ -15,5 +16,5 @@ public interface ShapedRecipesAccessor {
 	void addShapedRecipe(final ItemInstance itemInstance, final Object[] array);
 
 	@Accessor("recipes")
-	List<?> getRecipes();
+	List<ShapedRecipe> getRecipes();
 }

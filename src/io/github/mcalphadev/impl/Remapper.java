@@ -16,10 +16,14 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import io.github.mcalphadev.api.NamespacedId;
+import io.github.mcalphadev.mixin.ShapedRecipeAccessor;
+import io.github.mcalphadev.mixin.ShapedRecipesAccessor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.data.AbstractTag;
 import net.minecraft.data.CompoundTag;
 import net.minecraft.game.item.ItemType;
+import net.minecraft.game.recipe.ShapedRecipe;
+import net.minecraft.game.recipe.ShapedRecipes;
 import net.minecraft.game.tile.Tile;
 
 public class Remapper {
@@ -49,6 +53,8 @@ public class Remapper {
 
 					// Remap Tiles
 					CompoundTag tiles = data.getCompoundTag("tiles");
+					ItemType[] oldItemTypes = new ItemType[32000];
+					System.arraycopy(ItemType.itemLookup, 0, oldItemTypes, 0, 32000);
 
 					if (tiles != null) {
 						AlphaModApi.LOGGER.info("Remapping Tiles");
@@ -143,6 +149,23 @@ public class Remapper {
 
 						// Write to original array
 						System.arraycopy(newItemTypeIds, 0, ItemType.itemLookup, 256, newItemTypeIds.length);
+					}
+
+					// Remap Recipes
+					AlphaModApi.LOGGER.info("Remapping Recipes");
+
+					for (ShapedRecipe recipe : ((ShapedRecipesAccessor) ShapedRecipes.getInstance()).getRecipes()) {
+						// remap recipe input ids
+						int[] recipeIds = ((ShapedRecipeAccessor) recipe).getRecipe();
+
+						for (int i = 0; i < recipeIds.length; ++i) {
+							if (i != 0) {
+								recipeIds[i] = oldItemTypes[i].id;
+							}
+						}
+
+						// recompute output id
+						((IdSetter) recipe).setNewId(((ShapedRecipeAccessor) recipe).getResult().id);
 					}
 				}
 			}
