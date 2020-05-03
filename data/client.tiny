@@ -15,7 +15,7 @@ CLASS	ae	net/minecraft/level/gen/feature/Plant
 CLASS	af	net/minecraft/level/chunk/IChunkSaveManager
 METHOD	af	(Lcn;II)Lga;	a	loadChunk
 METHOD	af	(Lcn;Lga;)V	a	writeChunk
-CLASS	ag	net/minecraft/game/entity/instance/AnimalInstance
+CLASS	ag	net/minecraft/game/entity/animal/Animal
 CLASS	ai	net/minecraft/game/tile/RedstoneOre
 CLASS	ak	net/minecraft/client/render/EntityRenderer
 METHOD	ak	(Ljava/lang/String;)V	a	setTexture
@@ -32,7 +32,7 @@ FIELD	av	I	a	tileId
 CLASS	aw	net/minecraft/level/gen/ILevelGenerator
 METHOD	aw	(Law;II)V	a	decorate
 METHOD	aw	(II)Lga;	b	createChunk
-CLASS	ax	net/minecraft/game/entity/Spider
+CLASS	ax	net/minecraft/game/entity/monster/Spider
 CLASS	b	net/minecraft/game/tile/Chest
 CLASS	ba	net/minecraft/game/entity/instance/UnknownEntityInstance12
 CLASS	bb	net/minecraft/game/tile/TileSound
@@ -43,7 +43,7 @@ CLASS	bd	net/minecraft/game/MobSpawnerSerialiser
 CLASS	bg	net/minecraft/game/tile/RedstoneTorch
 CLASS	bh	net/minecraft/gui/Screen
 FIELD	bh	Ljava/util/List;	e	buttons
-CLASS	bi	net/minecraft/game/entity/instance/BasePlayerInstance
+CLASS	bi	net/minecraft/game/entity/instance/BaseOtherPlayer
 FIELD	bi	Lnet/minecraft/client/Minecraft;	bg	minecraft
 CLASS	bj	net/minecraft/game/tile/MobSpawner
 CLASS	bk	net/minecraft/util/noise/NoiseGenerator
@@ -55,6 +55,14 @@ CLASS	bs	net/minecraft/game/item/Tool
 CLASS	bu	net/minecraft/client/render/ArmourRenderer
 FIELD	bu	[Ljava/lang/String;	i	armours
 CLASS	bv	net/minecraft/game/recipe/ShapedRecipe
+FIELD	bv	I	a	resultId
+FIELD	bv	I	b	width
+FIELD	bv	I	c	height
+FIELD	bv	[I	d	recipe
+FIELD	bv	Lev;	e	result
+METHOD	bv	()I	a	getSize
+METHOD	bv	([I)Z	a	canCraft
+METHOD	bv	([I)Lev;	b	craft
 CLASS	bw	net/minecraft/client/render/PaintingRenderer
 FIELD	bw	Ljava/util/Random;	d	rand
 CLASS	by	net/minecraft/level/LightSource
@@ -108,7 +116,7 @@ CLASS	cs	net/minecraft/game/tile/Workbench
 CLASS	ct	net/minecraft/game/tile/Glass
 CLASS	cu	net/minecraft/level/gen/feature/Ore
 CLASS	cv	net/minecraft/game/tile/Jukebox
-CLASS	cw	net/minecraft/game/entity/animal/Skeleton
+CLASS	cw	net/minecraft/game/entity/monster/Skeleton
 CLASS	cy	net/minecraft/level/gen/Carver
 FIELD	cy	I	a	range
 FIELD	cy	Ljava/util/Random;	b	random
@@ -209,19 +217,25 @@ FIELD	di	Ldi;	y	diamondShovel
 FIELD	di	Ldi;	z	diamondPickaxe
 METHOD	di	(I)Ldi;	a	textureIndex
 METHOD	di	(Lev;)I	a	getTextureIndex
+METHOD	di	(Lev;IIII)V	a	use
 METHOD	di	(Lev;Lcn;Ldm;)Lev;	a	onRightClick
 METHOD	di	(Lev;Ldm;Lcn;IIII)Z	a	interact
-METHOD	di	(Lev;Lge;)V	a	useOnMob
+METHOD	di	(Lev;Lge;)V	a	attack
+METHOD	di	(Lkh;)I	a	useOnEntity
+METHOD	di	(Lly;)Z	a	useOnTile
+METHOD	di	(Lev;Lge;)V	b	useOnMob
+METHOD	di	()I	c	getMaxDamage
 CLASS	dj	net/minecraft/client/render/FallingSandRenderer
 FIELD	dl	Ljava/lang/String;	b	username
 CLASS	dm	net/minecraft/game/entity/Player
+FIELD	dm	Leu;	b	inventory
 FIELD	dm	I	d	score
 FIELD	dm	Ljava/lang/String;	i	skinLoc
 CLASS	dn	net/minecraft/client/render/LivingEntityRenderer
 METHOD	dn	(Lge;F)V	a	scale
 METHOD	dn	(Lge;FF)I	a	getSpawnPos
 CLASS	dp	net/minecraft/game/entity/instance/UnknownEntityInstance3
-CLASS	dq	net/minecraft/game/entity/instance/Monster
+CLASS	dq	net/minecraft/game/entity/monster/Monster
 CLASS	dr	net/minecraft/game/recipe/ToolRecipes
 FIELD	dr	[[Ljava/lang/String;	a	recipeShapes
 FIELD	dr	[[Ljava/lang/Object;	b	materials
@@ -249,7 +263,7 @@ CLASS	ei	net/minecraft/client/render/ArrowRenderer
 CLASS	ej	net/minecraft/level/gen/feature/LargeTree
 FIELD	ej	Ljava/util/Random;	b	rand
 FIELD	ej	Lcn;	c	level
-CLASS	ek	net/minecraft/game/entity/instance/LivingEntityInstance
+CLASS	ek	net/minecraft/game/entity/Lifeform
 CLASS	el	net/minecraft/data/AbstractTag
 FIELD	el	Ljava/lang/String;	a	type
 METHOD	el	()B	a	getId
@@ -270,13 +284,34 @@ METHOD	eo	(F)F	c	sqrt
 METHOD	eo	(F)I	d	floor
 METHOD	eo	(F)F	e	abs
 CLASS	eq	net/minecraft/client/render/ChickenRenderer
+CLASS	eu	net/minecraft/game/PlayerInventory
+FIELD	eu	[Lev;	a	inventoryItems
+FIELD	eu	[Lev;	b	armourItems
+FIELD	eu	[Lev;	c	craftingItems
+FIELD	eu	I	d	selectedSlot
+METHOD	eu	()Lev;	a	getSelectedItem
+METHOD	eu	(Lki;)Lki;	a	toTag
+METHOD	eu	(Lki;)V	b	fromTag
+METHOD	eu	(I)I	f	indexOf
+METHOD	eu	()I	j	getNextEmptySlot
 CLASS	ev	net/minecraft/game/item/ItemInstance
 FIELD	ev	I	a	count
 FIELD	ev	I	c	id
-FIELD	ev	I	d	meta
+FIELD	ev	I	d	damage
 METHOD	ev	()Ldi;	a	getItem
 METHOD	ev	(I)Lev;	a	subtract
-METHOD	ev	(Lhm;)V	b	setOutput
+METHOD	ev	(IIII)V	a	use
+METHOD	ev	(Ldm;Lcn;IIII)Z	a	interact
+METHOD	ev	(Lge;)V	a	attack
+METHOD	ev	(Lhm;)Lhm;	a	toTag
+METHOD	ev	(Lkh;)I	a	useOnEntity
+METHOD	ev	()I	b	getTextureIndex
+METHOD	ev	(I)V	b	damage
+METHOD	ev	(Lge;)V	b	useOnMob
+METHOD	ev	(Lhm;)V	b	fromTag
+METHOD	ev	(Lly;)Z	b	useOnTile
+METHOD	ev	()I	d	maxDamage
+METHOD	ev	()Lev;	e	copy
 CLASS	ew	net/minecraft/game/entity/EntityRegistry
 FIELD	ew	Ljava/util/Map;	a	nameToClassMap
 FIELD	ew	Ljava/util/Map;	b	classToNameMap
@@ -377,6 +412,8 @@ METHOD	ge	()Ljava/lang/String;	c	getAmbientSound
 METHOD	ge	()Ljava/lang/String;	d	getHurtSound2
 METHOD	ge	()Ljava/lang/String;	e	getDeathSound
 CLASS	gg	net/minecraft/game/tile/NonSolidMaterial
+METHOD	gh	(I)Lev;	c	getItemInstance
+METHOD	gh	()Ljava/lang/String;	d	getName
 CLASS	gj	net/minecraft/game/entity/UnknownEntity
 CLASS	gk	net/minecraft/client/render/Arrow2Renderer
 CLASS	gm	net/minecraft/client/render/PigRenderer
@@ -511,7 +548,7 @@ CLASS	l	net/minecraft/game/recipe/ArmourRecipes
 FIELD	l	[[Ljava/lang/String;	a	recipeShapes
 FIELD	l	[[Ljava/lang/Object;	b	materials
 METHOD	l	(Ldw;)V	a	addRecipes
-CLASS	la	net/minecraft/game/entity/instance/PlayerInstance
+CLASS	la	net/minecraft/game/entity/OtherPlayer
 CLASS	lb	net/minecraft/level/LevelNetworkManager
 CLASS	le	net/minecraft/level/chunk/ChunkSaveManager
 FIELD	le	Ljava/io/File;	a	levelFile
@@ -716,9 +753,9 @@ METHOD	nm	(III)I	a	getTileId
 METHOD	nm	(III)Lgb;	f	getMaterial
 CLASS	nn	net/minecraft/level/gen/feature/Spring
 CLASS	no	net/minecraft/game/tile/Lever
-CLASS	nq	net/minecraft/game/entity/instance/TileInstance
+CLASS	nq	net/minecraft/game/entity/TileEntity
 CLASS	ns	net/minecraft/client/render/SheepRenderer
-CLASS	nt	net/minecraft/game/entity/instance/SelfInstance
+CLASS	nt	net/minecraft/game/entity/instance/Self
 CLASS	nu	net/minecraft/util/Info
 CLASS	nv	net/minecraft/gui/SignScreen
 CLASS	nw	net/minecraft/level/gen/LevelGenerator
