@@ -5,7 +5,7 @@
   "mixins": [
     "LevelGeneratorMixin",
     "MinecraftMixin",
-    "ShapedRecipesInvoker",
+    "ShapedRecipesAccessor",
     "SoundThreadMixin",
     "LevelMixin",
     "TileMixin",
