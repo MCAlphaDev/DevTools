@@ -4,7 +4,6 @@ import org.spongepowered.asm.launch.MixinBootstrap;
 import org.spongepowered.asm.mixin.MixinEnvironment;
 import org.spongepowered.asm.mixin.Mixins;
 
-import io.github.mcalphadev.loader.AlphaModLoader;
 import net.minecraft.launchwrapper.AlphaVanillaTweaker;
 import net.minecraft.launchwrapper.LaunchClassLoader;
 
@@ -27,18 +26,15 @@ public class ClientTweaker extends AlphaVanillaTweaker {
 		classloader.addClassLoaderExclusion("org.spongepowered.asm.");
 		classloader.addClassLoaderExclusion("io.github.mcalphadev.launcher.");
 		classloader.addClassLoaderExclusion("io.github.mcalphadev.loader.");
-
-		AlphaModLoader modLoader = AlphaModLoader.getInstance();
+		classloader.addClassLoaderExclusion("io.github.mcalphadev.log.");
 
 		classloader.registerTransformer("io.github.mcalphadev.launcher.ClientClassTransformer");
-		
+
 		// Mixin
 		MixinBootstrap.init();
 		MixinEnvironment.getDefaultEnvironment().setSide(MixinEnvironment.Side.CLIENT);
 
 		Mixins.addConfiguration("alpha.mixins.json");
-		
-		modLoader.loadMods();
 	}
 
 }

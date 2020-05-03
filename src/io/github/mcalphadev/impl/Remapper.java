@@ -16,7 +16,6 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import io.github.mcalphadev.api.NamespacedId;
-import io.github.mcalphadev.loader.AlphaModLoader;
 import net.minecraft.client.Minecraft;
 import net.minecraft.data.AbstractTag;
 import net.minecraft.data.CompoundTag;
@@ -36,7 +35,7 @@ public class Remapper {
 		(file = new File(new File(Minecraft.b(), "saves"), s)).mkdirs();
 		try {
 			if(!(file = new File(file, "registryMap.nbt")).createNewFile()) {
-				AlphaModLoader.getInstance().getLog().info("Reading Registry Map");
+				AlphaModApi.LOGGER.info("Reading Registry Map");
 
 				// remap from registry
 				try (DataInputStream reader = new DataInputStream(new FileInputStream(file))) {
@@ -93,7 +92,7 @@ public class Remapper {
 			}
 
 			// create new registry map and save it to the file (do this every time for updated ids)
-			AlphaModLoader.getInstance().getLog().info("Writing Registry Map");
+			AlphaModApi.LOGGER.info("Writing Registry Map");
 
 			try (DataOutputStream writer = new DataOutputStream(new FileOutputStream(file))) {
 				AbstractTag.writeTag(createRegistryMap(), writer);
@@ -124,7 +123,11 @@ public class Remapper {
 			if (Modifier.isStatic(f.getModifiers())) {
 				if (tcls.isAssignableFrom(f.getType())) {
 					try {
-						VANILLA_TILES.add((Tile) f.get(null));
+						Tile t = (Tile) f.get(null);
+
+						if (t != null) {
+							VANILLA_TILES.add(t);
+						}
 					} catch (IllegalArgumentException | IllegalAccessException e) {
 						throw new RuntimeException("[DevTools] Unable to find id of vanilla tile for the remapper");
 					}

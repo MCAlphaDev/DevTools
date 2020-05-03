@@ -51,10 +51,6 @@ public final class AlphaModLoader {
 		instance = this;
 	}
 
-	public Logger getLog() {
-		return this.log;
-	}
-
 	private Enumeration<URL> findAllAddons() throws IOException {
 		File[] jars = LoaderUtils.findAllJars(modsFolder);
 		for (File file : jars) {

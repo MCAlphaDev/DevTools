@@ -13,6 +13,7 @@ import net.minecraft.client.Minecraft;
 public class MinecraftMixin {
 	@Inject(at = @At(value = "CONSTANT", args = "stringValue=Startup"), method = "initialise")
 	private void injectModInit(CallbackInfo info) {
+		AlphaModLoader.getInstance().loadMods(); // load mods later because mixin load order problems
 		AlphaModLoader.getInstance().initialise();
 	}
 
@@ -21,7 +22,9 @@ public class MinecraftMixin {
 		AlphaModLoader.getInstance().postInitialise();
 	}
 
-	@Inject(at = @At(value = "INVOKE", target = "<init>(Ljava/io/File;Ljava/lang/String;J)V"), method = "loadLevel")
+	// old: <init>(Ljava/io/File;Ljava/lang/String;J)V
+	// could use it if I figured out how NEW works tbh
+	@Inject(at = @At(value = "INVOKE", target = "net/minecraft/client/Minecraft.b()Ljava/io/File;"), method = "loadLevel")
 	private void loadLevel(final String s, CallbackInfo info) {
 		Remapper.remapFor(s);
 	}
