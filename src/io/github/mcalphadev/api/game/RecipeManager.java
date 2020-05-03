@@ -1,6 +1,6 @@
 package io.github.mcalphadev.api.game;
 
-import io.github.mcalphadev.mixin.ShapedRecipesInvoker;
+import io.github.mcalphadev.mixin.ShapedRecipesAccessor;
 import net.minecraft.game.item.ItemInstance;
 import net.minecraft.game.recipe.ShapedRecipes;
 
@@ -9,6 +9,6 @@ public final class RecipeManager {
 	}
 
 	public static void addShapedRecipe(final ItemInstance result, final Object... recipe) {
-		((ShapedRecipesInvoker) ShapedRecipes.getInstance()).addShapedRecipe(result, recipe);
+		((ShapedRecipesAccessor) ShapedRecipes.getInstance()).addShapedRecipe(result, recipe);
 	}
 }

@@ -2,6 +2,7 @@ package io.github.mcalphadev.test;
 
 import java.util.Random;
 
+import io.github.mcalphadev.api.Items;
 import io.github.mcalphadev.api.Tiles;
 import io.github.mcalphadev.api.game.RecipeManager;
 import io.github.mcalphadev.api.worldgen.TerrainGenerateEventCallback;
@@ -19,19 +20,28 @@ import net.minecraft.game.tile.TileMaterial;
 public class BasicExampleMod implements TerrainGenerateEventCallback {
 	@Initialiser(LoadEvent.INIT)
 	public static void onInitialise() {
-		new Logger("ExampleMod").info("This line was printed by an example mod");
+		Logger logger = new Logger("ExampleMod");
+		logger.info("This line was printed by an example mod");
 
 		WorldGenEvents.REPLACE_BLOCKS.addEventSubscriber(new BasicExampleMod());
 		RecipeManager.addShapedRecipe(new ItemInstance(ItemType.diamond, 1), "#", "#", '#', Tile.DIRT);
 
 		tile = Tiles.register(new ExampleTile(Tiles.getNextId(), TileMaterial.ROCK), "example:tile");
-
-		System.out.println("Received Tile Id: " + tile.id);
+		logger.info("Received Tile Id: " + tile.id);
 
 		RecipeManager.addShapedRecipe(new ItemInstance(tile), "#", '#', Tile.DIRT);
+
+		itemType2 = Items.register(new ExampleItemType(Items.getNextId()).textureIndex(2), "example:itemtype2");
+		itemType = Items.register(new ExampleItemType(Items.getNextId()).textureIndex(69), "example:itemtype");
+		logger.info("Received Item Type Id: " + itemType.id);
+
+		RecipeManager.addShapedRecipe(new ItemInstance(itemType), "#", '#', tile);
+		RecipeManager.addShapedRecipe(new ItemInstance(itemType2, 3), "##", '#', tile);
 	}
 
 	private static ExampleTile tile;
+	private static ItemType itemType;
+	private static ItemType itemType2;
 
 	private static int getBlockArrayIndex(int localX, int y, int localZ) {
 		return (localX * 16 + localZ) * 128 + y;

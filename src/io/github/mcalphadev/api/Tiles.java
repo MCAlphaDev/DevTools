@@ -25,6 +25,9 @@ public final class Tiles {
 		return tile;
 	}
 
+	/**
+	 * @return the next available tile id.
+	 */
 	public static int getNextId() {
 		while (Tile.TILE_LOOKUP[nextId] != null) {
 			++nextId; // I could make it a one liner
