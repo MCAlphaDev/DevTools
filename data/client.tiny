@@ -26,6 +26,7 @@ CLASS	ao	net/minecraft/game/entity/Arrow
 CLASS	ap	net/minecraft/game/item/MushroomSoup
 CLASS	aq	net/minecraft/client/screen/ErrorScreen
 CLASS	at	net/minecraft/client/texture/LavaFlowing2Texture
+CLASS	au	net/minecraft/gui/DeathScreen
 CLASS	av	net/minecraft/game/item/TileItem
 FIELD	av	I	a	tileId
 CLASS	aw	net/minecraft/level/gen/ILevelGenerator
@@ -38,8 +39,10 @@ CLASS	bb	net/minecraft/game/tile/TileSound
 FIELD	bb	Ljava/lang/String;	a	name
 METHOD	bb	()Ljava/lang/String;	a	getStepSoundA
 METHOD	bb	()Ljava/lang/String;	d	getStepSoundB
+CLASS	bd	net/minecraft/game/MobSpawnerSerialiser
 CLASS	bg	net/minecraft/game/tile/RedstoneTorch
 CLASS	bh	net/minecraft/gui/Screen
+FIELD	bh	Ljava/util/List;	e	buttons
 CLASS	bi	net/minecraft/game/entity/instance/BasePlayerInstance
 FIELD	bi	Lnet/minecraft/client/Minecraft;	bg	minecraft
 CLASS	bj	net/minecraft/game/tile/MobSpawner
@@ -54,7 +57,7 @@ FIELD	bu	[Ljava/lang/String;	i	armours
 CLASS	bv	net/minecraft/game/recipe/ShapedRecipe
 CLASS	bw	net/minecraft/client/render/PaintingRenderer
 FIELD	bw	Ljava/util/Random;	d	rand
-CLASS	by	net/minecraft/sortme/LightSource
+CLASS	by	net/minecraft/level/LightSource
 FIELD	by	Lby;	a	SKY
 FIELD	by	Lby;	b	BLOCK
 FIELD	by	I	c	lightLevel
@@ -97,6 +100,7 @@ METHOD	cn	(Ljava/io/File;Ljava/lang/String;)V	b	deleteWorld
 METHOD	cn	(IIII)Z	d	setTileIdForFluids
 METHOD	cn	(II)Z	f	isSandyBeach
 METHOD	cn	(II)I	g	getSurfaceTile
+METHOD	cn	(III)I	j	getLight
 METHOD	cn	()V	l	prepareForChunkSave
 CLASS	cp	net/minecraft/client/render/BoatRenderer
 CLASS	cq	net/minecraft/game/entity/instance/UnknownEntityInstance1
@@ -296,7 +300,7 @@ METHOD	ff	()Lcn;	i	getLevel
 CLASS	fh	net/minecraft/game/tile/Fence
 CLASS	fj	net/minecraft/game/recipe/UtilityTileRecipes
 METHOD	fj	(Ldw;)V	a	addRecipes
-CLASS	fk	net/minecraft/gui/Container
+CLASS	fk	net/minecraft/gui/Button
 CLASS	fm	net/minecraft/client/MinecraftClient
 CLASS	fn	net/minecraft/server/Packet
 METHOD	fn	()I	a	getId
@@ -338,14 +342,33 @@ FIELD	ga	I	k	z
 FIELD	ga	Z	n	terrainPopulated
 METHOD	ga	(II)Z	a	isAt
 CLASS	gb	net/minecraft/game/tile/TileMaterial
+FIELD	gb	Lgb;	a	AIR
 FIELD	gb	Lgb;	b	DIRT
 FIELD	gb	Lgb;	c	WOOD
 FIELD	gb	Lgb;	d	ROCK
 FIELD	gb	Lgb;	e	METAL
 FIELD	gb	Lgb;	f	WATER
 FIELD	gb	Lgb;	g	LAVA
+FIELD	gb	Lgb;	h	LEAVES
+FIELD	gb	Lgb;	i	PLANT
+FIELD	gb	Lgb;	j	SPONGE
 FIELD	gb	Lgb;	k	CLOTH
+FIELD	gb	Lgb;	l	FIRE
+FIELD	gb	Lgb;	m	SAND
+FIELD	gb	Lgb;	n	STONE_DEVICE
 FIELD	gb	Lgb;	o	GLASS
+FIELD	gb	Lgb;	p	TNT
+FIELD	gb	Lgb;	q	UNUSED
+FIELD	gb	Lgb;	r	ICE
+FIELD	gb	Lgb;	s	GRASS
+FIELD	gb	Lgb;	t	SNOW
+FIELD	gb	Lgb;	u	CACTUS
+FIELD	gb	Lgb;	v	CLAY
+FIELD	gb	Z	w	burns
+METHOD	gb	()Z	b	blocksLight
+METHOD	gb	()Z	c	isSolid
+METHOD	gb	()Z	e	canBurn
+METHOD	gb	()Lgb;	f	burns
 CLASS	gc	net/minecraft/gui/MultiplayerScreen
 CLASS	ge	net/minecraft/game/entity/Mob
 FIELD	ge	Ljava/lang/String;	u	texture
@@ -353,7 +376,7 @@ FIELD	ge	Ljava/lang/String;	x	name
 METHOD	ge	()Ljava/lang/String;	c	getAmbientSound
 METHOD	ge	()Ljava/lang/String;	d	getHurtSound2
 METHOD	ge	()Ljava/lang/String;	e	getDeathSound
-CLASS	gg	net/minecraft/sortme/ThreeBooleansFalse
+CLASS	gg	net/minecraft/game/tile/NonSolidMaterial
 CLASS	gj	net/minecraft/game/entity/UnknownEntity
 CLASS	gk	net/minecraft/client/render/Arrow2Renderer
 CLASS	gm	net/minecraft/client/render/PigRenderer
@@ -409,6 +432,7 @@ CLASS	hv	net/minecraft/game/tile/FluidFlowing
 CLASS	hw	net/minecraft/client/render/PrimedTNTRenderer
 CLASS	hy	net/minecraft/game/tile/Cactus
 CLASS	hz	net/minecraft/game/tile/Dirt
+CLASS	ic	net/minecraft/game/Serialiser
 CLASS	if	net/minecraft/game/tile/Rail
 CLASS	ig	net/minecraft/game/entity/instance/UnknownEntityInstance9
 CLASS	ih	net/minecraft/util/OperatingSystem
@@ -437,11 +461,16 @@ CLASS	jg	net/minecraft/game/item/Bow
 CLASS	jm	net/minecraft/game/tile/Reeds
 CLASS	jn	net/minecraft/game/item/WheatItem
 CLASS	jp	net/minecraft/game/tile/LiquidTile
+CLASS	js	net/minecraft/game/tile/ActivationType
+FIELD	js	Ljs;	a	EVERYTHING
+FIELD	js	Ljs;	b	MOBS
+FIELD	js	Ljs;	c	PLAYERS
 CLASS	jt	net/minecraft/game/tile/Container
+METHOD	jt	()Lic;	a_	createSerialiser
 CLASS	jv	net/minecraft/game/tile/Clay
 CLASS	jw	net/minecraft/game/item/Saddle
 CLASS	jz	net/minecraft/client/texture/FireTexture
-CLASS	kb	net/minecraft/sortme/ThreeBooleansTrueFalseFalse
+CLASS	kb	net/minecraft/game/tile/FluidMaterial
 METHOD	kd	(Ljava/lang/String;III)V	a	addText
 CLASS	kf	net/minecraft/game/tile/Redstone
 CLASS	kg	net/minecraft/game/entity/Arrow2
@@ -506,6 +535,9 @@ CLASS	lr	net/minecraft/game/tile/Sign
 CLASS	ls	net/minecraft/data/ShortTag
 FIELD	ls	S	a	value
 CLASS	lu	net/minecraft/gui/F3Menu
+CLASS	lw	net/minecraft/gui/ControlsScreen
+FIELD	lw	Ljava/lang/String;	a	title
+FIELD	lw	Lfr;	i	controls
 CLASS	ly	net/minecraft/game/tile/Tile
 FIELD	ly	Lly;	A	BEDROCK
 FIELD	ly	Lly;	B	WATER_FLOWING
@@ -588,15 +620,22 @@ FIELD	ly	Lly;	az	WORKBENCH
 FIELD	ly	Lly;	ba	FENCE
 FIELD	ly	I	bb	texture
 FIELD	ly	I	bc	id
+FIELD	ly	F	bd	hardness
+FIELD	ly	F	be	resistance
+FIELD	ly	Lbb;	bl	sound
 FIELD	ly	Lbb;	e	SOUND_STONE
 FIELD	ly	Lbb;	f	SOUND_WOOD
 FIELD	ly	Lbb;	g	SOUND_GRAVEL
 FIELD	ly	Lbb;	h	SOUND_GRASS
 FIELD	ly	Lbb;	i	SOUND_DEFAULT
 FIELD	ly	Lbb;	j	SOUND_METAL_BLOCK
+FIELD	ly	Lbb;	k	SOUND_GLASS
 FIELD	ly	Lbb;	l	SOUND_CLOTH
 FIELD	ly	Lbb;	m	SOUND_SAND
 FIELD	ly	[Lly;	n	TILE_LOOKUP
+FIELD	ly	[Z	o	ticking
+FIELD	ly	[Z	p	opaqueMap
+FIELD	ly	[I	r	transparencyMap
 FIELD	ly	Lly;	u	STONE
 FIELD	ly	Lmy;	v	GRASS
 FIELD	ly	Lly;	w	DIRT
@@ -604,16 +643,22 @@ FIELD	ly	Lly;	x	COBBLESTONE
 FIELD	ly	Lly;	y	PLANK
 FIELD	ly	Lly;	z	SAPLING
 METHOD	ly	(F)Lly;	a	setLight
+METHOD	ly	(FFFFFF)V	a	setModelShape
 METHOD	ly	(I)I	a	getTexture
 METHOD	ly	(ILjava/util/Random;)I	a	getDrop
 METHOD	ly	(Lbb;)Lly;	a	setSound
+METHOD	ly	(Lcn;III)Z	a	canPlaceAt
 METHOD	ly	(Lcn;IIII)V	a	tick
+METHOD	ly	(Lcn;IIILcf;Ljava/util/ArrayList;)V	a	computeModel
+METHOD	ly	(Lcn;IIILjava/util/Random;)V	a	tick
+METHOD	ly	(Lnm;IIII)I	a	getTextureByFace
 METHOD	ly	()Z	b	isOpaque
 METHOD	ly	(F)Lly;	b	setResistance
 METHOD	ly	(Lcn;IIII)V	b	onBlockBreak
+METHOD	ly	(Z)V	b	ticks
 METHOD	ly	()Z	c	isSolid
 METHOD	ly	(F)Lly;	c	setHardness
-METHOD	ly	(I)Lly;	d	maybeSomeRenderingThing
+METHOD	ly	(I)Lly;	d	setOpacity
 METHOD	ly	(Lcn;III)V	e	onBlockPlaced
 METHOD	ly	(Lcn;III)Z	g	canBePlacedAtMaybe
 FIELD	lz	Lcn;	d	level
@@ -675,6 +720,7 @@ CLASS	nq	net/minecraft/game/entity/instance/TileInstance
 CLASS	ns	net/minecraft/client/render/SheepRenderer
 CLASS	nt	net/minecraft/game/entity/instance/SelfInstance
 CLASS	nu	net/minecraft/util/Info
+CLASS	nv	net/minecraft/gui/SignScreen
 CLASS	nw	net/minecraft/level/gen/LevelGenerator
 FIELD	nw	Llp;	a	noise6
 FIELD	nw	Llp;	b	noise7
@@ -703,6 +749,7 @@ CLASS	nx	net/minecraft/game/item/FlintAndSteel
 CLASS	nz	net/minecraft/client/render/GiantRenderer
 FIELD	nz	F	f	proportion
 CLASS	oa	net/minecraft/level/gen/feature/Tree
+CLASS	ob	net/minecraft/game/SignSerialiser
 CLASS	oc	net/minecraft/game/entity/ContainerTileEntity
 FIELD	oc	I	d	type
 FIELD	oc	[Lev;	h	inventory
@@ -730,7 +777,7 @@ METHOD	v	(DDD)D	a	sample
 METHOD	v	(IDDD)D	a	gradient
 METHOD	v	([DDDDIIIDDDD)V	a	sample
 METHOD	v	(DDD)D	b	lerp
-CLASS	w	net/minecraft/sortme/ThreeBooleansFalse2
+CLASS	w	net/minecraft/game/tile/PlantMaterial
 CLASS	x	net/minecraft/data/TagUtils
 METHOD	x	(Lhm;)[B	a	convertTagToBytes
 METHOD	x	(Lhm;Ljava/io/DataOutput;)V	a	write
