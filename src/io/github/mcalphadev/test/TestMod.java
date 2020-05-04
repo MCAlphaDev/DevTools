@@ -17,13 +17,15 @@ import net.minecraft.game.tile.Tile;
 import net.minecraft.game.tile.TileMaterial;
 
 @Mod("example")
-public class BasicExampleMod implements TerrainGenerateEventCallback {
+public class TestMod implements TerrainGenerateEventCallback {
+	private static Logger logger;
+
 	@Initialiser(LoadEvent.INIT)
 	public static void onInitialise() {
-		Logger logger = new Logger("ExampleMod");
+		logger = new Logger("ExampleMod");
 		logger.info("This line was printed by an example mod");
 
-		WorldGenEvents.REPLACE_BLOCKS.addEventSubscriber(new BasicExampleMod());
+		WorldGenEvents.REPLACE_BLOCKS.addEventSubscriber(new TestMod());
 		RecipeManager.addShapedRecipe(new ItemInstance(ItemType.diamond, 1), "#", "#", '#', Tile.DIRT);
 
 		tile = Tiles.register(new ExampleTile(Tiles.getNextId(), TileMaterial.ROCK), "example:tile");
@@ -31,17 +33,22 @@ public class BasicExampleMod implements TerrainGenerateEventCallback {
 
 		RecipeManager.addShapedRecipe(new ItemInstance(tile), "#", '#', Tile.DIRT);
 
-		itemType2 = Items.register(new ExampleItemType(Items.getNextId()).textureIndex(2), "example:itemtype2");
+		addItemType2();
 		itemType = Items.register(new ExampleItemType(Items.getNextId()).textureIndex(69), "example:itemtype");
 		logger.info("Received Item Type Id: " + itemType.id);
 
 		RecipeManager.addShapedRecipe(new ItemInstance(itemType), "#", '#', tile);
-		RecipeManager.addShapedRecipe(new ItemInstance(itemType2, 3), "##", '#', tile);
 	}
 
 	private static ExampleTile tile;
 	private static ItemType itemType;
 	private static ItemType itemType2;
+
+	private static void addItemType2() {
+		itemType2 = Items.register(new ExampleItemType(Items.getNextId()).textureIndex(2), "example:itemtype2");
+		logger.info("Received Item Type 2 Id: " + itemType2.id);
+		RecipeManager.addShapedRecipe(new ItemInstance(itemType2, 3), "##", '#', tile);
+	}
 
 	private static int getBlockArrayIndex(int localX, int y, int localZ) {
 		return (localX * 16 + localZ) * 128 + y;

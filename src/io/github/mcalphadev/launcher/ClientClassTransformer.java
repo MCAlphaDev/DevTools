@@ -37,6 +37,10 @@ public class ClientClassTransformer implements IClassTransformer {
 		// used in mm
 		publicField("net.minecraft.gui.Gui", "a");
 		publicField("net.minecraft.gui.Gui", "h");
+
+		// used in error screen
+		publicClass("db");
+		publicClass("nb");
 	}
 
 	public void publicClass(String name) {

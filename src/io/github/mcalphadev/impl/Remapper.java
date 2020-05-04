@@ -79,6 +79,7 @@ public class Remapper {
 								int newId = tiles.getInt(key);
 								newTileIds[newId] = tile;
 								tileItems[newId] = itemType;
+								AlphaModApi.LOGGER.debug("[Remapper/Tile] Old:New " + tile.id + ":" + newId);
 								((IdSetter) tile).setNewId(newId);
 								((IdSetter) itemType).setNewId(newId);
 							} else {
@@ -92,6 +93,8 @@ public class Remapper {
 							for (int i = 1; i < 256; ++i) {
 								if (newTileIds[i] == null) {
 									newTileIds[i] = unMappedTiles.remove(0);
+									((IdSetter) newTileIds[i]).setNewId(i);
+									((IdSetter) tileItems[i]).setNewId(i);
 
 									if (unMappedTiles.isEmpty()) {
 										break;
@@ -127,6 +130,7 @@ public class Remapper {
 
 								int newId = itemTypes.getInt(key);
 								newItemTypeIds[newId - 256] = itemType;
+								AlphaModApi.LOGGER.debug("[Remapper/ItemType] Old:New " + itemType.id + ":" + newId);
 								((IdSetter) itemType).setNewId(newId);
 							} else {
 								unMappedItemTypes.add(entry.getValue());
@@ -134,12 +138,13 @@ public class Remapper {
 						}
 
 						// new modded ids (not already in registry map)
-						int i = 0;
+						int i = 257;
 						int max = newItemTypeIds.length;
 
 						while (!unMappedItemTypes.isEmpty()) {
 							if (newItemTypeIds[i] == null) {
 								newItemTypeIds[i] = unMappedItemTypes.remove(0);
+								((IdSetter) newItemTypeIds[i]).setNewId(i);
 							}
 
 							if (++i > max) {
@@ -159,8 +164,17 @@ public class Remapper {
 						int[] recipeIds = ((ShapedRecipeAccessor) recipe).getRecipe();
 
 						for (int i = 0; i < recipeIds.length; ++i) {
-							if (i != 0) {
-								recipeIds[i] = oldItemTypes[i].id;
+							int oldId = recipeIds[i];
+
+							if (oldId > 0) {
+								int newId = oldItemTypes[oldId].id;
+
+								if (oldId == newId) {
+									continue;
+								}
+
+								AlphaModApi.LOGGER.debug("[Remapper/Recipe] Old:New " + oldId + ":" + newId);
+								recipeIds[i] = newId;
 							}
 						}
 

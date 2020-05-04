@@ -1,10 +1,10 @@
 package io.github.mcalphadev.api;
 
+import io.github.mcalphadev.impl.IdProviders;
 import io.github.mcalphadev.impl.Remapper;
 import net.minecraft.game.item.ItemType;
 
 public final class Items {
-	private static int nextId = 0;
 
 	/**
 	 * Registers the item type to the remapper.
@@ -27,11 +27,6 @@ public final class Items {
 	 * @return the next available item type id.
 	 */
 	public static int getNextId() {
-		while (ItemType.itemLookup[nextId + 256] != null) {
-			++nextId; // I could make it a one liner
-			// but you need content in the method body or optimisers complain.
-		}
-
-		return nextId;
+		return IdProviders.itemType();
 	}
 }

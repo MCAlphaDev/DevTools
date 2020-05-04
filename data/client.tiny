@@ -39,6 +39,18 @@ CLASS	bb	net/minecraft/game/tile/TileSound
 FIELD	bb	Ljava/lang/String;	a	name
 METHOD	bb	()Ljava/lang/String;	a	getStepSoundA
 METHOD	bb	()Ljava/lang/String;	d	getStepSoundB
+CLASS	bc	net/minecraft/client/render/TileRenderer
+FIELD	bc	Lnm;	a	level
+METHOD	bc	(Lly;III)Z	a	renderTile
+METHOD	bc	(Lly;IIII)V	a	renderTile
+METHOD	bc	(Lly;III)Z	b	renderTileMode2
+METHOD	bc	(Lly;III)Z	d	renderTileMode3
+METHOD	bc	(Lly;III)Z	e	renderTileMode5
+METHOD	bc	(Lly;III)Z	h	renderTileMode1
+METHOD	bc	(Lly;III)Z	i	renderTileMode6
+METHOD	bc	(Lly;III)Z	j	renderTileMode4
+METHOD	bc	(Lly;III)Z	k	renderTileMode0
+METHOD	bc	(Lly;III)Z	l	renderTileMode13
 CLASS	bd	net/minecraft/game/MobSpawnerSerialiser
 CLASS	bg	net/minecraft/game/tile/RedstoneTorch
 CLASS	bh	net/minecraft/gui/Screen
@@ -125,6 +137,8 @@ METHOD	cy	(Lnw;Lcn;II[B)V	a	carve
 CLASS	d	net/minecraft/client/render/CreeperRenderer
 CLASS	dc	net/minecraft/game/entity/BoatEntity
 CLASS	dd	net/minecraft/game/entity/monster/Creeper
+CLASS	df	net/minecraft/client/RenderUtils
+METHOD	df	(I)Ljava/nio/ByteBuffer;	b	createByteBuffer
 CLASS	dh	net/minecraft/game/tile/Sand
 FIELD	dh	Z	a	dontDoFalling
 CLASS	di	net/minecraft/game/item/ItemType
@@ -461,6 +475,39 @@ METHOD	hm	(Ljava/lang/String;)Lhm;	k	getCompoundTag
 METHOD	hm	(Ljava/lang/String;)Lki;	l	getListTag
 METHOD	hm	(Ljava/lang/String;)Z	m	getBoolean
 CLASS	hn	net/minecraft/game/tile/FluidStill
+CLASS	ho	net/minecraft/client/render/Tesselator
+FIELD	ho	I	B	size
+FIELD	ho	Lho;	a	INSTANCE
+FIELD	ho	Ljava/nio/ByteBuffer;	d	buffer
+FIELD	ho	[I	g	vertices
+FIELD	ho	I	h	vertexCount
+FIELD	ho	D	i	u
+FIELD	ho	D	j	v
+FIELD	ho	I	k	colour
+FIELD	ho	Z	l	hasColour
+FIELD	ho	Z	m	hasTexture
+FIELD	ho	I	p	startedVertexCount
+FIELD	ho	Z	q	noColour
+FIELD	ho	I	r	mode
+FIELD	ho	D	s	xOffset
+FIELD	ho	D	t	yOffset
+FIELD	ho	D	u	zOffset
+FIELD	ho	Z	w	tesselating
+METHOD	ho	()V	a	finishTesselating
+METHOD	ho	(DD)V	a	uv
+METHOD	ho	(DDD)V	a	vertex
+METHOD	ho	(DDDDD)V	a	texturedVertex
+METHOD	ho	(FFF)V	a	colour
+METHOD	ho	(FFFF)V	a	colour
+METHOD	ho	(I)V	a	tesselate
+METHOD	ho	(III)V	a	colour
+METHOD	ho	(IIII)V	a	colour
+METHOD	ho	()V	b	tesselate
+METHOD	ho	(DDD)V	b	position
+METHOD	ho	(I)V	b	colour
+METHOD	ho	()V	c	noColour
+METHOD	ho	(FFF)V	c	offset
+METHOD	ho	()V	d	reset
 CLASS	hr	net/minecraft/game/recipe/MushroomSoupRecipes
 METHOD	hr	(Ldw;)V	a	addRecipes
 CLASS	ht	net/minecraft/client/texture/WaterFlowingTexture
@@ -697,6 +744,7 @@ METHOD	ly	()Z	c	isSolid
 METHOD	ly	(F)Lly;	c	setHardness
 METHOD	ly	(I)Lly;	d	setOpacity
 METHOD	ly	(Lcn;III)V	e	onBlockPlaced
+METHOD	ly	()I	f	getRenderMode
 METHOD	ly	(Lcn;III)Z	g	canBePlacedAtMaybe
 FIELD	lz	Lcn;	d	level
 METHOD	lz	(II)Lga;	d	generateChunk

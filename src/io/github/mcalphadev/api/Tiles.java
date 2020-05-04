@@ -1,12 +1,12 @@
 package io.github.mcalphadev.api;
 
+import io.github.mcalphadev.impl.IdProviders;
 import io.github.mcalphadev.impl.Remapper;
 import net.minecraft.game.item.ItemType;
 import net.minecraft.game.item.TileItem;
 import net.minecraft.game.tile.Tile;
 
 public final class Tiles {
-	private static int nextId = 1; // 0 is air
 
 	/**
 	 * Registers the tile to the remapper.
@@ -29,12 +29,7 @@ public final class Tiles {
 	 * @return the next available tile id.
 	 */
 	public static int getNextId() {
-		while (Tile.TILE_LOOKUP[nextId] != null) {
-			++nextId; // I could make it a one liner
-			// but you need content in the method body or optimisers complain.
-		}
-
-		return nextId;
+		return IdProviders.tile();
 	}
 
 	public static void addItemType(Tile tile) {
