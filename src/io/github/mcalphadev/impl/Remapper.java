@@ -17,6 +17,7 @@ import io.github.mcalphadev.mixin.ShapedRecipesAccessor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.data.AbstractTag;
 import net.minecraft.data.CompoundTag;
+import net.minecraft.game.item.ItemInstance;
 import net.minecraft.game.item.ItemType;
 import net.minecraft.game.recipe.ShapedRecipe;
 import net.minecraft.game.recipe.ShapedRecipes;
@@ -141,6 +142,7 @@ public class Remapper {
 					// Remap Recipes
 					AlphaModApi.LOGGER.info("Remapping Recipes");
 
+					int recipesRemapped = 0;
 					for (ShapedRecipe recipe : ((ShapedRecipesAccessor) ShapedRecipes.getInstance()).getRecipes()) {
 						// remap recipe input ids
 						int[] recipeIds = ((ShapedRecipeAccessor) recipe).getRecipe();
@@ -155,14 +157,25 @@ public class Remapper {
 									continue;
 								}
 
-								AlphaModApi.LOGGER.debug("[Remapper/Recipe] Old:New " + oldId + ":" + newId);
+								AlphaModApi.LOGGER.debug("[Remapper/Recipe] [Ingredient] Old:New " + oldId + ":" + newId);
 								recipeIds[i] = newId;
 							}
 						}
 
 						// recompute output id
-						((IdSetter) recipe).setNewId(((ShapedRecipeAccessor) recipe).getResult().id);
+						ItemInstance oldResult = ((ShapedRecipeAccessor) recipe).getResult();
+						ItemInstance newResult = new ItemInstance(
+								oldItemTypes[oldResult.id],
+								oldResult.count);
+
+						if (oldResult.id != newResult.id) {
+							AlphaModApi.LOGGER.debug("[Remapper/Recipe] [Output] Old:New " + oldResult.id + ":" + newResult.id);
+							((RecipeResultSetter) recipe).setResult(newResult);
+							++recipesRemapped;
+						}
 					}
+
+					AlphaModApi.LOGGER.debug("[Remapper/Recipe] Remapped " + recipesRemapped + " recipes.");
 				}
 			}
 
