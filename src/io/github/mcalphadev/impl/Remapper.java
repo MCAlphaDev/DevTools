@@ -6,14 +6,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map.Entry;
-import java.util.Set;
 
 import io.github.mcalphadev.api.NamespacedId;
 import io.github.mcalphadev.mixin.ShapedRecipeAccessor;
@@ -29,8 +25,6 @@ import net.minecraft.game.tile.Tile;
 public class Remapper {
 	private static final LinkedHashMap<NamespacedId, Tile> MODDED_TILES = new LinkedHashMap<>();
 	private static final LinkedHashMap<NamespacedId, ItemType> MODDED_ITEM_TYPES = new LinkedHashMap<>();
-	private static final Set<Tile> VANILLA_TILES = new HashSet<>();
-	private static final Set<ItemType> VANILLA_ITEM_TYPES = new HashSet<>();
 
 	public static void register(Tile tile, NamespacedId remapperId) {
 		MODDED_TILES.put(remapperId, tile);
@@ -59,14 +53,8 @@ public class Remapper {
 					if (tiles != null) {
 						AlphaModApi.LOGGER.info("Remapping Tiles");
 						List<Tile> unMappedTiles = new ArrayList<>();
-						Tile[] newTileIds = new Tile[256];
-						ItemType[] tileItems = new ItemType[256];
-
-						// vanilla ids
-						for (Tile t : VANILLA_TILES) {
-							newTileIds[t.id] = t;
-							tileItems[t.id] = ItemType.itemLookup[t.id];
-						}
+						Tile[] newTileIds = IdProviders.vanillaTiles();
+						ItemType[] newItemTypeIds = IdProviders.vanillaItemTypes();
 
 						// modded ids
 						for (Entry<NamespacedId, Tile> entry : MODDED_TILES.entrySet()) {
@@ -78,7 +66,7 @@ public class Remapper {
 
 								int newId = tiles.getInt(key);
 								newTileIds[newId] = tile;
-								tileItems[newId] = itemType;
+								newItemTypeIds[newId] = itemType;
 								AlphaModApi.LOGGER.debug("[Remapper/Tile] Old:New " + tile.id + ":" + newId);
 								((IdSetter) tile).setNewId(newId);
 								((IdSetter) itemType).setNewId(newId);
@@ -92,9 +80,12 @@ public class Remapper {
 							// 0 is null for air.
 							for (int i = 1; i < 256; ++i) {
 								if (newTileIds[i] == null) {
-									newTileIds[i] = unMappedTiles.remove(0);
+									Tile tile = unMappedTiles.remove(0); // next tile
+									AlphaModApi.LOGGER.debug("[Remapper/Tile] Adding new entry at: " + tile.id);
+									newTileIds[i] = tile;
+									newItemTypeIds[i] = ItemType.itemLookup[tile.id]; // set item id for tile
 									((IdSetter) newTileIds[i]).setNewId(i);
-									((IdSetter) tileItems[i]).setNewId(i);
+									((IdSetter) newItemTypeIds[i]).setNewId(i);
 
 									if (unMappedTiles.isEmpty()) {
 										break;
@@ -103,23 +94,14 @@ public class Remapper {
 							}
 						}
 
-						// write to original arrays
+						// write to original tile array
 						System.arraycopy(newTileIds, 0, Tile.TILE_LOOKUP, 0, 256);
-						System.arraycopy(tileItems, 0, ItemType.itemLookup, 0, 256);
-					}
 
-					// Remap Item Types
-					CompoundTag itemTypes = data.getCompoundTag("itemtypes");
+						// Remap Item Types
+						CompoundTag itemTypes = data.getCompoundTag("itemtypes");
 
-					if (itemTypes != null) {
 						AlphaModApi.LOGGER.info("Remapping Item Types");
 						List<ItemType> unMappedItemTypes = new ArrayList<>();
-						ItemType[] newItemTypeIds = new ItemType[32000 - 256];
-
-						// vanilla ids
-						for (ItemType i : VANILLA_ITEM_TYPES) {
-							newItemTypeIds[i.id - 256] = i;
-						}
 
 						// modded ids
 						for (Entry<NamespacedId, ItemType> entry : MODDED_ITEM_TYPES.entrySet()) {
@@ -129,7 +111,7 @@ public class Remapper {
 								ItemType itemType = entry.getValue();
 
 								int newId = itemTypes.getInt(key);
-								newItemTypeIds[newId - 256] = itemType;
+								newItemTypeIds[newId] = itemType;
 								AlphaModApi.LOGGER.debug("[Remapper/ItemType] Old:New " + itemType.id + ":" + newId);
 								((IdSetter) itemType).setNewId(newId);
 							} else {
@@ -153,7 +135,7 @@ public class Remapper {
 						}
 
 						// Write to original array
-						System.arraycopy(newItemTypeIds, 0, ItemType.itemLookup, 256, newItemTypeIds.length);
+						System.arraycopy(newItemTypeIds, 0, ItemType.itemLookup, 0, newItemTypeIds.length);
 					}
 
 					// Remap Recipes
@@ -216,45 +198,5 @@ public class Remapper {
 		registryMap.add("itemtypes", itemTypes);
 
 		return registryMap;
-	}
-
-	static {
-		// tiles
-		Class<?> tcls = Tile.class;
-
-		for (Field f : Tile.class.getFields()) {
-			if (Modifier.isStatic(f.getModifiers())) {
-				if (tcls.isAssignableFrom(f.getType())) {
-					try {
-						Tile t = (Tile) f.get(null);
-
-						if (t != null) {
-							VANILLA_TILES.add(t);
-						}
-					} catch (IllegalArgumentException | IllegalAccessException e) {
-						throw new RuntimeException("[DevTools] Unable to access a vanilla tile for the remapper", e);
-					}
-				}
-			}
-		}
-
-		// item types
-		Class<?> icls = ItemType.class;
-
-		for (Field f : ItemType.class.getFields()) {
-			if (Modifier.isStatic(f.getModifiers())) {
-				if (icls.isAssignableFrom(f.getType())) {
-					try {
-						ItemType t = (ItemType) f.get(null);
-
-						if (t != null) {
-							VANILLA_ITEM_TYPES.add(t);
-						}
-					} catch (IllegalArgumentException | IllegalAccessException e) {
-						throw new RuntimeException("[DevTools] Unable to access a vanilla item type for the remapper", e);
-					}
-				}
-			}
-		}
 	}
 }
